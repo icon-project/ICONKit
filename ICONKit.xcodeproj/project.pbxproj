@@ -21,9 +21,22 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		86AFBEEFC7EA1D442830EBB4 /* Pods_ICONKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD657269433F0A3B1E8B96C /* Pods_ICONKitTests.framework */; };
 		D4E25BA2212FA7C60027899B /* ICONKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E25B98212FA7C50027899B /* ICONKit.framework */; };
 		D4E25BA7212FA7C60027899B /* ICONKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BA6212FA7C60027899B /* ICONKitTests.swift */; };
 		D4E25BA9212FA7C60027899B /* ICONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E25B9B212FA7C50027899B /* ICONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4E25BC4212FABD90027899B /* ICON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBA212FABD90027899B /* ICON.swift */; };
+		D4E25BC5212FABD90027899B /* ICON+Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBB212FABD90027899B /* ICON+Signer.swift */; };
+		D4E25BC6212FABD90027899B /* ICON+Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBC212FABD90027899B /* ICON+Wallet.swift */; };
+		D4E25BC7212FABD90027899B /* ICON+Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBD212FABD90027899B /* ICON+Cipher.swift */; };
+		D4E25BC8212FABD90027899B /* ICON+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBE212FABD90027899B /* ICON+Error.swift */; };
+		D4E25BC9212FABD90027899B /* ICON+Connect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBF212FABD90027899B /* ICON+Connect.swift */; };
+		D4E25BCA212FABD90027899B /* ICON+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC0212FABD90027899B /* ICON+Request.swift */; };
+		D4E25BCB212FABD90027899B /* Common+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC1212FABD90027899B /* Common+Extension.swift */; };
+		D4E25BCC212FABD90027899B /* ICON+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC2212FABD90027899B /* ICON+Util.swift */; };
+		D4E25BCD212FABD90027899B /* ICON+SECP256k1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */; };
+		D4E25BCF212FAEF20027899B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E25BCE212FAEF20027899B /* Security.framework */; };
+		EE1AAC10FD1B663ED9C96767 /* Pods_ICONKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E1F8F45BBEB5002F5587C66 /* Pods_ICONKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,12 +57,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B14550962695930CF3AC588 /* Pods-ICONKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKitTests/Pods-ICONKitTests.release.xcconfig"; sourceTree = "<group>"; };
+		1E1F8F45BBEB5002F5587C66 /* Pods_ICONKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ICONKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		23469734E3361D3B47A8C729 /* Pods-ICONKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKitTests/Pods-ICONKitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5A183E760CD3D46006BE2DF4 /* Pods-ICONKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit/Pods-ICONKit.release.xcconfig"; sourceTree = "<group>"; };
+		60E9CAF67F9BCBD8B236BC16 /* Pods-ICONKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit/Pods-ICONKit.debug.xcconfig"; sourceTree = "<group>"; };
+		CCD657269433F0A3B1E8B96C /* Pods_ICONKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ICONKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E25B98212FA7C50027899B /* ICONKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ICONKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E25B9B212FA7C50027899B /* ICONKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICONKit.h; sourceTree = "<group>"; };
 		D4E25B9C212FA7C50027899B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4E25BA1212FA7C60027899B /* ICONKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ICONKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E25BA6212FA7C60027899B /* ICONKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICONKitTests.swift; sourceTree = "<group>"; };
 		D4E25BA8212FA7C60027899B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4E25BBA212FABD90027899B /* ICON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICON.swift; sourceTree = "<group>"; };
+		D4E25BBB212FABD90027899B /* ICON+Signer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Signer.swift"; sourceTree = "<group>"; };
+		D4E25BBC212FABD90027899B /* ICON+Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Wallet.swift"; sourceTree = "<group>"; };
+		D4E25BBD212FABD90027899B /* ICON+Cipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Cipher.swift"; sourceTree = "<group>"; };
+		D4E25BBE212FABD90027899B /* ICON+Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Error.swift"; sourceTree = "<group>"; };
+		D4E25BBF212FABD90027899B /* ICON+Connect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Connect.swift"; sourceTree = "<group>"; };
+		D4E25BC0212FABD90027899B /* ICON+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Request.swift"; sourceTree = "<group>"; };
+		D4E25BC1212FABD90027899B /* Common+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Common+Extension.swift"; sourceTree = "<group>"; };
+		D4E25BC2212FABD90027899B /* ICON+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Util.swift"; sourceTree = "<group>"; };
+		D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+SECP256k1.swift"; sourceTree = "<group>"; };
+		D4E25BCE212FAEF20027899B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E25BCF212FAEF20027899B /* Security.framework in Frameworks */,
+				EE1AAC10FD1B663ED9C96767 /* Pods_ICONKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,18 +97,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4E25BA2212FA7C60027899B /* ICONKit.framework in Frameworks */,
+				86AFBEEFC7EA1D442830EBB4 /* Pods_ICONKitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2ABF95EBF13196FDD0339703 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				60E9CAF67F9BCBD8B236BC16 /* Pods-ICONKit.debug.xcconfig */,
+				5A183E760CD3D46006BE2DF4 /* Pods-ICONKit.release.xcconfig */,
+				23469734E3361D3B47A8C729 /* Pods-ICONKitTests.debug.xcconfig */,
+				1B14550962695930CF3AC588 /* Pods-ICONKitTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D4E25B8E212FA7C50027899B = {
 			isa = PBXGroup;
 			children = (
 				D4E25B9A212FA7C50027899B /* ICONKit */,
 				D4E25BA5212FA7C60027899B /* ICONKitTests */,
 				D4E25B99212FA7C50027899B /* Products */,
+				2ABF95EBF13196FDD0339703 /* Pods */,
+				D57DB1AC9E2D3E248AF94E46 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +138,7 @@
 		D4E25B9A212FA7C50027899B /* ICONKit */ = {
 			isa = PBXGroup;
 			children = (
+				D4E25BB9212FABD90027899B /* ICON */,
 				D4E25B9B212FA7C50027899B /* ICONKit.h */,
 				D4E25B9C212FA7C50027899B /* Info.plist */,
 			);
@@ -105,6 +152,33 @@
 				D4E25BA8212FA7C60027899B /* Info.plist */,
 			);
 			path = ICONKitTests;
+			sourceTree = "<group>";
+		};
+		D4E25BB9212FABD90027899B /* ICON */ = {
+			isa = PBXGroup;
+			children = (
+				D4E25BBA212FABD90027899B /* ICON.swift */,
+				D4E25BBB212FABD90027899B /* ICON+Signer.swift */,
+				D4E25BBC212FABD90027899B /* ICON+Wallet.swift */,
+				D4E25BBD212FABD90027899B /* ICON+Cipher.swift */,
+				D4E25BBE212FABD90027899B /* ICON+Error.swift */,
+				D4E25BBF212FABD90027899B /* ICON+Connect.swift */,
+				D4E25BC0212FABD90027899B /* ICON+Request.swift */,
+				D4E25BC1212FABD90027899B /* Common+Extension.swift */,
+				D4E25BC2212FABD90027899B /* ICON+Util.swift */,
+				D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */,
+			);
+			path = ICON;
+			sourceTree = "<group>";
+		};
+		D57DB1AC9E2D3E248AF94E46 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D4E25BCE212FAEF20027899B /* Security.framework */,
+				1E1F8F45BBEB5002F5587C66 /* Pods_ICONKit.framework */,
+				CCD657269433F0A3B1E8B96C /* Pods_ICONKitTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +199,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4E25BAC212FA7C60027899B /* Build configuration list for PBXNativeTarget "ICONKit" */;
 			buildPhases = (
+				95D030E67FEAD1BAD2D7385F /* [CP] Check Pods Manifest.lock */,
 				D4E25B93212FA7C50027899B /* Sources */,
 				D4E25B94212FA7C50027899B /* Frameworks */,
 				D4E25B95212FA7C50027899B /* Headers */,
@@ -144,9 +219,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4E25BAF212FA7C60027899B /* Build configuration list for PBXNativeTarget "ICONKitTests" */;
 			buildPhases = (
+				004AE603B07946ADA61AE7AD /* [CP] Check Pods Manifest.lock */,
 				D4E25B9D212FA7C60027899B /* Sources */,
 				D4E25B9E212FA7C60027899B /* Frameworks */,
 				D4E25B9F212FA7C60027899B /* Resources */,
+				EDB4C41ACECBCCB1839AC1EE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -216,6 +293,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		004AE603B07946ADA61AE7AD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ICONKitTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		95D030E67FEAD1BAD2D7385F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ICONKit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D4E25BB6212FA8930027899B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -229,6 +342,32 @@
 			shellPath = /bin/sh;
 			shellScript = "# This if-statement means we'll only run the main script if the CommonCryptoModuleMap directory doesn't exist\n# Because otherwise the rest of the script causes a full recompile for anything where CommonCrypto is a dependency\n# Do a \"Clean Build Folder\" to remove this directory and trigger the rest of the script to run\nif [ -d \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\" ]; then\necho \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap directory already exists, so skipping the rest of the script.\"\nexit 0\nfi\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\"\ncat <<EOF > \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap/module.modulemap\"\nmodule CommonCrypto [system] {\n    header \"${SDKROOT}/usr/include/CommonCrypto/CommonCrypto.h\"\n    export *\n}\nEOF";
 		};
+		EDB4C41ACECBCCB1839AC1EE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ICONKitTests/Pods-ICONKitTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework",
+				"${BUILT_PRODUCTS_DIR}/scrypt/scrypt.framework",
+				"${BUILT_PRODUCTS_DIR}/secp256k1_ios/secp256k1_ios.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BigInt.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SipHash.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/scrypt.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/secp256k1_ios.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ICONKitTests/Pods-ICONKitTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -236,6 +375,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E25BC5212FABD90027899B /* ICON+Signer.swift in Sources */,
+				D4E25BCD212FABD90027899B /* ICON+SECP256k1.swift in Sources */,
+				D4E25BC6212FABD90027899B /* ICON+Wallet.swift in Sources */,
+				D4E25BCB212FABD90027899B /* Common+Extension.swift in Sources */,
+				D4E25BC4212FABD90027899B /* ICON.swift in Sources */,
+				D4E25BC7212FABD90027899B /* ICON+Cipher.swift in Sources */,
+				D4E25BCC212FABD90027899B /* ICON+Util.swift in Sources */,
+				D4E25BC8212FABD90027899B /* ICON+Error.swift in Sources */,
+				D4E25BC9212FABD90027899B /* ICON+Connect.swift in Sources */,
+				D4E25BCA212FABD90027899B /* ICON+Request.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +534,7 @@
 		};
 		D4E25BAD212FA7C60027899B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60E9CAF67F9BCBD8B236BC16 /* Pods-ICONKit.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -403,6 +553,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(BUILT_PRODUCTS_DIR)/CommonCrypto";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -410,6 +561,7 @@
 		};
 		D4E25BAE212FA7C60027899B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A183E760CD3D46006BE2DF4 /* Pods-ICONKit.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -428,6 +580,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(BUILT_PRODUCTS_DIR)/CommonCrypto";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -435,7 +588,9 @@
 		};
 		D4E25BB0212FA7C60027899B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23469734E3361D3B47A8C729 /* Pods-ICONKitTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ICONKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -452,7 +607,9 @@
 		};
 		D4E25BB1212FA7C60027899B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B14550962695930CF3AC588 /* Pods-ICONKitTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ICONKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
