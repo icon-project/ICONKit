@@ -64,7 +64,6 @@ public struct ICON {
     
     open class Wallet: SECP256k1, Cipher {
         public var keystore: ICON.Keystore?
-        public var rawData: Data?
         public var address: String?
     }
 }

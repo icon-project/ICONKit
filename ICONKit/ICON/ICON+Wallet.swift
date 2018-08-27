@@ -24,19 +24,13 @@ extension ICON.Wallet {
     
     public convenience init(keystore: ICON.Keystore) {
         self.init()
-        
-        do {
-            let encoder = JSONEncoder()
-            let rawData = try encoder.encode(keystore)
-            self.rawData = rawData
-        } catch {
-            
-        }
+        self.keystore = keystore
     }
     
     public convenience init(privateKey: String?, password: String) {
         self.init()
-        self.rawData = self.createKeystore(privateKey, password)
+        guard let keystore = self.createKeystore(privateKey, password) else { return }
+        self.keystore = keystore
     }
     
     private func generatePrivateKey() -> String {
@@ -52,7 +46,7 @@ extension ICON.Wallet {
         return key.sha3(.sha256)
     }
     
-    private func createKeystore(_ privateKey: String?, _ password: String) -> Data? {
+    private func createKeystore(_ privateKey: String?, _ password: String) -> ICON.Keystore? {
         do {
             var key: String
             if let prvKey = privateKey {
@@ -85,9 +79,7 @@ extension ICON.Wallet {
             let crypto = ICON.Keystore.Crypto(ciphertext: result.cipherText, cipherparams: ICON.Keystore.CipherParams(iv: result.iv), cipher: "aes-128-ctr", kdf: "pbkdf2", kdfparams: kdfParam, mac: result.mac)
             let keyStore = ICON.Keystore(address: address, crypto: crypto)
             
-            let encoder = JSONEncoder()
-            
-            return try encoder.encode(keyStore)
+            return keyStore
         } catch {
             return nil
         }
@@ -157,7 +149,15 @@ extension ICON.Wallet {
     ///
     /// - Returns: JSON Object data
     public func keystoreToJSON() -> Data? {
-        return rawData
+        guard let keystore = self.keystore else { return nil }
+        do {
+            let encoder = JSONEncoder()
+            return try encoder.encode(keystore)
+        } catch {
+            
+        }
+        
+        return nil
     }
 }
 
