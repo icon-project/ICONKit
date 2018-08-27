@@ -158,15 +158,15 @@
 			isa = PBXGroup;
 			children = (
 				D4E25BBA212FABD90027899B /* ICON.swift */,
-				D4E25BBB212FABD90027899B /* ICON+Signer.swift */,
-				D4E25BBC212FABD90027899B /* ICON+Wallet.swift */,
 				D4E25BBD212FABD90027899B /* ICON+Cipher.swift */,
-				D4E25BBE212FABD90027899B /* ICON+Error.swift */,
 				D4E25BBF212FABD90027899B /* ICON+Connect.swift */,
+				D4E25BBE212FABD90027899B /* ICON+Error.swift */,
 				D4E25BC0212FABD90027899B /* ICON+Request.swift */,
-				D4E25BC1212FABD90027899B /* Common+Extension.swift */,
-				D4E25BC2212FABD90027899B /* ICON+Util.swift */,
 				D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */,
+				D4E25BBB212FABD90027899B /* ICON+Signer.swift */,
+				D4E25BC2212FABD90027899B /* ICON+Util.swift */,
+				D4E25BBC212FABD90027899B /* ICON+Wallet.swift */,
+				D4E25BC1212FABD90027899B /* Common+Extension.swift */,
 			);
 			path = ICON;
 			sourceTree = "<group>";
