@@ -65,6 +65,16 @@ public struct ICON {
     open class Wallet: SECP256k1, Cipher {
         public var keystore: ICON.Keystore?
         public var address: String?
+        public var rawData: Data? {
+            guard let keystore = self.keystore else { return nil }
+            do {
+                let encoder = JSONEncoder()
+                return try encoder.encode(keystore)
+            } catch {
+                
+            }
+            return nil
+        }
     }
 }
 

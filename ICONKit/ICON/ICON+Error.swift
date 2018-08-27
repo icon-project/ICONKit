@@ -32,6 +32,7 @@ public enum ICError: Error {
     case verify(ICDetail)
     case malformed
     case sign
+    case encrypt
     case decrypt
     case empty
     case duplicate(ICDetail)

@@ -33,6 +33,17 @@ extension ICON.Wallet {
         self.keystore = keystore
     }
     
+    public convenience init?(rawData: Data) {
+        do {
+            let decoder = JSONDecoder()
+            let keystore = try decoder.decode(ICON.Keystore.self, from: rawData)
+            self.init(keystore: keystore)
+        } catch {
+            
+        }
+        return nil
+    }
+    
     private func generatePrivateKey() -> String {
         
         var key = ""
@@ -126,6 +137,14 @@ extension ICON.Wallet {
         throw ICError.invalid(.notSupported)
     }
     
+    public func changePassword(current: String, new: String) throws {
+        let prvKey = try extractPrivateKey(password: current)
+        
+        guard let keystore = createKeystore(prvKey, new) else { throw ICError.encrypt }
+        self.keystore = keystore
+        
+    }
+    
     /// Signing
     ///
     /// - Parameters:
@@ -145,19 +164,5 @@ extension ICON.Wallet {
         
     }
     
-    /// Convert keystore struct to JSON Object
-    ///
-    /// - Returns: JSON Object data
-    public func keystoreToJSON() -> Data? {
-        guard let keystore = self.keystore else { return nil }
-        do {
-            let encoder = JSONEncoder()
-            return try encoder.encode(keystore)
-        } catch {
-            
-        }
-        
-        return nil
-    }
 }
 
