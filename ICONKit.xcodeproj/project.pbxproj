@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		86AFBEEFC7EA1D442830EBB4 /* Pods_ICONKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD657269433F0A3B1E8B96C /* Pods_ICONKitTests.framework */; };
+		D48D181C2134014600BEAA2F /* ICONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D181B2134014600BEAA2F /* ICONService.swift */; };
 		D4E25BA2212FA7C60027899B /* ICONKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E25B98212FA7C50027899B /* ICONKit.framework */; };
 		D4E25BA7212FA7C60027899B /* ICONKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BA6212FA7C60027899B /* ICONKitTests.swift */; };
 		D4E25BA9212FA7C60027899B /* ICONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E25B9B212FA7C50027899B /* ICONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,7 +32,7 @@
 		D4E25BC7212FABD90027899B /* ICON+Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBD212FABD90027899B /* ICON+Cipher.swift */; };
 		D4E25BC8212FABD90027899B /* ICON+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBE212FABD90027899B /* ICON+Error.swift */; };
 		D4E25BC9212FABD90027899B /* ICON+Connect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBF212FABD90027899B /* ICON+Connect.swift */; };
-		D4E25BCA212FABD90027899B /* ICON+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC0212FABD90027899B /* ICON+Request.swift */; };
+		D4E25BCA212FABD90027899B /* ICONService+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC0212FABD90027899B /* ICONService+Request.swift */; };
 		D4E25BCB212FABD90027899B /* Common+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC1212FABD90027899B /* Common+Extension.swift */; };
 		D4E25BCC212FABD90027899B /* ICON+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC2212FABD90027899B /* ICON+Util.swift */; };
 		D4E25BCD212FABD90027899B /* ICON+SECP256k1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */; };
@@ -63,6 +64,7 @@
 		5A183E760CD3D46006BE2DF4 /* Pods-ICONKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit/Pods-ICONKit.release.xcconfig"; sourceTree = "<group>"; };
 		60E9CAF67F9BCBD8B236BC16 /* Pods-ICONKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit/Pods-ICONKit.debug.xcconfig"; sourceTree = "<group>"; };
 		CCD657269433F0A3B1E8B96C /* Pods_ICONKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ICONKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D48D181B2134014600BEAA2F /* ICONService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICONService.swift; sourceTree = "<group>"; };
 		D4E25B98212FA7C50027899B /* ICONKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ICONKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E25B9B212FA7C50027899B /* ICONKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICONKit.h; sourceTree = "<group>"; };
 		D4E25B9C212FA7C50027899B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,7 +77,7 @@
 		D4E25BBD212FABD90027899B /* ICON+Cipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Cipher.swift"; sourceTree = "<group>"; };
 		D4E25BBE212FABD90027899B /* ICON+Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Error.swift"; sourceTree = "<group>"; };
 		D4E25BBF212FABD90027899B /* ICON+Connect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Connect.swift"; sourceTree = "<group>"; };
-		D4E25BC0212FABD90027899B /* ICON+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Request.swift"; sourceTree = "<group>"; };
+		D4E25BC0212FABD90027899B /* ICONService+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICONService+Request.swift"; sourceTree = "<group>"; };
 		D4E25BC1212FABD90027899B /* Common+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Common+Extension.swift"; sourceTree = "<group>"; };
 		D4E25BC2212FABD90027899B /* ICON+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Util.swift"; sourceTree = "<group>"; };
 		D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+SECP256k1.swift"; sourceTree = "<group>"; };
@@ -161,12 +163,13 @@
 				D4E25BBD212FABD90027899B /* ICON+Cipher.swift */,
 				D4E25BBF212FABD90027899B /* ICON+Connect.swift */,
 				D4E25BBE212FABD90027899B /* ICON+Error.swift */,
-				D4E25BC0212FABD90027899B /* ICON+Request.swift */,
 				D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */,
 				D4E25BBB212FABD90027899B /* ICON+Signer.swift */,
 				D4E25BC2212FABD90027899B /* ICON+Util.swift */,
 				D4E25BBC212FABD90027899B /* ICON+Wallet.swift */,
 				D4E25BC1212FABD90027899B /* Common+Extension.swift */,
+				D48D181B2134014600BEAA2F /* ICONService.swift */,
+				D4E25BC0212FABD90027899B /* ICONService+Request.swift */,
 			);
 			path = ICON;
 			sourceTree = "<group>";
@@ -349,6 +352,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ICONKitTests/Pods-ICONKitTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-Synchronous/Alamofire_Synchronous.framework",
 				"${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework",
@@ -357,6 +362,8 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire_Synchronous.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BigInt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SipHash.framework",
@@ -380,11 +387,12 @@
 				D4E25BC6212FABD90027899B /* ICON+Wallet.swift in Sources */,
 				D4E25BCB212FABD90027899B /* Common+Extension.swift in Sources */,
 				D4E25BC4212FABD90027899B /* ICON.swift in Sources */,
+				D48D181C2134014600BEAA2F /* ICONService.swift in Sources */,
 				D4E25BC7212FABD90027899B /* ICON+Cipher.swift in Sources */,
 				D4E25BCC212FABD90027899B /* ICON+Util.swift in Sources */,
 				D4E25BC8212FABD90027899B /* ICON+Error.swift in Sources */,
 				D4E25BC9212FABD90027899B /* ICON+Connect.swift in Sources */,
-				D4E25BCA212FABD90027899B /* ICON+Request.swift in Sources */,
+				D4E25BCA212FABD90027899B /* ICONService+Request.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
