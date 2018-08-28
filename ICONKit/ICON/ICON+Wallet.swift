@@ -164,5 +164,9 @@ extension ICON.Wallet {
         
     }
     
+    public func getID() -> Int {
+        return Int(arc4random_uniform(6))
+    }
+    
 }
 

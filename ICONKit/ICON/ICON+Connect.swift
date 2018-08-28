@@ -16,7 +16,3 @@
  */
 
 import Foundation
-
-extension ICON {
-
-}
