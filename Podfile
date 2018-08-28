@@ -9,6 +9,8 @@ target 'ICONKit' do
   
 
   # Pods for ICONKit
+  pod 'Alamofire'
+  pod 'Alamofire-Synchronous'
   pod 'CryptoSwift', '~> 0.10'
   pod 'BigInt'
   pod 'secp256k1_ios'
