@@ -18,7 +18,7 @@
 import Foundation
 import Result
 
-open class ICONService: Operation {
+open class ICONService {
     static let jsonrpc = "2.0"
     static let API_VER = "v3"
     static let ver = "0x3"

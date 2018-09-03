@@ -10,7 +10,7 @@ target 'ICONKit' do
 
   # Pods for ICONKit
   pod 'secp256k1_ios'
-  pod 'scrypt', '~> 1.5'
+  pod 'scrypt_minor', '~> 1.5.1'
   pod 'Result', '~> 3.0.0'
 
 #  target 'ICONKitTests' do
