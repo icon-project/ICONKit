@@ -18,7 +18,7 @@
 import Foundation
 import BigInt
 
-class ICONRequest {
+open class ICONRequest {
     
     var provider: URL
     var method: ICON.METHOD
@@ -54,15 +54,6 @@ class ICONRequest {
     }
 }
 
-open class ICONClient: Operation {
-    var request: ICONRequest
+open class SendTransactionRequest: ICONRequest {
     
-    init(request: ICONRequest) {
-        self.request = request
-    }
-    
-    func fetch() {
-        
-    }
 }
-

@@ -104,4 +104,12 @@ extension Cipher {
         
         return Data(bytes: result).toHexString()
     }
+    
+    public func getHash(_ value: String) -> String {
+        return value.sha3(.sha256)
+    }
+    
+    public func getHash(_ value: Data) -> Data {
+        return value.sha3(.sha256)
+    }
 }
