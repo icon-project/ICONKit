@@ -19,6 +19,8 @@ Pod::Spec.new do |s|
   s.version      = "0.0.2"
   s.summary      = "ICON SDK for swift"
 
+  s.swift_version = "4.2"
+
   s.description  = <<-DESC
                   ICON SDK for Swift
                    DESC
@@ -48,7 +50,5 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
-
-  # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
 end

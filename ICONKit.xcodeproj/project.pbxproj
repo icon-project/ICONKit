@@ -22,12 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		86AFBEEFC7EA1D442830EBB4 /* Pods_ICONKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD657269433F0A3B1E8B96C /* Pods_ICONKitTests.framework */; };
-		D4653B5A213CE0CC0059C042 /* scrypt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4653B59213CE0CC0059C042 /* scrypt.framework */; };
-		D4653B5C213CE0D30059C042 /* BigInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4653B5B213CE0D30059C042 /* BigInt.framework */; };
-		D4653B5E213CE0DC0059C042 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4653B5D213CE0DC0059C042 /* Result.framework */; };
-		D4653B60213CE0E00059C042 /* SipHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4653B5F213CE0E00059C042 /* SipHash.framework */; };
-		D4653B62213CE0E60059C042 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4653B61213CE0E60059C042 /* CryptoSwift.framework */; };
-		D4653B64213CE0EA0059C042 /* secp256k1_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4653B63213CE0EA0059C042 /* secp256k1_ios.framework */; };
+		D4653B6C213D01CA0059C042 /* ICONKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D4653B6B213D01CA0059C042 /* ICONKit.podspec */; };
 		D48D181C2134014600BEAA2F /* ICONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D181B2134014600BEAA2F /* ICONService.swift */; };
 		D4E25BA2212FA7C60027899B /* ICONKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E25B98212FA7C50027899B /* ICONKit.framework */; };
 		D4E25BA7212FA7C60027899B /* ICONKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BA6212FA7C60027899B /* ICONKitTests.swift */; };
@@ -76,6 +71,7 @@
 		D4653B5F213CE0E00059C042 /* SipHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SipHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4653B61213CE0E60059C042 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4653B63213CE0EA0059C042 /* secp256k1_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = secp256k1_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4653B6B213D01CA0059C042 /* ICONKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ICONKit.podspec; sourceTree = "<group>"; };
 		D48D181B2134014600BEAA2F /* ICONService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICONService.swift; sourceTree = "<group>"; };
 		D4E25B98212FA7C50027899B /* ICONKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ICONKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E25B9B212FA7C50027899B /* ICONKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICONKit.h; sourceTree = "<group>"; };
@@ -101,12 +97,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4653B64213CE0EA0059C042 /* secp256k1_ios.framework in Frameworks */,
-				D4653B62213CE0E60059C042 /* CryptoSwift.framework in Frameworks */,
-				D4653B60213CE0E00059C042 /* SipHash.framework in Frameworks */,
-				D4653B5E213CE0DC0059C042 /* Result.framework in Frameworks */,
-				D4653B5C213CE0D30059C042 /* BigInt.framework in Frameworks */,
-				D4653B5A213CE0CC0059C042 /* scrypt.framework in Frameworks */,
 				D4E25BCF212FAEF20027899B /* Security.framework in Frameworks */,
 				EE1AAC10FD1B663ED9C96767 /* Pods_ICONKit.framework in Frameworks */,
 			);
@@ -138,6 +128,7 @@
 		D4E25B8E212FA7C50027899B = {
 			isa = PBXGroup;
 			children = (
+				D4653B6B213D01CA0059C042 /* ICONKit.podspec */,
 				D4E25B9A212FA7C50027899B /* ICONKit */,
 				D4E25BA5212FA7C60027899B /* ICONKitTests */,
 				D4E25B99212FA7C50027899B /* Products */,
@@ -307,6 +298,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4653B6C213D01CA0059C042 /* ICONKit.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +572,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
