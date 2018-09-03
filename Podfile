@@ -9,8 +9,6 @@ target 'ICONKit' do
   
 
   # Pods for ICONKit
-  pod 'CryptoSwift', '~> 0.11.0'
-  pod 'BigInt'
   pod 'secp256k1_ios'
   pod 'scrypt', '~> 1.5'
   pod 'Result', '~> 3.0.0'
