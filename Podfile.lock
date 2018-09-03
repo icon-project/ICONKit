@@ -10,7 +10,7 @@ PODS:
 
 DEPENDENCIES:
   - BigInt
-  - CryptoSwift (~> 0.10)
+  - CryptoSwift (~> 0.11.0)
   - Result (~> 3.0.0)
   - scrypt (~> 1.5)
   - secp256k1_ios
@@ -32,6 +32,6 @@ SPEC CHECKSUMS:
   secp256k1_ios: ac9ef04e761f43c58012b28548afa91493761f17
   SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
 
-PODFILE CHECKSUM: b1072b14d86f4e2325fe4d5ef7b40388a59d22fc
+PODFILE CHECKSUM: 34d19cc711701d7e8764fd370aef2713f44aa1c8
 
 COCOAPODS: 1.5.0
