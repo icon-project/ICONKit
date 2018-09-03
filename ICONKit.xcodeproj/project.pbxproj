@@ -6,22 +6,7 @@
 	objectVersion = 50;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		D4E25BB2212FA8780027899B /* CommonCrypto */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = D4E25BB3212FA8780027899B /* Build configuration list for PBXAggregateTarget "CommonCrypto" */;
-			buildPhases = (
-				D4E25BB6212FA8930027899B /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = CommonCrypto;
-			productName = CommonCrypto;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
-		D4653B6C213D01CA0059C042 /* ICONKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D4653B6B213D01CA0059C042 /* ICONKit.podspec */; };
 		D48D181C2134014600BEAA2F /* ICONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D181B2134014600BEAA2F /* ICONService.swift */; };
 		D4E25BA2212FA7C60027899B /* ICONKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E25B98212FA7C50027899B /* ICONKit.framework */; };
 		D4E25BA7212FA7C60027899B /* ICONKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BA6212FA7C60027899B /* ICONKitTests.swift */; };
@@ -48,13 +33,6 @@
 			remoteGlobalIDString = D4E25B97212FA7C50027899B;
 			remoteInfo = ICONKit;
 		};
-		D4E25BB7212FAB1A0027899B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D4E25B8F212FA7C50027899B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D4E25BB2212FA8780027899B;
-			remoteInfo = CommonCrypto;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -68,7 +46,6 @@
 		D4653B5F213CE0E00059C042 /* SipHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SipHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4653B61213CE0E60059C042 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4653B63213CE0EA0059C042 /* secp256k1_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = secp256k1_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4653B6B213D01CA0059C042 /* ICONKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ICONKit.podspec; sourceTree = "<group>"; };
 		D48D181B2134014600BEAA2F /* ICONService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICONService.swift; sourceTree = "<group>"; };
 		D4E25B98212FA7C50027899B /* ICONKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ICONKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E25B9B212FA7C50027899B /* ICONKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICONKit.h; sourceTree = "<group>"; };
@@ -122,7 +99,6 @@
 		D4E25B8E212FA7C50027899B = {
 			isa = PBXGroup;
 			children = (
-				D4653B6B213D01CA0059C042 /* ICONKit.podspec */,
 				D4E25B9A212FA7C50027899B /* ICONKit */,
 				D4E25BA5212FA7C60027899B /* ICONKitTests */,
 				D4E25B99212FA7C50027899B /* Products */,
@@ -220,7 +196,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D4E25BB8212FAB1A0027899B /* PBXTargetDependency */,
 			);
 			name = ICONKit;
 			productName = ICONKit;
@@ -261,9 +236,6 @@
 					D4E25BA0212FA7C60027899B = {
 						CreatedOnToolsVersion = 9.4;
 					};
-					D4E25BB2212FA8780027899B = {
-						CreatedOnToolsVersion = 9.4;
-					};
 				};
 			};
 			buildConfigurationList = D4E25B92212FA7C50027899B /* Build configuration list for PBXProject "ICONKit" */;
@@ -280,7 +252,6 @@
 			targets = (
 				D4E25B97212FA7C50027899B /* ICONKit */,
 				D4E25BA0212FA7C60027899B /* ICONKitTests */,
-				D4E25BB2212FA8780027899B /* CommonCrypto */,
 			);
 		};
 /* End PBXProject section */
@@ -290,7 +261,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4653B6C213D01CA0059C042 /* ICONKit.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,19 +291,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		D4E25BB6212FA8930027899B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This if-statement means we'll only run the main script if the CommonCryptoModuleMap directory doesn't exist\n# Because otherwise the rest of the script causes a full recompile for anything where CommonCrypto is a dependency\n# Do a \"Clean Build Folder\" to remove this directory and trigger the rest of the script to run\nif [ -d \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\" ]; then\necho \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap directory already exists, so skipping the rest of the script.\"\nexit 0\nfi\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\"\ncat <<EOF > \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap/module.modulemap\"\nmodule CommonCrypto [system] {\n    header \"${SDKROOT}/usr/include/CommonCrypto/CommonCrypto.h\"\n    export *\n}\nEOF";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -371,11 +328,6 @@
 			isa = PBXTargetDependency;
 			target = D4E25B97212FA7C50027899B /* ICONKit */;
 			targetProxy = D4E25BA3212FA7C60027899B /* PBXContainerItemProxy */;
-		};
-		D4E25BB8212FAB1A0027899B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D4E25BB2212FA8780027899B /* CommonCrypto */;
-			targetProxy = D4E25BB7212FAB1A0027899B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -513,12 +465,16 @@
 				INFOPLIST_FILE = ICONKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
-				SWIFT_INCLUDE_PATHS = "$(inherited) $(BUILT_PRODUCTS_DIR)/CommonCrypto";
+				SWIFT_INCLUDE_PATHS = "$(inherited)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -537,11 +493,15 @@
 				INFOPLIST_FILE = ICONKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
-				SWIFT_INCLUDE_PATHS = "$(inherited) $(BUILT_PRODUCTS_DIR)/CommonCrypto";
+				SWIFT_INCLUDE_PATHS = "$(inherited)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -553,7 +513,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ICONKitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -567,27 +531,15 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ICONKitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		D4E25BB4212FA8780027899B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		D4E25BB5212FA8780027899B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -617,15 +569,6 @@
 			buildConfigurations = (
 				D4E25BB0212FA7C60027899B /* Debug */,
 				D4E25BB1212FA7C60027899B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D4E25BB3212FA8780027899B /* Build configuration list for PBXAggregateTarget "CommonCrypto" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D4E25BB4212FA8780027899B /* Debug */,
-				D4E25BB5212FA8780027899B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

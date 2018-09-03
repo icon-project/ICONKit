@@ -30,9 +30,7 @@ Pod::Spec.new do |s|
   
   s.source_files  = "ICONKit/ICON/*.swift"
 
-  s.dependency 'BigInt', '~> 3.1.0'
-  s.dependency 'CryptoSwift', '~> 0.10'
-  s.dependency 'Result', '~> 4.0.0'
+  s.dependency 'Result', '~> 3.0.0'
   s.dependency 'scrypt', '~> 1.5'
   s.dependency 'secp256k1_ios'
 end

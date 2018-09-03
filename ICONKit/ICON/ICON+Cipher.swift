@@ -18,7 +18,7 @@
 import Foundation
 import Security
 import CryptoSwift
-import CommonCrypto
+//import CommonCrypto
 import scrypt
 
 let PBE_DKLEN: Int = 32
@@ -29,35 +29,40 @@ public protocol Cipher {
 
 extension Cipher {
     public func pbkdf2SHA1(password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
-        return pbkdf2(hash: CCPBKDFAlgorithm(kCCPRFHmacAlgSHA1), password: password, salt: salt, keyByteCount: keyByteCount, round: round)
+        return pbkdf2(hash: .sha1, password: password, salt: salt, keyByteCount: keyByteCount, round: round)
     }
     
     public func pbkdf2SHA256(password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
-        return pbkdf2(hash: CCPBKDFAlgorithm(kCCPRFHmacAlgSHA256), password: password, salt: salt, keyByteCount: keyByteCount, round: round)
+        return pbkdf2(hash: .sha256, password: password, salt: salt, keyByteCount: keyByteCount, round: round)
     }
     
     public func pbkdf2SHA512(password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
-        return pbkdf2(hash: CCPBKDFAlgorithm(kCCPRFHmacAlgSHA512), password: password, salt: salt, keyByteCount: keyByteCount, round: round)
+        return pbkdf2(hash: .sha512, password: password, salt: salt, keyByteCount: keyByteCount, round: round)
     }
     
-    public func pbkdf2(hash: CCPBKDFAlgorithm, password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
+    public func pbkdf2(hash: HMAC.Variant, password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
         let passwordData = password.data(using: .utf8)!
-        var derivedKeyData = Data(count: keyByteCount)
-        var localVariables = derivedKeyData
-        let derivationStatus = localVariables.withUnsafeMutableBytes { derivedKeyBytes in
-            salt.withUnsafeBytes { saltBytes in
-                CCKeyDerivationPBKDF(CCPBKDFAlgorithm(kCCPBKDF2),
-                                     password, passwordData.count, saltBytes, salt.count,
-                                     hash, UInt32(round),
-                                     derivedKeyBytes, derivedKeyData.count)
-            }
-        }
+//        var derivedKeyData = Data(count: keyByteCount)
         
-        if (derivationStatus != 0) {
-            return nil;
-        }
+        guard let key = try? PKCS5.PBKDF2(password: passwordData.bytes, salt: salt.bytes, iterations: round, keyLength: keyByteCount, variant: .sha256).calculate() else { return nil }
         
-        return localVariables
+        return Data(bytes: key)
+        
+//        var localVariables = derivedKeyData
+//        let derivationStatus = localVariables.withUnsafeMutableBytes { derivedKeyBytes in
+//            salt.withUnsafeBytes { saltBytes in
+//                CCKeyDerivationPBKDF(CCPBKDFAlgorithm(kCCPBKDF2),
+//                                     password, passwordData.count, saltBytes, salt.count,
+//                                     hash, UInt32(round),
+//                                     derivedKeyBytes, derivedKeyData.count)
+//            }
+//        }
+//
+//        if (derivationStatus != 0) {
+//            return nil;
+//        }
+//
+//        return localVariables
     }
     
     public func encrypt(devKey:Data, data: Data, salt: Data) throws -> (cipherText: String, mac: String, iv: String) {

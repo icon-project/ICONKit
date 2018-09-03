@@ -17,7 +17,6 @@
 
 import Foundation
 import Result
-import BigInt
 
 open class ICONService: Operation {
     static let jsonrpc = "2.0"
@@ -71,12 +70,12 @@ extension ICONService: SECP256k1, Cipher {
         return Int(arc4random_uniform(6))
     }
     
-    public func getBalance(wallet: ICON.Wallet) -> BigUInt? {
+    public func getBalance(wallet: ICON.Wallet) -> String? {
         guard let address = wallet.address else { return nil }
         return getBalance(address: address)
     }
     
-    public func getBalance(address: String) -> BigUInt? {
+    public func getBalance(address: String) -> String? {
         let result = self.send(method: .getBalance, params: ["address": address])
         
         switch result {
@@ -87,7 +86,7 @@ extension ICONService: SECP256k1, Cipher {
                 
                 guard let hexBalance = json["result"] as? String else { return nil }
                 
-                return ICON.Util.hexStringToBig(value: hexBalance)
+                return hexBalance
             } catch {
                 return nil
             }

@@ -16,7 +16,6 @@
  */
 
 import Foundation
-import BigInt
 
 extension ICON {
     enum METHOD: String {
@@ -36,13 +35,5 @@ extension ICON {
     public struct Util {
         static let PBE_DKLEN: Int = 32
     
-        static public func hexStringToBig(value: String) -> BigUInt? {
-            var big = value.lowercased()
-            if big.hasPrefix("0x") {
-                big = String(big[big.index(big.startIndex, offsetBy: 2)..<big.endIndex])
-            }
-            
-            return BigUInt(big, radix: 16)
-        }
     }
 }
