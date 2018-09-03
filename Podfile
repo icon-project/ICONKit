@@ -9,12 +9,11 @@ target 'ICONKit' do
   
 
   # Pods for ICONKit
-  pod 'Alamofire'
-  pod 'Alamofire-Synchronous'
   pod 'CryptoSwift', '~> 0.10'
   pod 'BigInt'
   pod 'secp256k1_ios'
   pod 'scrypt', '~> 1.5'
+  pod 'Result', '~> 4.0.0'
 
   target 'ICONKitTests' do
     inherit! :search_paths
