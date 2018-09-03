@@ -21,7 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		86AFBEEFC7EA1D442830EBB4 /* Pods_ICONKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD657269433F0A3B1E8B96C /* Pods_ICONKitTests.framework */; };
 		D4653B6C213D01CA0059C042 /* ICONKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D4653B6B213D01CA0059C042 /* ICONKit.podspec */; };
 		D48D181C2134014600BEAA2F /* ICONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D181B2134014600BEAA2F /* ICONService.swift */; };
 		D4E25BA2212FA7C60027899B /* ICONKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E25B98212FA7C50027899B /* ICONKit.framework */; };
@@ -59,9 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1B14550962695930CF3AC588 /* Pods-ICONKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKitTests/Pods-ICONKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		1E1F8F45BBEB5002F5587C66 /* Pods_ICONKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ICONKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		23469734E3361D3B47A8C729 /* Pods-ICONKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKitTests/Pods-ICONKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A183E760CD3D46006BE2DF4 /* Pods-ICONKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit/Pods-ICONKit.release.xcconfig"; sourceTree = "<group>"; };
 		60E9CAF67F9BCBD8B236BC16 /* Pods-ICONKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit/Pods-ICONKit.debug.xcconfig"; sourceTree = "<group>"; };
 		CCD657269433F0A3B1E8B96C /* Pods_ICONKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ICONKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,7 +104,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4E25BA2212FA7C60027899B /* ICONKit.framework in Frameworks */,
-				86AFBEEFC7EA1D442830EBB4 /* Pods_ICONKitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,8 +115,6 @@
 			children = (
 				60E9CAF67F9BCBD8B236BC16 /* Pods-ICONKit.debug.xcconfig */,
 				5A183E760CD3D46006BE2DF4 /* Pods-ICONKit.release.xcconfig */,
-				23469734E3361D3B47A8C729 /* Pods-ICONKitTests.debug.xcconfig */,
-				1B14550962695930CF3AC588 /* Pods-ICONKitTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -237,11 +231,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4E25BAF212FA7C60027899B /* Build configuration list for PBXNativeTarget "ICONKitTests" */;
 			buildPhases = (
-				004AE603B07946ADA61AE7AD /* [CP] Check Pods Manifest.lock */,
 				D4E25B9D212FA7C60027899B /* Sources */,
 				D4E25B9E212FA7C60027899B /* Frameworks */,
 				D4E25B9F212FA7C60027899B /* Resources */,
-				EDB4C41ACECBCCB1839AC1EE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -312,24 +304,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		004AE603B07946ADA61AE7AD /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ICONKitTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		95D030E67FEAD1BAD2D7385F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -360,34 +334,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# This if-statement means we'll only run the main script if the CommonCryptoModuleMap directory doesn't exist\n# Because otherwise the rest of the script causes a full recompile for anything where CommonCrypto is a dependency\n# Do a \"Clean Build Folder\" to remove this directory and trigger the rest of the script to run\nif [ -d \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\" ]; then\necho \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap directory already exists, so skipping the rest of the script.\"\nexit 0\nfi\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\"\ncat <<EOF > \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap/module.modulemap\"\nmodule CommonCrypto [system] {\n    header \"${SDKROOT}/usr/include/CommonCrypto/CommonCrypto.h\"\n    export *\n}\nEOF";
-		};
-		EDB4C41ACECBCCB1839AC1EE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ICONKitTests/Pods-ICONKitTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework",
-				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
-				"${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework",
-				"${BUILT_PRODUCTS_DIR}/scrypt/scrypt.framework",
-				"${BUILT_PRODUCTS_DIR}/secp256k1_ios/secp256k1_ios.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BigInt.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SipHash.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/scrypt.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/secp256k1_ios.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ICONKitTests/Pods-ICONKitTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -567,11 +513,7 @@
 				INFOPLIST_FILE = ICONKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -595,11 +537,7 @@
 				INFOPLIST_FILE = ICONKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
@@ -611,16 +549,11 @@
 		};
 		D4E25BB0212FA7C60027899B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23469734E3361D3B47A8C729 /* Pods-ICONKitTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ICONKitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -630,16 +563,11 @@
 		};
 		D4E25BB1212FA7C60027899B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B14550962695930CF3AC588 /* Pods-ICONKitTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ICONKitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
