@@ -25,7 +25,7 @@ open class Tracker {
         case local = "https://trackerlocaldev.icon.foundtaion"
     }
     
-    var provider: TrackerHost
+    public var provider: TrackerHost
     
     init(provider: TrackerHost) {
         self.provider = provider
