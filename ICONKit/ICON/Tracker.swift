@@ -27,12 +27,8 @@ open class Tracker {
     
     public var provider: TrackerHost
     
-    init(provider: TrackerHost) {
+    init(_ provider: TrackerHost) {
         self.provider = provider
-    }
-    
-    convenience init(_ provider: TrackerHost) {
-        self.init(provider)
     }
     
     open static func main() -> Tracker {
