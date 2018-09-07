@@ -25,9 +25,7 @@ extension ICON {
         case getLastBlock = "icx_getLastBlock"
         case getBlockByHash = "icx_getBlockByHash"
         case getBlockByHeight = "icx_getBlockBytHeight"
-        case getTransactionByAddress = "wallet/walletDetailTxList"
         case getTotalSupply = "icx_getTotalSupply"
-        case getExchangeList = "exchange/currentExchangeList"
         case callMethod = "icx_call"
         case getScoreAPI = "icx_getScoreApi"
     }

@@ -11,7 +11,6 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "https://github.com/icon-project/ICONKit"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
@@ -20,17 +19,16 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "10.0"
 
-  #  When using multiple platforms
   s.ios.deployment_target = "10.0"
-  # s.osx.deployment_target = "10.7"
-  # s.watchos.deployment_target = "2.0"
-  # s.tvos.deployment_target = "9.0"
 
   s.source       = { :git => "https://github.com/icon-project/ICONKit.git", :tag => s.version.to_s }
   
   s.source_files  = "ICONKit/ICON/*.swift"
 
   s.dependency 'Result', '~> 3.0.0'
-  s.dependency 'scrypt_minor', '~> 1.5.1'
+  s.dependency 'scrypt', '~> 1.6'
   s.dependency 'secp256k1_ios'
+  s.dependency 'BigInt'
+  s.dependency 'CryptoSwift', '~> 0.11.0'
+
 end

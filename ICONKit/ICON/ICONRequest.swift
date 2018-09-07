@@ -27,7 +27,6 @@ open class ICONRequest {
     public func asURLRequest() -> URLRequest {
         var url = provider.appendingPathComponent("api")
         url = url.appendingPathComponent("v3")
-        url = url.appendingPathComponent(method.rawValue)
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 60)
         request.httpMethod = "POST"
         let req = ["jsonrpc": "2.0", "method": method.rawValue, "params": params, "id": id] as [String: Any]
@@ -51,8 +50,4 @@ open class ICONRequest {
     var timestamp: String {
         return Date.timestampString
     }
-}
-
-open class SendTransactionRequest: ICONRequest {
-    
 }

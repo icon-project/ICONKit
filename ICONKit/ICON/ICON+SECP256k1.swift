@@ -32,13 +32,13 @@ extension SECP256k1 {
         
         var rsig = secp256k1_ecdsa_recoverable_signature()
         
-        guard secp256k1_ecdsa_sign_recoverable(ctx, &rsig, hashedMessage.bytes, privData.bytes, nil, nil) != 1 else {
+        guard secp256k1_ecdsa_sign_recoverable(ctx, &rsig, hashedMessage.bytes, privData.bytes, nil, nil) == 1 else {
             secp256k1_context_destroy(ctx)
             throw ICError.sign }
         
         let ser_rsig = UnsafeMutablePointer<UInt8>.allocate(capacity: 65)
         var recid = Int32(0)
-        guard secp256k1_ecdsa_recoverable_signature_serialize_compact(ctx, ser_rsig, &recid, &rsig) != 1 else {
+        guard secp256k1_ecdsa_recoverable_signature_serialize_compact(ctx, ser_rsig, &recid, &rsig) == 1 else {
             secp256k1_context_destroy(ctx)
             throw ICError.sign
         }
@@ -57,12 +57,12 @@ extension SECP256k1 {
         guard let privData = privateKey.hexToData(), let ctx = secp256k1_context_create(flag) else { return nil }
         var rawPubkey = secp256k1_pubkey()
         
-        guard secp256k1_ec_pubkey_create(ctx, &rawPubkey, privData.bytes) != 1 else { return nil }
+        guard secp256k1_ec_pubkey_create(ctx, &rawPubkey, privData.bytes) == 1 else { return nil }
         
-        let serializedPubkey = UnsafeMutablePointer<UInt8>.allocate(capacity: 65)
-        let pubLen = UnsafeMutablePointer<Int>.allocate(capacity: 65)
+        var serializedPubkey = UnsafeMutablePointer<UInt8>.allocate(capacity: 65)
+        var pubLen = 65
         
-        guard secp256k1_ec_pubkey_serialize(ctx, serializedPubkey, pubLen, &rawPubkey, UInt32(SECP256K1_EC_UNCOMPRESSED)) != 1 else {
+        guard secp256k1_ec_pubkey_serialize(ctx, serializedPubkey, &pubLen, &rawPubkey, UInt32(SECP256K1_EC_UNCOMPRESSED)) == 1 else {
             secp256k1_context_destroy(ctx)
             return nil }
         
@@ -131,12 +131,12 @@ extension SECP256k1 {
             })
         }
         
-        guard result != 1 else { return nil }
+        guard result == 1 else { return nil }
         
-        let serializedPubkey = UnsafeMutablePointer<UInt8>.allocate(capacity: 65)
-        let pubLen = UnsafeMutablePointer<Int>.allocate(capacity: 65)
+        var serializedPubkey = UnsafeMutablePointer<UInt8>.allocate(capacity: 65)
+        var pubLen = 65
         
-        guard secp256k1_ec_pubkey_serialize(ctx, serializedPubkey, pubLen, &pubkey, UInt32(SECP256K1_EC_UNCOMPRESSED)) != 1 else {
+        guard secp256k1_ec_pubkey_serialize(ctx, serializedPubkey, &pubLen, &pubkey, UInt32(SECP256K1_EC_UNCOMPRESSED)) == 1 else {
             secp256k1_context_destroy(ctx)
             return nil }
         
@@ -153,7 +153,7 @@ extension SECP256k1 {
         guard let ctx = secp256k1_context_create(flag), let privData = privateKey.hexToData() else { return nil }
         var rsig = secp256k1_ecdsa_recoverable_signature()
         
-        guard secp256k1_ecdsa_sign_recoverable(ctx, &rsig, hashed.bytes, privData.bytes, nil, nil) != 1 else {
+        guard secp256k1_ecdsa_sign_recoverable(ctx, &rsig, hashed.bytes, privData.bytes, nil, nil) == 1 else {
             secp256k1_context_destroy(ctx)
             return nil }
         

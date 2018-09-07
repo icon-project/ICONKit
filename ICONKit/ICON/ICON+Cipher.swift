@@ -18,7 +18,6 @@
 import Foundation
 import Security
 import CryptoSwift
-//import CommonCrypto
 import scrypt
 
 let PBE_DKLEN: Int = 32
@@ -42,27 +41,11 @@ extension Cipher {
     
     public func pbkdf2(hash: HMAC.Variant, password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
         let passwordData = password.data(using: .utf8)!
-//        var derivedKeyData = Data(count: keyByteCount)
-        
-        guard let key = try? PKCS5.PBKDF2(password: passwordData.bytes, salt: salt.bytes, iterations: round, keyLength: keyByteCount, variant: .sha256).calculate() else { return nil }
-        
+
+        print("begins \(Date.timestampString)")
+        guard let key = try? PKCS5.PBKDF2(password: passwordData.bytes, salt: salt.bytes, iterations: round, keyLength: keyByteCount, variant: hash).calculate() else { return nil }
+        print("ends \(Date.timestampString)")
         return Data(bytes: key)
-        
-//        var localVariables = derivedKeyData
-//        let derivationStatus = localVariables.withUnsafeMutableBytes { derivedKeyBytes in
-//            salt.withUnsafeBytes { saltBytes in
-//                CCKeyDerivationPBKDF(CCPBKDFAlgorithm(kCCPBKDF2),
-//                                     password, passwordData.count, saltBytes, salt.count,
-//                                     hash, UInt32(round),
-//                                     derivedKeyBytes, derivedKeyData.count)
-//            }
-//        }
-//
-//        if (derivationStatus != 0) {
-//            return nil;
-//        }
-//
-//        return localVariables
     }
     
     public func encrypt(devKey:Data, data: Data, salt: Data) throws -> (cipherText: String, mac: String, iv: String) {
@@ -91,8 +74,8 @@ extension Cipher {
         return (Data(bytes: decrypted).toHexString(), Data(bytes: digest).toHexString())
     }
     
-    public func scrypt(password: String, saltData: Data? = nil, dkLen: Int = 32, N: Int = 4096, R: Int = 6, P: Int = 1) -> String? {
-        
+    public func scrypt(password: String, saltData: Data? = nil, dkLen: Int = 32, N: Int = 4096, R: Int = 6, P: Int = 1) -> Data? {
+        let passwordData = password.data(using: .utf8)!
         var salt = Data()
         if let saltValue = saltData {
             salt = saltValue
@@ -103,11 +86,11 @@ extension Cipher {
             if err != errSecSuccess { return nil }
             salt = Data(bytes: randomBytes)
         }
-        
-        guard let scrypt = try? Scrypt(password: password.bytes, salt: salt.bytes, dkLen: dkLen, N: N, r: R, p: P) else { return nil }
+
+        guard let scrypt = try? Scrypt(password: passwordData.bytes, salt: salt.bytes, dkLen: dkLen, N: N, r: R, p: P) else { return nil }
         guard let result = try? scrypt.calculate() else { return nil }
-        
-        return Data(bytes: result).toHexString()
+
+        return Data(bytes: result)
     }
     
     public func getHash(_ value: String) -> String {

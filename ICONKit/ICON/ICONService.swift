@@ -34,15 +34,15 @@ open class ICONService {
         self.init(provider: provider)
     }
     
-    open static func localTest() -> ICONService {
-        return ICONService("http://52.79.233.89:9000")
+    open static func local() -> ICONService {
+        return ICONService("http://13.209.103.183:9000")
     }
     
-    open static func testNet() -> ICONService {
+    open static func dev() -> ICONService {
         return ICONService("https://testwallet.icon.foundation")
     }
     
-    open static func mainNet() -> ICONService {
+    open static func main() -> ICONService {
         return ICONService("https://wallet.icon.foundation")
     }
 }
@@ -80,19 +80,44 @@ extension ICONService: SECP256k1, Cipher {
         
         switch result {
         case .success(let response):
-            guard let value = response.result, let data = value.data(using: .utf8) else { return nil }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                
-                guard let hexBalance = json["result"] as? String else { return nil }
-                
-                return hexBalance
-            } catch {
-                return nil
-            }
+            return response.result
             
-        default:
-            break
+        case .failure(let error):
+            print("Error: \(error)")
+            
+        }
+        
+        return nil
+    }
+    
+    public func getStepPrice() -> String? {
+//    {
+//        "jsonrpc": "2.0",
+//        "id": 1234,
+//        "method": "icx_call",
+//        "params": {
+//            "from": "hxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32", // optional
+//            "to": "cx0000000000000000000000000000000000000001",
+//            "dataType": "call",
+//            "data": {
+//                "method": "getStepPrice"
+//            }
+//        }
+//    }
+        
+        let params: [String: Any] = ["to": "cx0000000000000000000000000000000000000001",
+                      "dataType": "call",
+                      "data": ["method": "getStepPrice"]
+        ]
+        
+        let result = self.send(method: .callMethod, params: params)
+        
+        switch result {
+        case .success(let response):
+            return response.result
+            
+        case .failure(let error):
+            print("Error: \(error)")
         }
         
         return nil
@@ -144,7 +169,7 @@ extension ICONService: SECP256k1, Cipher {
     
     private func send(method: ICON.METHOD, params: [String: Any]) -> Result<ICONResponse, ICONResult> {
         guard let provider = URL(string: self.provider) else { return .failure(.provider) }
-        let request = ICONRequest(provider: provider, method: ICON.METHOD.getBalance, params: params, id: self.getID()).asURLRequest()
+        let request = ICONRequest(provider: provider, method: method, params: params, id: self.getID()).asURLRequest()
         
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)

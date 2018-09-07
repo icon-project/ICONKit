@@ -64,7 +64,11 @@ public struct ICON {
     
     open class Wallet: SECP256k1, Cipher {
         public var keystore: ICON.Keystore?
-        public var address: String?
+        public var address: String? {
+            guard let keystore = self.keystore else { return nil }
+            
+            return keystore.address
+        }
         public var rawData: Data? {
             guard let keystore = self.keystore else { return nil }
             do {
@@ -75,6 +79,8 @@ public struct ICON {
             }
             return nil
         }
+        
+        init() {}
     }
 }
 

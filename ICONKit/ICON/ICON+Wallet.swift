@@ -16,6 +16,7 @@
  */
 
 import Foundation
+import CryptoSwift
 
 
 // MARK: Wallet
@@ -39,9 +40,8 @@ extension ICON.Wallet {
             let keystore = try decoder.decode(ICON.Keystore.self, from: rawData)
             self.init(keystore: keystore)
         } catch {
-            
+            return nil
         }
-        return nil
     }
     
     private func generatePrivateKey() -> String {
@@ -88,7 +88,8 @@ extension ICON.Wallet {
             let result = try encrypt(devKey: encKey, data: key.hexToData()!, salt: salt)
             let kdfParam = ICON.Keystore.KDF(dklen: PBE_DKLEN, salt: salt.toHexString(), c: round, prf: "hmac-sha256")
             let crypto = ICON.Keystore.Crypto(ciphertext: result.cipherText, cipherparams: ICON.Keystore.CipherParams(iv: result.iv), cipher: "aes-128-ctr", kdf: "pbkdf2", kdfparams: kdfParam, mac: result.mac)
-            let keyStore = ICON.Keystore(address: address, crypto: crypto)
+            var keyStore = ICON.Keystore(address: address, crypto: crypto)
+            keyStore.coinType = "icx"
             
             return keyStore
         } catch {
@@ -115,23 +116,31 @@ extension ICON.Wallet {
                 return decrypted.decryptText
             }
             
-            throw ICError.decrypt
+            throw ICError.invalid(.privateKey)
+            
         } else if keystore.crypto.kdf == "scrypt" {
             guard let n = keystore.crypto.kdfparams.n,
                 let p = keystore.crypto.kdfparams.p,
                 let r = keystore.crypto.kdfparams.r,
+                let iv = keystore.crypto.cipherparams.iv.hexToData(),
+                let cipherText = keystore.crypto.ciphertext.hexToData(),
                 let salt = keystore.crypto.kdfparams.salt.hexToData()
                 else { throw ICError.malformed }
             
-            guard let derived = scrypt(password: password, saltData: salt, dkLen: keystore.crypto.kdfparams.dklen, N: n, R: r, P: p) else { throw ICError.decrypt }
-            let publicKey = createPublicKey(privateKey: derived)
-            let newAddress = makeAddress(derived, publicKey!)
+            guard let devKey = scrypt(password: password, saltData: salt, dkLen: keystore.crypto.kdfparams.dklen, N: n, R: r, P: p) else { throw ICError.decrypt }
+            let decryptionKey = devKey[0...15]
+            guard let aesCipher = try? AES(key: decryptionKey.bytes, blockMode: CTR(iv: iv.bytes), padding: .noPadding) else { throw ICError.decrypt }
+            guard let decryptedBytes = try? aesCipher.decrypt(cipherText.bytes) else { throw ICError.decrypt }
+            let decrypted = Data(bytes: decryptedBytes).toHexString()
+            
+            let publicKey = createPublicKey(privateKey: decrypted)
+            let newAddress = makeAddress(decrypted, publicKey!)
             
             if newAddress == keystore.address {
-                return derived
+                return decrypted
             }
             
-            throw ICError.decrypt
+            throw ICError.invalid(.privateKey)
         }
         
         throw ICError.invalid(.notSupported)

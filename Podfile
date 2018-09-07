@@ -6,12 +6,13 @@ inhibit_all_warnings!
 target 'ICONKit' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  
 
   # Pods for ICONKit
+  pod 'BigInt'
   pod 'secp256k1_ios'
-  pod 'scrypt_minor', '~> 1.5.1'
   pod 'Result', '~> 3.0.0'
+  pod 'scrypt', '~> 1.7'
+  pod 'CryptoSwift', '~> 0.11.0'
 
 #  target 'ICONKitTests' do
 #    inherit! :search_paths
