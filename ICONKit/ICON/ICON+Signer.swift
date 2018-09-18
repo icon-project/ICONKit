@@ -21,7 +21,7 @@ import CryptoSwift
 extension ICON {
     
     public class TransactionSigner: SECP256k1 {
-        var params: [String: String]?
+        var params: [String: Any]?
         
         private func makeSingingData() -> Data? {
             guard let params = self.params else { return nil }
@@ -30,7 +30,7 @@ extension ICON {
             
             for key in params.keys.sorted() {
                 guard let value = params[key] else { continue }
-                tbs += "." + key + "." + value
+                tbs += "." + key + ".\(value)"
             }
             
             return tbs.data(using: .utf8)
@@ -54,6 +54,12 @@ extension ICON {
             } catch {
                 return nil
             }
+        }
+        
+        public func add(params: [String: Any]) -> TransactionSigner {
+            self.params = params
+            
+            return self
         }
     }
 }

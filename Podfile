@@ -10,9 +10,9 @@ target 'ICONKit' do
   # Pods for ICONKit
   pod 'BigInt'
   pod 'secp256k1_ios'
-  pod 'Result', '~> 3.0.0'
-  pod 'scrypt', '~> 1.7'
-  pod 'CryptoSwift', '~> 0.11.0'
+  pod 'Result'
+  pod 'scrypt', :path => '~/works/scrypt-cryptoswift'
+  pod 'CryptoSwift'
 
 #  target 'ICONKitTests' do
 #    inherit! :search_paths

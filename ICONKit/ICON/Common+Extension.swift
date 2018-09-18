@@ -28,16 +28,30 @@ extension Date {
     
     public static var millieTimestamp: String {
         let date = Date()
-        let time = floor(date.timeIntervalSince1970)
+        let time = (date.timeIntervalSince1970 * 1000.0).rounded()
         
-        return String(format: "%.0f", time * 1000)
+        return String(format: "%.0f", time)
+    }
+    
+    public static var millieTimestampHex: String {
+        let date = Date()
+        let time = (date.timeIntervalSince1970 * 1000.0)
+        
+        return "0x" + String(format: "%02x", time)
     }
     
     public static var microTimestamp: String {
         let date = Date()
-        let time = floor(date.timeIntervalSince1970)
+        let time = (date.timeIntervalSince1970 * 1000 * 1000)
         
-        return String(format: "%.0f", time * 1000 * 1000)
+        return String(format: "%.0f", time)
+    }
+    
+    public static var microTimestampHex: String {
+        let date = Date()
+        let time = UInt64(date.timeIntervalSince1970 * 1000 * 1000)
+        
+        return "0x" + String(format: "%llx", time)
     }
     
     public static var currentZuluTime: String {
@@ -87,6 +101,15 @@ extension String {
         guard data.count > 0 else { return nil }
         
         return data
+    }
+    
+    public func prefix0xRemoved() -> String {
+        var number = self
+        if number.hasPrefix("0x") {
+            number = String(number[number.index(number.startIndex, offsetBy: 2)..<number.endIndex])
+        }
+        
+        return number
     }
 }
 

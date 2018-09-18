@@ -16,15 +16,44 @@
  */
 
 import Foundation
+import BigInt
 
 /// ICX Keystore struct
-public struct ICON {
-    public struct Keystore: Codable {
-        let version: Int = 3
-        let id: String = UUID().uuidString
+open class ICON {
+    
+    open class Keystore: Codable {
+        public var version: Int = 3
+        public var id: String = UUID().uuidString
         public var address: String
         public var crypto: Crypto
         public var coinType: String?
+        
+        enum KeystoreCodingKey: String, CodingKey {
+            case version
+            case id
+            case address
+            case crypto
+            case Crypto
+            case coinType
+        }
+        
+        public required init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: ICON.Keystore.KeystoreCodingKey.self)
+            
+            self.version = try container.decode(Int.self, forKey: .version)
+            self.id = try container.decode(String.self, forKey: .id)
+            self.address = try container.decode(String.self, forKey: .address)
+            if container.contains(.crypto) {
+                self.crypto = try container.decode(Crypto.self, forKey: .crypto)
+            } else {
+                self.crypto = try container.decode(Crypto.self, forKey: .Crypto)
+            }
+            
+            if container.contains(.coinType) {
+                self.coinType = try container.decode(String.self, forKey: .coinType)
+            }
+            self.coinType = nil
+        }
         
         init(address: String, crypto: Crypto) {
             self.address = address
@@ -62,25 +91,11 @@ public struct ICON {
         }
     }
     
-    open class Wallet: SECP256k1, Cipher {
-        public var keystore: ICON.Keystore?
-        public var address: String? {
-            guard let keystore = self.keystore else { return nil }
-            
-            return keystore.address
-        }
-        public var rawData: Data? {
-            guard let keystore = self.keystore else { return nil }
-            do {
-                let encoder = JSONEncoder()
-                return try encoder.encode(keystore)
-            } catch {
-                
-            }
-            return nil
-        }
-        
-        init() {}
-    }
+    
+    
 }
 
+
+extension ICON {
+    
+}

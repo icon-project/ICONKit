@@ -30,6 +30,7 @@ open class ICONRequest {
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 60)
         request.httpMethod = "POST"
         let req = ["jsonrpc": "2.0", "method": method.rawValue, "params": params, "id": id] as [String: Any]
+        print("request - \(req)")
         let data = try! JSONSerialization.data(withJSONObject: req, options: [])
         if request.value(forHTTPHeaderField: "Content-Type") == nil {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
