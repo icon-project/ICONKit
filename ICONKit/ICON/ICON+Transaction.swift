@@ -21,16 +21,16 @@ import BigInt
 extension ICON {
     public struct TransactionData {
         let version = "0x3"
-        var from: String?
-        var to: String?
-        var value: BigUInt?
-        var stepLimit: BigUInt?
-        var timestamp: String {
+        public var from: String?
+        public var to: String?
+        public var value: BigUInt?
+        public var stepLimit: BigUInt?
+        public var timestamp: String {
             return Date.millieTimestampHex
         }
-        var nid: String = "0x1"
-        var nonce: String?
-        var dataType: String?
+        public var nid: String = "0x1"
+        public var nonce: String?
+        public var dataType: String?
     }
     
     open class Transaction {

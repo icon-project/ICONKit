@@ -59,7 +59,7 @@ extension SECP256k1 {
         
         guard secp256k1_ec_pubkey_create(ctx, &rawPubkey, privData.bytes) == 1 else { return nil }
         
-        var serializedPubkey = UnsafeMutablePointer<UInt8>.allocate(capacity: 65)
+        let serializedPubkey = UnsafeMutablePointer<UInt8>.allocate(capacity: 65)
         var pubLen = 65
         
         guard secp256k1_ec_pubkey_serialize(ctx, serializedPubkey, &pubLen, &rawPubkey, UInt32(SECP256K1_EC_UNCOMPRESSED)) == 1 else {
@@ -133,7 +133,7 @@ extension SECP256k1 {
         
         guard result == 1 else { return nil }
         
-        var serializedPubkey = UnsafeMutablePointer<UInt8>.allocate(capacity: 65)
+        let serializedPubkey = UnsafeMutablePointer<UInt8>.allocate(capacity: 65)
         var pubLen = 65
         
         guard secp256k1_ec_pubkey_serialize(ctx, serializedPubkey, &pubLen, &pubkey, UInt32(SECP256K1_EC_UNCOMPRESSED)) == 1 else {

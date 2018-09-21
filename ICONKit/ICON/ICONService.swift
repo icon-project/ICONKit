@@ -107,7 +107,7 @@ extension ICONService: SECP256k1, Cipher {
 
 extension ICONService {
     
-    public func sendTransaction(privateKey: String, from: String, to: String, value: String, stepLimit: String) -> Result<String, ICONResult> {
+    public func sendICX(privateKey: String, from: String, to: String, value: String, stepLimit: String, message: String? = nil) -> Result<String, ICONResult> {
         var params = [String: String]()
         let timestamp = Date.microTimestampHex
         
@@ -120,12 +120,23 @@ extension ICONService {
         params["value"] = value
         params["nonce"] = "0x1"
         
+        if let data = message {
+            params["dataType"] = "message"
+            params["data"] = data
+        }
+        
+        return self.sendTransaction(privateKey: privateKey, params: params)
+    }
+    
+    func sendTransaction(privateKey: String, params: [String: String]) -> Result<String, ICONResult> {
+        
         let tbs = getHash(makeTBS(method: .sendTransaction, params: params))
         
         guard let sign = try? signECDSA(hashedMessage: tbs, privateKey: privateKey) else { return .failure(ICONResult.sign) }
-        params["signature"] = sign.base64EncodedString()
+        var signed = params
+        signed["signature"] = sign.base64EncodedString()
         
-        let result = send(method: .sendTransaction, params: params)
+        let result = send(method: .sendTransaction, params: signed)
         
         switch result {
         case .success(let data):
