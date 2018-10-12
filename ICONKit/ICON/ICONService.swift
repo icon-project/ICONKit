@@ -55,12 +55,20 @@ extension ICONService: SECP256k1, Cipher {
         return Int(arc4random_uniform(9999))
     }
     
-    private func makeTBS(method: ICON.METHOD, params: [String: String]) -> Data {
+    private func makeTBS(method: ICON.METHOD, params: [String: Any], data: String? = nil) -> Data {
         let allKeys = params.keys.sorted()
         
         var tbs = method.rawValue
         for key in allKeys {
-            tbs = tbs + "." + key + "." + String(params[key]!)
+            if let serialized = data, key == "data" {
+                tbs = tbs + "." + key + "." + serialized
+            } else {
+                if let value = params[key] as? String {
+                    tbs = tbs + "." + key + "." + value
+                } else if let value = params[key] as? Int {
+                    tbs = tbs + "." + key + "." + String(format: "%d", value)
+                }
+            }
         }
         
         print("tbs - \(tbs)")
@@ -128,9 +136,29 @@ extension ICONService {
         return self.sendTransaction(privateKey: privateKey, params: params)
     }
     
-    func sendTransaction(privateKey: String, params: [String: String]) -> Result<String, ICONResult> {
+    public func sendIRCToken(privateKey: String, from: String, to: String, contractAddress: String, value: String, stepLimit: String) -> Result<String, ICONResult> {
+        var params = [String: Any]()
+        let timestamp = Date.microTimestampHex
         
-        let tbs = getHash(makeTBS(method: .sendTransaction, params: params))
+        params["version"] = ICONService.ver
+        params["from"] = from
+        params["to"] = contractAddress
+        params["stepLimit"] = stepLimit
+        params["timestamp"] = timestamp
+        params["nid"] = self.nid
+        params["nonce"] = "0x1"
+        params["dataType"] = "call"
+        
+        let data = ["method": "transfer", "params": ["_to": to, "_value": value]] as [String : Any]
+        let dataString = "{method.transfer.params.{_to.\(to)._value.\(value)}}"
+        params["data"] = data
+        
+        return self.sendTransaction(privateKey: privateKey, params: params, data: dataString)
+    }
+    
+    func sendTransaction(privateKey: String, params: [String: Any], data: String? = nil) -> Result<String, ICONResult> {
+        
+        let tbs = getHash(makeTBS(method: .sendTransaction, params: params, data: data))
         
         guard let sign = try? signECDSA(hashedMessage: tbs, privateKey: privateKey) else { return .failure(ICONResult.sign) }
         var signed = params
@@ -154,7 +182,6 @@ extension ICONService {
             return .failure(error)
         }
     }
-    
     
     public func getBalance(wallet: ICON.Wallet) -> Result<BigUInt, ICONResult> {
         guard let address = wallet.address else { return .failure(ICONResult.noAddress) }

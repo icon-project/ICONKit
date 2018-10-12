@@ -133,3 +133,23 @@ extension Data {
         return map { String(format: format, $0) }.joined()
     }
 }
+
+extension Dictionary {
+    public func toString() -> String? {
+        do {
+            let data = try JSONSerialization.data(withJSONObject: self, options: [])
+            return String(data: data, encoding: .utf8)
+        } catch {
+            return nil
+        }
+    }
+    
+    public func toHexString() -> String? {
+        do {
+            let data = try JSONSerialization.data(withJSONObject: self, options: [])
+            return data.hexEncodedString()
+        } catch {
+            return nil
+        }
+    }
+}
