@@ -71,8 +71,6 @@ extension ICONService: SECP256k1, Cipher {
             }
         }
         
-        print("tbs - \(tbs)")
-        
         return tbs.data(using: .utf8)!
     }
     
@@ -104,7 +102,7 @@ extension ICONService: SECP256k1, Cipher {
         }
         
         guard let value = data else { return .failure(ICONResult.httpError) }
-        print("value - \(String(describing: String(data: value, encoding: .utf8)))")
+        
         guard response?.statusCode == 200 else {
             return .failure(ICONResult.httpError)
         }
@@ -178,7 +176,6 @@ extension ICONService {
             return .failure(ICONResult.unknown)
             
         case .failure(let error):
-            print("Error - \(error)")
             return .failure(error)
         }
     }
@@ -205,7 +202,6 @@ extension ICONService {
             return .failure(ICONResult.unknown)
             
         case .failure(let error):
-            print("Error: \(error)")
             return .failure(error)
             
         }
@@ -254,7 +250,6 @@ extension ICONService {
             
             
         case .failure(let error):
-            print("Error: \(error)")
             return .failure(error)
         }
     }
@@ -279,7 +274,6 @@ extension ICONService {
             
             
         case .failure(let error):
-            print("Error - \(error)")
             return .failure(error)
         }
     }
@@ -318,7 +312,6 @@ extension ICONService {
             return .failure(ICONResult.unknown)
             
         case .failure(let error):
-            print("Error - \(error)")
             return .failure(ICONResult.unknown)
         }
     }
@@ -349,7 +342,6 @@ extension ICONService {
             return .failure(ICONResult.unknown)
             
         case .failure(let error):
-            print("Error - \(error)")
             return .failure(error)
         }
     }
