@@ -113,7 +113,7 @@ extension ICON.Wallet {
             let result = try encrypt(devKey: encKey, data: key.hexToData()!, salt: salt)
             let kdfParam = ICON.Keystore.KDF(dklen: PBE_DKLEN, salt: salt.toHexString(), c: round, prf: "hmac-sha256")
             let crypto = ICON.Keystore.Crypto(ciphertext: result.cipherText, cipherparams: ICON.Keystore.CipherParams(iv: result.iv), cipher: "aes-128-ctr", kdf: "pbkdf2", kdfparams: kdfParam, mac: result.mac)
-            var keyStore = ICON.Keystore(address: address, crypto: crypto)
+            let keyStore = ICON.Keystore(address: address, crypto: crypto)
             keyStore.coinType = "icx"
             
             return keyStore

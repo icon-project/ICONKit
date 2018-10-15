@@ -311,7 +311,7 @@ extension ICONService {
             }
             return .failure(ICONResult.unknown)
             
-        case .failure(let error):
+        case .failure(_):
             return .failure(ICONResult.unknown)
         }
     }
