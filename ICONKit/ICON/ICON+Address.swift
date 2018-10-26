@@ -18,21 +18,17 @@
 import Foundation
 
 extension ICON {
-    public enum METHOD: String {
-        case sendTransaction = "icx_sendTransaction"
-        case getBalance = "icx_getBalance"
-        case getTransactionResult = "icx_getTransactionResult"
-        case getLastBlock = "icx_getLastBlock"
-        case getBlockByHash = "icx_getBlockByHash"
-        case getBlockByHeight = "icx_getBlockBytHeight"
-        case getTotalSupply = "icx_getTotalSupply"
-        case getTransactionByHash = "icx_getTransactionByHash"
-        case callMethod = "icx_call"
-        case getScoreAPI = "icx_getScoreApi"
-    }
-    
-    public struct Util {
-        static let PBE_DKLEN: Int = 32
-    
+    public class Address {
+        var address: String
+        
+        private init() {
+            self.address = ""
+        }
+        
+        convenience init?(address: String) {
+            guard address.count == 42 && address.lowercased().hasPrefix("hx") else { return nil }
+            self.init()
+            self.address = address
+        }
     }
 }

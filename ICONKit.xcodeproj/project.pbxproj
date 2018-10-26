@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		5CC86537544E6BAE673B2AB6 /* Pods_ICONKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F6F5FDB6769EB203CA309F4 /* Pods_ICONKit.framework */; };
 		D40FA03521478E3600CB8E6E /* ICON+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40FA03421478E3600CB8E6E /* ICON+Transaction.swift */; };
+		D44F2F1F217EE3A5008B4D1F /* ICON+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44F2F1E217EE3A5008B4D1F /* ICON+Address.swift */; };
 		D48D181C2134014600BEAA2F /* ICONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D181B2134014600BEAA2F /* ICONService.swift */; };
 		D49E4747214925E8007A0B26 /* ICON+Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49E4746214925E8007A0B26 /* ICON+Call.swift */; };
 		D49E4749214928C6007A0B26 /* ICON+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49E4748214928C6007A0B26 /* ICON+Response.swift */; };
+		D4D4ED54217EBB1E004F2D83 /* ICON+Send.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4ED53217EBB1E004F2D83 /* ICON+Send.swift */; };
+		D4D4ED56217EC39F004F2D83 /* ICON+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */; };
 		D4E25BA2212FA7C60027899B /* ICONKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E25B98212FA7C50027899B /* ICONKit.framework */; };
 		D4E25BA7212FA7C60027899B /* ICONKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BA6212FA7C60027899B /* ICONKitTests.swift */; };
 		D4E25BA9212FA7C60027899B /* ICONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E25B9B212FA7C50027899B /* ICONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -20,11 +23,11 @@
 		D4E25BC6212FABD90027899B /* ICON+Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBC212FABD90027899B /* ICON+Wallet.swift */; };
 		D4E25BC7212FABD90027899B /* ICON+Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBD212FABD90027899B /* ICON+Cipher.swift */; };
 		D4E25BC8212FABD90027899B /* ICON+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBE212FABD90027899B /* ICON+Error.swift */; };
-		D4E25BCA212FABD90027899B /* ICONRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC0212FABD90027899B /* ICONRequest.swift */; };
 		D4E25BCB212FABD90027899B /* Common+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC1212FABD90027899B /* Common+Extension.swift */; };
 		D4E25BCC212FABD90027899B /* ICON+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC2212FABD90027899B /* ICON+Util.swift */; };
 		D4E25BCD212FABD90027899B /* ICON+SECP256k1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */; };
 		D4E25BCF212FAEF20027899B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E25BCE212FAEF20027899B /* Security.framework */; };
+		D4ED1A0B2182EDC800171870 /* ICON+Keystore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ED1A0A2182EDC800171870 /* ICON+Keystore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,7 @@
 		D4043F3F2150EBC100D2DA7F /* scrypt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = scrypt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4043F412150EBCA00D2DA7F /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D40FA03421478E3600CB8E6E /* ICON+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Transaction.swift"; sourceTree = "<group>"; };
+		D44F2F1E217EE3A5008B4D1F /* ICON+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Address.swift"; sourceTree = "<group>"; };
 		D4653B59213CE0CC0059C042 /* scrypt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = scrypt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4653B5B213CE0D30059C042 /* BigInt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BigInt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4653B5D213CE0DC0059C042 /* Result.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +58,8 @@
 		D48D181B2134014600BEAA2F /* ICONService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICONService.swift; sourceTree = "<group>"; };
 		D49E4746214925E8007A0B26 /* ICON+Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Call.swift"; sourceTree = "<group>"; };
 		D49E4748214928C6007A0B26 /* ICON+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Response.swift"; sourceTree = "<group>"; };
+		D4D4ED53217EBB1E004F2D83 /* ICON+Send.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Send.swift"; sourceTree = "<group>"; };
+		D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Request.swift"; sourceTree = "<group>"; };
 		D4E25B98212FA7C50027899B /* ICONKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ICONKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E25B9B212FA7C50027899B /* ICONKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICONKit.h; sourceTree = "<group>"; };
 		D4E25B9C212FA7C50027899B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,11 +71,11 @@
 		D4E25BBC212FABD90027899B /* ICON+Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Wallet.swift"; sourceTree = "<group>"; };
 		D4E25BBD212FABD90027899B /* ICON+Cipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Cipher.swift"; sourceTree = "<group>"; };
 		D4E25BBE212FABD90027899B /* ICON+Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Error.swift"; sourceTree = "<group>"; };
-		D4E25BC0212FABD90027899B /* ICONRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICONRequest.swift; sourceTree = "<group>"; };
 		D4E25BC1212FABD90027899B /* Common+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Common+Extension.swift"; sourceTree = "<group>"; };
 		D4E25BC2212FABD90027899B /* ICON+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Util.swift"; sourceTree = "<group>"; };
 		D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+SECP256k1.swift"; sourceTree = "<group>"; };
 		D4E25BCE212FAEF20027899B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D4ED1A0A2182EDC800171870 /* ICON+Keystore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Keystore.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,18 +151,21 @@
 			isa = PBXGroup;
 			children = (
 				D4E25BBA212FABD90027899B /* ICON.swift */,
+				D44F2F1E217EE3A5008B4D1F /* ICON+Address.swift */,
 				D49E4746214925E8007A0B26 /* ICON+Call.swift */,
 				D4E25BBD212FABD90027899B /* ICON+Cipher.swift */,
 				D4E25BBE212FABD90027899B /* ICON+Error.swift */,
+				D4ED1A0A2182EDC800171870 /* ICON+Keystore.swift */,
+				D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */,
 				D49E4748214928C6007A0B26 /* ICON+Response.swift */,
 				D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */,
+				D4D4ED53217EBB1E004F2D83 /* ICON+Send.swift */,
 				D4E25BBB212FABD90027899B /* ICON+Signer.swift */,
 				D40FA03421478E3600CB8E6E /* ICON+Transaction.swift */,
 				D4E25BC2212FABD90027899B /* ICON+Util.swift */,
 				D4E25BBC212FABD90027899B /* ICON+Wallet.swift */,
 				D4E25BC1212FABD90027899B /* Common+Extension.swift */,
 				D48D181B2134014600BEAA2F /* ICONService.swift */,
-				D4E25BC0212FABD90027899B /* ICONRequest.swift */,
 			);
 			path = ICON;
 			sourceTree = "<group>";
@@ -313,16 +322,19 @@
 				D4E25BC5212FABD90027899B /* ICON+Signer.swift in Sources */,
 				D4E25BCD212FABD90027899B /* ICON+SECP256k1.swift in Sources */,
 				D49E4747214925E8007A0B26 /* ICON+Call.swift in Sources */,
+				D4D4ED56217EC39F004F2D83 /* ICON+Request.swift in Sources */,
 				D40FA03521478E3600CB8E6E /* ICON+Transaction.swift in Sources */,
 				D4E25BC6212FABD90027899B /* ICON+Wallet.swift in Sources */,
+				D44F2F1F217EE3A5008B4D1F /* ICON+Address.swift in Sources */,
 				D4E25BCB212FABD90027899B /* Common+Extension.swift in Sources */,
+				D4ED1A0B2182EDC800171870 /* ICON+Keystore.swift in Sources */,
 				D4E25BC4212FABD90027899B /* ICON.swift in Sources */,
 				D48D181C2134014600BEAA2F /* ICONService.swift in Sources */,
 				D49E4749214928C6007A0B26 /* ICON+Response.swift in Sources */,
 				D4E25BC7212FABD90027899B /* ICON+Cipher.swift in Sources */,
+				D4D4ED54217EBB1E004F2D83 /* ICON+Send.swift in Sources */,
 				D4E25BCC212FABD90027899B /* ICON+Util.swift in Sources */,
 				D4E25BC8212FABD90027899B /* ICON+Error.swift in Sources */,
-				D4E25BCA212FABD90027899B /* ICONRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

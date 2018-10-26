@@ -16,7 +16,7 @@
  */
 
 import Foundation
-
+import BigInt
 
 // ICON Response Decodable
 extension ICON {
@@ -53,189 +53,393 @@ extension ICON {
                 }
             }
         }
+    }
+}
+
+extension ICON.Response {
+    
+    open class Block: DecodableResponse {
         
-        open class TxHash: DecodableResponse {
-            public var result: String?
+        open class BlockResult: Decodable {
+            public var version: String
+            public var prevBlockHash: String
+            public var merkleTreeRootHash: String
+            public var timestamp: UInt
+            public var confirmedTransactionList: [ConfirmedTransactionList]
+            public var blockHash: String
+            public var height: UInt
+            public var perrID: String
+            public var signature: String
+            
+            open class ConfirmedTransactionList: Decodable {
+                
+            }
+        }
+    }
+}
+
+extension ICON.Response {
+    open class Value: DecodableResponse {
+        public var value: BigUInt
+        
+        public required init(from decoder: Decoder) throws {
+            
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            let result = try container.decode(String.self, forKey: .result)
+            
+            guard let bigValue = BigUInt(result, radix: 16) else {
+                throw ICONResult.parsing
+            }
+            self.value = bigValue
+            try super.init(from: decoder)
+        }
+    }
+}
+
+extension ICON.Response {
+    open class TxHash: DecodableResponse {
+        public var result: String?
+        
+        public required init(from decoder: Decoder) throws {
+            try super.init(from: decoder)
+            
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            if container.contains(.result) {
+                self.result = try container.decode(String.self, forKey: .result)
+            } else {
+                self.result = nil
+            }
+        }
+    }
+}
+
+extension ICON.Response {
+    open class ScoreAPI: DecodableResponse {
+        public var result: [Result]?
+        
+        open class Result: Decodable {
+            public var type: String
+            public var name: String
+            public var inputs: [[String: String?]]
+            public var outputs: [[String: String]]?
+            public var readonly: String?
+            public var payable: String?
+            
+            enum ResultKeys: String, CodingKey {
+                case type
+                case name
+                case inputs
+                case outputs
+                case readonly
+                case payable
+            }
             
             public required init(from decoder: Decoder) throws {
-                try super.init(from: decoder)
+                let container = try decoder.container(keyedBy: ResultKeys.self)
                 
-                let container = try decoder.container(keyedBy: CodingKeys.self)
-                
-                if container.contains(.result) {
-                    self.result = try container.decode(String.self, forKey: .result)
+                self.type = try container.decode(String.self, forKey: .type)
+                self.name = try container.decode(String.self, forKey: .name)
+                self.inputs = try container.decode([[String: String?]].self, forKey: .inputs)
+                if container.contains(.outputs) {
+                    self.outputs = try container.decode([[String: String]].self, forKey: .outputs)
                 } else {
-                    self.result = nil
+                    self.outputs = nil
+                }
+                if container.contains(.readonly) {
+                    self.readonly = try container.decode(String.self, forKey: .readonly)
+                } else {
+                    self.readonly = nil
+                }
+                if container.contains(.payable) {
+                    self.payable = try container.decode(String.self, forKey: .payable)
+                } else {
+                    self.payable = nil
                 }
             }
         }
         
-        open class ScoreAPI: DecodableResponse {
-            public var result: [ApiResult]?
+        public required init(from decoder: Decoder) throws {
+            try super.init(from: decoder)
             
-            open class ApiResult: Decodable {
-                public var type: String
-                public var name: String
-                public var inputs: [[String: String?]]
-                public var outputs: [[String: String]]?
-                public var readonly: String?
-                public var payable: String?
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            if container.contains(.result) {
+                self.result = try container.decode([Result].self, forKey: .result)
+            } else {
+                self.result = nil
+            }
+        }
+    }
+}
+
+extension ICON.Response {
+    open class Balance: DecodableResponse {
+        public var result: String?
+        
+        public required init(from decoder: Decoder) throws {
+            try super.init(from: decoder)
+            
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            if container.contains(.result) {
+                self.result = try container.decode(String.self, forKey: .result)
+            } else {
+                self.result = nil
+            }
+        }
+    }
+}
+
+extension ICON.Response {
+    open class Transaction: DecodableResponse {
+        public var result: Result?
+        
+        public required init(from decoder: Decoder) throws {
+            try super.init(from: decoder)
+            
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            if container.contains(.result) {
+                self.result = try container.decode(Result.self, forKey: .result)
+            } else {
+                self.result = nil
+            }
+        }
+        
+        open class Result: Decodable {
+            public var version: String
+            public var from: String
+            public var to: String
+            public var value: String
+            public var stepLimit: String
+            public var timestamp: String
+            public var nid: String
+            public var nonce: String
+            public var txHash: String
+            public var txIndex: String
+            public var blockHeight: String
+            public var blockHash: String
+            public var signature: String
+            public var dataType: String?
+            public var data: [String: Any]?
+            public var dataString: String?
+            
+            public enum ResultKey: String, CodingKey {
+                case version
+                case from
+                case to
+                case value
+                case stepLimit
+                case timestamp
+                case nid
+                case nonce
+                case txHash
+                case txIndex
+                case blockHeight
+                case blockHash
+                case signature
+                case dataType
+                case data
+            }
+            
+            public required init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: ResultKey.self)
                 
-                enum ApiCodingKeys: String, CodingKey {
-                    case type
-                    case name
-                    case inputs
-                    case outputs
-                    case readonly
-                    case payable
-                }
+                self.version = try container.decode(String.self, forKey: .version)
+                self.from = try container.decode(String.self, forKey: .from)
+                self.to = try container.decode(String.self, forKey: .to)
+                self.value = try container.decode(String.self, forKey: .value)
+                self.stepLimit = try container.decode(String.self, forKey: .stepLimit)
+                self.timestamp = try container.decode(String.self, forKey: .timestamp)
+                self.nid = try container.decode(String.self, forKey: .nid)
+                self.nonce = try container.decode(String.self, forKey: .nonce)
+                self.txHash = try container.decode(String.self, forKey: .txHash)
+                self.txIndex = try container.decode(String.self, forKey: .txIndex)
+                self.blockHeight = try container.decode(String.self, forKey: .blockHeight)
+                self.blockHash = try container.decode(String.self, forKey: .blockHash)
+                self.signature = try container.decode(String.self, forKey: .signature)
                 
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: ApiCodingKeys.self)
+                if container.contains(.dataType) {
+                    self.dataType = try container.decode(String.self, forKey: .dataType)
                     
-                    self.type = try container.decode(String.self, forKey: .type)
-                    self.name = try container.decode(String.self, forKey: .name)
-                    self.inputs = try container.decode([[String: String?]].self, forKey: .inputs)
-                    if container.contains(.outputs) {
-                        self.outputs = try container.decode([[String: String]].self, forKey: .outputs)
-                    } else {
-                        self.outputs = nil
-                    }
-                    if container.contains(.readonly) {
-                        self.readonly = try container.decode(String.self, forKey: .readonly)
-                    } else {
-                        self.readonly = nil
-                    }
-                    if container.contains(.payable) {
-                        self.payable = try container.decode(String.self, forKey: .payable)
-                    } else {
-                        self.payable = nil
-                    }
-                }
-            }
-            
-            public required init(from decoder: Decoder) throws {
-                try super.init(from: decoder)
-                
-                let container = try decoder.container(keyedBy: CodingKeys.self)
-                
-                if container.contains(.result) {
-                    self.result = try container.decode([ApiResult].self, forKey: .result)
-                } else {
-                    self.result = nil
-                }
-            }
-        }
-        
-        open class Balance: DecodableResponse {
-            public var result: String?
-            
-            public required init(from decoder: Decoder) throws {
-                try super.init(from: decoder)
-                
-                let container = try decoder.container(keyedBy: CodingKeys.self)
-                
-                if container.contains(.result) {
-                    self.result = try container.decode(String.self, forKey: .result)
-                } else {
-                    self.result = nil
-                }
-            }
-        }
-        
-        open class StepPrice: DecodableResponse {
-            public var result: String?
-            
-            public required init(from decoder: Decoder) throws {
-                try super.init(from: decoder)
-                
-                let container = try decoder.container(keyedBy: CodingKeys.self)
-                
-                if container.contains(.result) {
-                    self.result = try container.decode(String.self, forKey: .result)
-                } else {
-                    self.result = nil
-                }
-            }
-        }
-        
-        open class StepCosts: DecodableResponse {
-            public var result: CostResult?
-            
-            open class CostResult: Decodable {
-                public var defaultValue: String
-                public var contractCall: String
-                public var contractCreate: String
-                public var contractDestruct: String
-                public var contractSet: String
-                public var set: String
-                public var replace: String
-                public var delete: String
-                public var input: String
-                public var eventLog: String
-                
-                enum CodingKeys: String, CodingKey {
-                    case defaultValue = "default"
-                    case contractCall
-                    case contractCreate
-                    case contractDestruct
-                    case contractSet
-                    case set
-                    case replace
-                    case delete
-                    case input
-                    case eventLog
-                }
-            }
-            
-            public required init(from decoder: Decoder) throws {
-                try super.init(from: decoder)
-                
-                let container = try decoder.container(keyedBy: CodingKeys.self)
-                
-                if container.contains(.result) {
-                    self.result = try container.decode(CostResult.self, forKey: .result)
-                } else {
-                    self.result = nil
-                }
-            }
-        }
-        
-        open class MaxStepLimit: DecodableResponse {
-            public var result: String?
-            
-            public required init(from decoder: Decoder) throws {
-                try super.init(from: decoder)
-                
-                let container = try decoder.container(keyedBy: CodingKeys.self)
-                
-                if container.contains(.result) {
-                    self.result = try container.decode(String.self, forKey: .result)
-                } else {
-                    self.result = nil
-                }
-            }
-        }
-        
-        open class Call: DecodableResponse {
-            public var result: Any?
-            
-            public required init(from decoder: Decoder) throws {
-                try super.init(from: decoder)
-                
-                let container = try decoder.container(keyedBy: CodingKeys.self)
-                
-                if container.contains(.result) {
-                    if let result = try? container.decode(String.self, forKey: .result) {
-                        self.result = result
-                    } else if let result = try? container.decode(Int.self, forKey: .result) {
-                        self.result = result
+                    if container.contains(.data) {
+                        if let dataString = try? container.decode(String.self, forKey: .data) {
+                            self.dataString = dataString
+                            self.data = nil
+                        } else if let data = try? container.decode([String: Any].self, forKey: .data) {
+                            self.data = data
+                            self.dataString = nil
+                        }
                     }
                 } else {
-                    self.result = nil
+                    self.dataType = nil
+                    self.data = nil
+                    self.dataString = nil
                 }
             }
         }
     }
 }
 
+extension ICON.Response {
+    open class TransactionResult: DecodableResponse {
+        public var result: Result?
+        
+        open class Result: Decodable {
+            public var status: String
+            public var to: String
+            public var txHash: String
+            public var txIndex: String
+            public var blockHeight: String
+            public var blockHash: String
+            public var cumulativeStepUsed: String
+            public var stepUsed: String
+            public var stepPrice: String
+            public var scoreAddress: String?
+            public var eventLogs: EventLog?
+            public var logsBloom: String?
+            public var failure: Failure?
+            
+            public enum ResultKey: String, CodingKey {
+                case status, to, txHash, txIndex, blockHeight, blockHash, cumulativeStepUsed, stepUsed
+                case stepPrice, scoreAddress, eventLogs, logsBloom, failure
+            }
+            
+            open class EventLog: Decodable {
+                public var scoreAddress: String
+                public var indexed: [String]
+                public var data: [String]
+            }
+            
+            open class Failure: Decodable {
+                public var code: String
+                public var message: String
+            }
+            
+            public required init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: ResultKey.self)
+                
+                self.status = try container.decode(String.self, forKey: .status)
+                self.to = try container.decode(String.self, forKey: .to)
+                self.txHash = try container.decode(String.self, forKey: .txHash)
+                self.txIndex = try container.decode(String.self, forKey: .txIndex)
+                self.blockHeight = try container.decode(String.self, forKey: .blockHeight)
+                self.blockHash = try container.decode(String.self, forKey: .blockHash)
+                self.cumulativeStepUsed = try container.decode(String.self, forKey: .cumulativeStepUsed)
+                self.stepUsed = try container.decode(String.self, forKey: .stepUsed)
+                self.stepPrice = try container.decode(String.self, forKey: .stepPrice)
+                if container.contains(.scoreAddress) {
+                    self.scoreAddress = try container.decode(String.self, forKey: .scoreAddress)
+                }
+                if container.contains(.eventLogs) {
+                    self.eventLogs = try container.decode(EventLog.self, forKey: .eventLogs)
+                }
+                if container.contains(.logsBloom) {
+                    self.logsBloom = try container.decode(String.self, forKey: .logsBloom)
+                }
+                if container.contains(.failure) {
+                    self.failure = try container.decode(Failure.self, forKey: .failure)
+                }
+            }
+        }
+    }
+}
+
+extension ICON.Response {
+    
+    open class StepPrice: DecodableResponse {
+        public var result: String?
+        
+        public required init(from decoder: Decoder) throws {
+            try super.init(from: decoder)
+            
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            if container.contains(.result) {
+                self.result = try container.decode(String.self, forKey: .result)
+            } else {
+                self.result = nil
+            }
+        }
+    }
+    
+    open class StepCosts: DecodableResponse {
+        public var result: CostResult?
+        
+        open class CostResult: Decodable {
+            public var defaultValue: String
+            public var contractCall: String
+            public var contractCreate: String
+            public var contractDestruct: String
+            public var contractSet: String
+            public var set: String
+            public var replace: String
+            public var delete: String
+            public var input: String
+            public var eventLog: String
+            
+            enum CodingKeys: String, CodingKey {
+                case defaultValue = "default"
+                case contractCall
+                case contractCreate
+                case contractDestruct
+                case contractSet
+                case set
+                case replace
+                case delete
+                case input
+                case eventLog
+            }
+        }
+        
+        public required init(from decoder: Decoder) throws {
+            try super.init(from: decoder)
+            
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            if container.contains(.result) {
+                self.result = try container.decode(CostResult.self, forKey: .result)
+            } else {
+                self.result = nil
+            }
+        }
+    }
+    
+    open class MaxStepLimit: DecodableResponse {
+        public var result: String?
+        
+        public required init(from decoder: Decoder) throws {
+            try super.init(from: decoder)
+            
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            if container.contains(.result) {
+                self.result = try container.decode(String.self, forKey: .result)
+            } else {
+                self.result = nil
+            }
+        }
+    }
+    
+    open class Call: DecodableResponse {
+        public var result: Any?
+        
+        public required init(from decoder: Decoder) throws {
+            try super.init(from: decoder)
+            
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            if container.contains(.result) {
+                if let result = try? container.decode(String.self, forKey: .result) {
+                    self.result = result
+                } else if let result = try? container.decode(Int.self, forKey: .result) {
+                    self.result = result
+                }
+            } else {
+                self.result = nil
+            }
+        }
+    }
+}
