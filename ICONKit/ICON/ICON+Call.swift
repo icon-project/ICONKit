@@ -17,68 +17,38 @@
 
 import Foundation
 
-public protocol CallProtocol {
-}
-
-public extension CallProtocol {
+open class Call {
+    public var from: String
+    public var to: String
+    public var method: String
+    public var params: [String: Any]?
     
-}
-
-extension ICON {
-    public struct CallData: Encodable, CallProtocol {
-        var from: String?
-        var to: String?
-        var dataType: String?
-        var data: Data?
-        
-        public struct Data: Encodable {
-            var method: String
-            var params: String
-            
-            enum DataCodingKeys: String, CodingKey {
-                case method
-                case params
-            }
-        }
+    init(from: String, to: String, method: String, params: [String: Any]?) {
+        self.from = from
+        self.to = to
+        self.method = method
+        self.params = params
     }
     
-    open class Call {
-        var callData = CallData()
-
-        public func to(_ address: String) -> Call {
-            self.callData.to = address
-
-            return self
+    public func getCallParams() -> [String: Any] {
+        var params = [String: Any]()
+        params["from"] = self.from
+        params["to"] = self.to
+        params["dataType"] = "call"
+        var data = [String: Any]()
+        data["method"] = self.method
+        if let params = self.params {
+            data["params"] = params
         }
-
-        public func from(_ address: String) -> Call {
-            self.callData.from = address
-
-            return self
-        }
-
-        public func dataType(_ type: String) -> Call {
-            self.callData.dataType = type
-
-            return self
-        }
-
-        public func method(_ method: String) -> Call {
-            self.callData.data?.method = method
-
-            return self
-        }
-
-        public func data(_ data: ICON.CallData.Data) -> Call {
-            self.callData.data = data
-
-            return self
-        }
-    }
-    
-    open class NameCall: Call, CallProtocol {
-        public var result: returnType = ""
-        public typealias returnType = String
+        params["data"] = data
         
+        return params
+    }
+}
+
+
+extension ICONService {
+    public func call<T>(_ call: Call) -> Request<Response.Call<T>> {
+        return Request<Response.Call<T>>(id: self.getID(), provider: self.provider, method: .callMethod, params: call.getCallParams())
     }
 }

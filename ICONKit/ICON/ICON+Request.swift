@@ -19,7 +19,7 @@ import Foundation
 import Result
 import BigInt
 
-open class Request<T: ICON.Response.DecodableResponse>: Sendable {
+open class Request<T: Response.DecodableResponse>: Sendable {
     private let jsonrpc = "2.0"
     private let id: Int
     var provider: String
@@ -53,31 +53,31 @@ extension Request {
 }
 
 extension ICONService {
-    public func getTotalSupply() -> Request<ICON.Response.Value> {
-        return Request<ICON.Response.Value>(id: self.getID(), provider: self.provider, method: .getTotalSupply, params: nil)
+    public func getTotalSupply() -> Request<Response.Value> {
+        return Request<Response.Value>(id: self.getID(), provider: self.provider, method: .getTotalSupply, params: nil)
     }
     
-    public func getBalance(address: String) -> Request<ICON.Response.Value> {
-        return Request<ICON.Response.Value>(id: self.getID(), provider: self.provider, method: .getBalance, params: ["address": address])
+    public func getBalance(address: String) -> Request<Response.Value> {
+        return Request<Response.Value>(id: self.getID(), provider: self.provider, method: .getBalance, params: ["address": address])
     }
     
-    public func getBlock(height: UInt64) -> Request<ICON.Response.Block> {
-        return Request<ICON.Response.Block>(id: self.getID(), provider: self.provider, method: .getBlockByHeight, params: ["height": "0x" + String(height, radix: 16)])
+    public func getBlock(height: UInt64) -> Request<Response.Block> {
+        return Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getBlockByHeight, params: ["height": "0x" + String(height, radix: 16)])
     }
     
-    public func getBlock(hash: String) -> Request<ICON.Response.Block> {
-        return Request<ICON.Response.Block>(id: self.getID(), provider: self.provider, method: .getBlockByHash, params: ["hash": hash])
+    public func getBlock(hash: String) -> Request<Response.Block> {
+        return Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getBlockByHash, params: ["hash": hash])
     }
     
-    public func getLastBlock() -> Request<ICON.Response.Block> {
-        return Request<ICON.Response.Block>(id: self.getID(), provider: self.provider, method: .getLastBlock, params: nil)
+    public func getLastBlock() -> Request<Response.Block> {
+        return Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getLastBlock, params: nil)
     }
     
-    public func getScoreAPI(scoreAddress: String) -> Request<ICON.Response.ScoreAPI> {
-        return Request<ICON.Response.ScoreAPI>(id: self.getID(), provider: self.provider, method: .getScoreAPI, params: ["address": scoreAddress])
+    public func getScoreAPI(scoreAddress: String) -> Request<Response.ScoreAPI> {
+        return Request<Response.ScoreAPI>(id: self.getID(), provider: self.provider, method: .getScoreAPI, params: ["address": scoreAddress])
     }
     
-    public func getTransaction(hash: String) -> Request<ICON.Response.Transaction> {
-        return Request<ICON.Response.Transaction>(id: self.getID(), provider: self.provider, method: .getTransactionByHash, params: ["txHash": hash])
+    public func getTransaction(hash: String) -> Request<Response.Transaction> {
+        return Request<Response.Transaction>(id: self.getID(), provider: self.provider, method: .getTransactionByHash, params: ["txHash": hash])
     }
 }

@@ -19,44 +19,42 @@ import Foundation
 import BigInt
 
 // ICON Response Decodable
-extension ICON {
-    
-    public struct Response {
-        open class DecodableResponse: Decodable {
-            public var jsonrpc: String = "2.0"
-            public var id: Int = 0
-            public var error: ResponseError?
+
+public struct Response {
+    open class DecodableResponse: Decodable {
+        public var jsonrpc: String = "2.0"
+        public var id: Int = 0
+        public var error: ResponseError?
+        
+        enum CodingKeys: String, CodingKey {
+            case jsonrpc
+            case id
+            case error
+            case result
+        }
+        
+        open class ResponseError: Decodable {
+            var code: Int
+            var message: String
+        }
+        
+        
+        public required init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
             
-            enum CodingKeys: String, CodingKey {
-                case jsonrpc
-                case id
-                case error
-                case result
-            }
+            self.jsonrpc = try container.decode(String.self, forKey: .jsonrpc)
+            self.id = try container.decode(Int.self, forKey: .id)
             
-            open class ResponseError: Decodable {
-                var code: Int
-                var message: String
-            }
-            
-            
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: CodingKeys.self)
-                
-                self.jsonrpc = try container.decode(String.self, forKey: .jsonrpc)
-                self.id = try container.decode(Int.self, forKey: .id)
-                
-                if container.contains(.error) {
-                    self.error = try container.decode(ResponseError.self, forKey: .error)
-                } else {
-                    self.error = nil
-                }
+            if container.contains(.error) {
+                self.error = try container.decode(ResponseError.self, forKey: .error)
+            } else {
+                self.error = nil
             }
         }
     }
 }
 
-extension ICON.Response {
+extension Response {
     
     open class Block: DecodableResponse {
         
@@ -78,7 +76,7 @@ extension ICON.Response {
     }
 }
 
-extension ICON.Response {
+extension Response {
     open class Value: DecodableResponse {
         public var value: BigUInt
         
@@ -97,7 +95,7 @@ extension ICON.Response {
     }
 }
 
-extension ICON.Response {
+extension Response {
     open class TxHash: DecodableResponse {
         public var result: String?
         
@@ -115,7 +113,7 @@ extension ICON.Response {
     }
 }
 
-extension ICON.Response {
+extension Response {
     open class ScoreAPI: DecodableResponse {
         public var result: [Result]?
         
@@ -174,7 +172,7 @@ extension ICON.Response {
     }
 }
 
-extension ICON.Response {
+extension Response {
     open class Balance: DecodableResponse {
         public var result: String?
         
@@ -192,7 +190,7 @@ extension ICON.Response {
     }
 }
 
-extension ICON.Response {
+extension Response {
     open class Transaction: DecodableResponse {
         public var result: Result?
         
@@ -283,7 +281,7 @@ extension ICON.Response {
     }
 }
 
-extension ICON.Response {
+extension Response {
     open class TransactionResult: DecodableResponse {
         public var result: Result?
         
@@ -347,7 +345,26 @@ extension ICON.Response {
     }
 }
 
-extension ICON.Response {
+extension Response {
+    
+    open class Call<T: Decodable>: DecodableResponse {
+        public var result: T
+        
+        public required init(from decoder: Decoder) throws {
+            
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            let result = try container.decode(T.self, forKey: .result)
+            
+            try super.init(from: decoder)
+            
+            self.result = result
+        }
+    }
+
+}
+
+extension Response {
     
     open class StepPrice: DecodableResponse {
         public var result: String?
@@ -417,26 +434,6 @@ extension ICON.Response {
             
             if container.contains(.result) {
                 self.result = try container.decode(String.self, forKey: .result)
-            } else {
-                self.result = nil
-            }
-        }
-    }
-    
-    open class Call: DecodableResponse {
-        public var result: Any?
-        
-        public required init(from decoder: Decoder) throws {
-            try super.init(from: decoder)
-            
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            if container.contains(.result) {
-                if let result = try? container.decode(String.self, forKey: .result) {
-                    self.result = result
-                } else if let result = try? container.decode(Int.self, forKey: .result) {
-                    self.result = result
-                }
             } else {
                 self.result = nil
             }
