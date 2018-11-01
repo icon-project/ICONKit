@@ -20,10 +20,10 @@ import BigInt
 
 // ICON Response Decodable
 
-public struct Response {
+open class Response {
     open class DecodableResponse: Decodable {
-        public var jsonrpc: String = "2.0"
-        public var id: Int = 0
+        public var jsonrpc: String
+        public var id: Int
         public var error: ResponseError?
         
         enum CodingKeys: String, CodingKey {
@@ -85,8 +85,8 @@ extension Response {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
             let result = try container.decode(String.self, forKey: .result)
-            
-            guard let bigValue = BigUInt(result, radix: 16) else {
+            let removed = result.prefix0xRemoved()
+            guard let bigValue = BigUInt(removed, radix: 16) else {
                 throw ICONResult.parsing
             }
             self.value = bigValue
@@ -348,95 +348,47 @@ extension Response {
 extension Response {
     
     open class Call<T: Decodable>: DecodableResponse {
-        public var result: T
+        public var result: T?
         
         public required init(from decoder: Decoder) throws {
+            try super.init(from: decoder)
             
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
             let result = try container.decode(T.self, forKey: .result)
             
-            try super.init(from: decoder)
-            
             self.result = result
         }
     }
-
 }
 
 extension Response {
     
-    open class StepPrice: DecodableResponse {
-        public var result: String?
+    open class StepCosts: Decodable {
+        public var defaultValue: String
+        public var contractCall: String
+        public var contractCreate: String
+        public var contractDestruct: String
+        public var contractSet: String
+        public var set: String
+        public var replace: String
+        public var delete: String
+        public var input: String
+        public var eventLog: String
+        public var apiCall: String
         
-        public required init(from decoder: Decoder) throws {
-            try super.init(from: decoder)
-            
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            if container.contains(.result) {
-                self.result = try container.decode(String.self, forKey: .result)
-            } else {
-                self.result = nil
-            }
-        }
-    }
-    
-    open class StepCosts: DecodableResponse {
-        public var result: CostResult?
-        
-        open class CostResult: Decodable {
-            public var defaultValue: String
-            public var contractCall: String
-            public var contractCreate: String
-            public var contractDestruct: String
-            public var contractSet: String
-            public var set: String
-            public var replace: String
-            public var delete: String
-            public var input: String
-            public var eventLog: String
-            
-            enum CodingKeys: String, CodingKey {
-                case defaultValue = "default"
-                case contractCall
-                case contractCreate
-                case contractDestruct
-                case contractSet
-                case set
-                case replace
-                case delete
-                case input
-                case eventLog
-            }
-        }
-        
-        public required init(from decoder: Decoder) throws {
-            try super.init(from: decoder)
-            
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            if container.contains(.result) {
-                self.result = try container.decode(CostResult.self, forKey: .result)
-            } else {
-                self.result = nil
-            }
-        }
-    }
-    
-    open class MaxStepLimit: DecodableResponse {
-        public var result: String?
-        
-        public required init(from decoder: Decoder) throws {
-            try super.init(from: decoder)
-            
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            if container.contains(.result) {
-                self.result = try container.decode(String.self, forKey: .result)
-            } else {
-                self.result = nil
-            }
+        enum CodingKeys: String, CodingKey {
+            case defaultValue = "default"
+            case contractCall
+            case contractCreate
+            case contractDestruct
+            case contractSet
+            case set
+            case replace
+            case delete
+            case input
+            case eventLog
+            case apiCall
         }
     }
 }

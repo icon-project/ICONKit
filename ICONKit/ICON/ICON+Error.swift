@@ -24,6 +24,7 @@ public enum ICDetail {
     case string
     case data
     case notSupported
+    case transaction
 }
 
 public enum ICError: Error {

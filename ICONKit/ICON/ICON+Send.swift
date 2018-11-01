@@ -57,7 +57,7 @@ extension Sendable {
         }
         
         guard let value = data else { return .failure(ICONResult.httpError) }
-        
+        print("data - \(String(describing: String(data: value, encoding: .utf8)))")
         guard response?.statusCode == 200 else {
             return .failure(ICONResult.httpError)
         }
@@ -83,12 +83,16 @@ private class ICONRequest {
         if let param = params {
             req["params"] = param
         }
-        let data = try! JSONSerialization.data(withJSONObject: req, options: [])
+        do {
+            let data = try JSONSerialization.data(withJSONObject: req, options: [])
+            request.httpBody = data
+        } catch {
+            print("Error - \(error)")
+            return request
+        }
         if request.value(forHTTPHeaderField: "Content-Type") == nil {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
-        
-        request.httpBody = data
         
         return request
     }

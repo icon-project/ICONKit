@@ -24,9 +24,9 @@ open class ICONService {
     static let API_VER = "v3"
     static let ver = "0x3"
     
-    var nid: String
+    public var nid: String
     
-    var provider: String
+    public var provider: String
     
     public init(provider: String, nid: String) {
         self.provider = provider
@@ -50,7 +50,7 @@ public enum ICONResult: Error {
     case unknown
 }
 
-extension ICONService: SECP256k1, Cipher {
+extension ICONService {
     
 }
 

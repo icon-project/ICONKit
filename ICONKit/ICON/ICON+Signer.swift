@@ -18,48 +18,103 @@
 import Foundation
 import CryptoSwift
 
-extension ICON {
+protocol TransactionSigner: SECP256k1 {
     
-    public class TransactionSigner: SECP256k1 {
-        var params: [String: Any]?
-        
-        private func makeSingingData() -> Data? {
-            guard let params = self.params else { return nil }
-            
-            var tbs = ICON.METHOD.sendTransaction.rawValue
-            
-            for key in params.keys.sorted() {
-                guard let value = params[key] else { continue }
-                tbs += "." + key + ".\(value)"
+}
+
+extension TransactionSigner where Self: Transaction {
+    private func serialize() throws -> (Data, [String: Any]) {
+        var dic = [String: Any]()
+        guard let from = self.from,
+            let to = self.to,
+            let nid = self.nid,
+            let nonce = self.nonce,
+            let stepLimit = self.stepLimit else {
+                throw ICError.invalid(.transaction)
+        }
+        dic["version"] = self.version
+        dic["timestamp"] = self.timestamp
+        dic["from"] = from
+        dic["to"] = to
+        dic["nid"] = nid
+        dic["nonce"] = nonce
+        dic["stepLimit"] = "0x" + String(stepLimit, radix: 16)
+        if let value = self.value {
+            let hexValue = "0x" + String(value, radix: 16)
+            dic["value"] = hexValue
+        }
+        if let dataType = self.dataType {
+            if let data = self.data {
+                dic["data"] = data
             }
-            
-            return tbs.data(using: .utf8)
+            dic["dataType"] = dataType
         }
         
-        public func getTxHash() -> String? {
-            guard let tbs = self.makeSingingData() else { return nil }
-            
-            let hashed = tbs.sha3(.sha256)
-            
-            return hashed.toHexString()
+        guard let data = ("icx_sendTransaction" + serializeDictionary(dic)).data(using: .utf8) else {
+            throw ICError.convert(.data)
         }
-        
-        public func getSignature(key: String) -> String? {
-            guard let tbs = self.makeSingingData() else { return nil }
-            let hashed = tbs.sha3(.sha256)
-            do {
-                let sign = try signECDSA(hashedMessage: hashed, privateKey: key)
-                
-                return sign.base64EncodedString()
-            } catch {
-                return nil
+        print("serialized - \(String(describing: String(data: data, encoding: .utf8)))")
+        print("dictionary - \(dic)")
+        return (data, dic)
+    }
+    
+    private func serialize(_ object: Any) -> String {
+        var serial = ""
+        if let dic = object as? [String: Any] {
+            serial += "{"
+            serial += serializeDictionary(dic)
+            serial += "}"
+        } else if let arr = object as? [Any] {
+            serial += "["
+            serial += serializeArray(arr)
+            serial += "]"
+        } else {
+            serial += "." + "\(object)"
+        }
+        return serial
+    }
+    
+    private func serializeDictionary(_ dictionary: [String: Any]) -> String {
+        let keys = dictionary.keys.sorted()
+        var serial = ""
+        for key in keys {
+            if let value = dictionary[key] as? [String: Any] {
+                serial += serializeDictionary(value)
+            } else if let value = dictionary[key] as? [Any] {
+                serial += serializeArray(value)
+            } else if let value = dictionary[key] {
+                serial += "." + key + "." + "\(value)"
             }
         }
-        
-        public func add(params: [String: Any]) -> TransactionSigner {
-            self.params = params
-            
-            return self
+        return serial
+    }
+    
+    private func serializeArray(_ array: [Any]) -> String {
+        var serial = ""
+        for item in array {
+            serial += ".\(item)"
         }
+        return serial
+    }
+    
+    func signTransaction(privateKey: String) throws -> (String, [String: Any]) {
+        let v = try self.serialize()
+        let serialized = v.0
+
+        let hashed = serialized.sha3(.sha256)
+        
+        let signed = try signECDSA(hashedMessage: hashed, privateKey: privateKey)
+        var params = v.1
+        params["signature"] = signed.base64EncodedString()
+        return (signed.base64EncodedString(), params)
+    }
+    
+    func getTxHash() throws -> String {
+        let v = try self.serialize()
+        let serialized = v.0
+        
+        let hashed = serialized.sha3(.sha256)
+        
+        return hashed.toHexString()
     }
 }

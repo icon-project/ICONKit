@@ -19,7 +19,7 @@ import Foundation
 import Result
 import BigInt
 
-open class Request<T: Response.DecodableResponse>: Sendable {
+open class Request<T: Decodable>: Sendable {
     private let jsonrpc = "2.0"
     private let id: Int
     var provider: String
@@ -44,10 +44,19 @@ extension Request {
             
         case .success(let data):
             let decoder = JSONDecoder()
-            guard let decoded = try? decoder.decode(T.self, from: data) else {
+            do {
+                let decoded = try decoder.decode(T.self, from: data)
+                
+                return .success(decoded)
+            } catch {
+                print("catch - \(error)")
                 return .failure(ICONResult.parsing)
             }
-            return .success(decoded)
+            
+//            guard let decoded = try? decoder.decode(T.self, from: data) else {
+//                return .failure(ICONResult.parsing)
+//            }
+//            return .success(decoded)
         }
     }
 }

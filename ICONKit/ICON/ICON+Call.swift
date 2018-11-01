@@ -23,7 +23,7 @@ open class Call {
     public var method: String
     public var params: [String: Any]?
     
-    init(from: String, to: String, method: String, params: [String: Any]?) {
+    public init(from: String, to: String, method: String, params: [String: Any]?) {
         self.from = from
         self.to = to
         self.method = method
