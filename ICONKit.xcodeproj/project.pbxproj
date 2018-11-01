@@ -15,6 +15,7 @@
 		D49E4749214928C6007A0B26 /* ICON+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49E4748214928C6007A0B26 /* ICON+Response.swift */; };
 		D4D4ED54217EBB1E004F2D83 /* ICON+Send.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4ED53217EBB1E004F2D83 /* ICON+Send.swift */; };
 		D4D4ED56217EC39F004F2D83 /* ICON+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */; };
+		D4DE9A2B218AC5EA00126CAD /* ICON+Amount.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DE9A2A218AC5EA00126CAD /* ICON+Amount.swift */; };
 		D4E25BA2212FA7C60027899B /* ICONKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E25B98212FA7C50027899B /* ICONKit.framework */; };
 		D4E25BA7212FA7C60027899B /* ICONKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BA6212FA7C60027899B /* ICONKitTests.swift */; };
 		D4E25BA9212FA7C60027899B /* ICONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E25B9B212FA7C50027899B /* ICONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -60,6 +61,7 @@
 		D49E4748214928C6007A0B26 /* ICON+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Response.swift"; sourceTree = "<group>"; };
 		D4D4ED53217EBB1E004F2D83 /* ICON+Send.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Send.swift"; sourceTree = "<group>"; };
 		D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Request.swift"; sourceTree = "<group>"; };
+		D4DE9A2A218AC5EA00126CAD /* ICON+Amount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Amount.swift"; sourceTree = "<group>"; };
 		D4E25B98212FA7C50027899B /* ICONKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ICONKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E25B9B212FA7C50027899B /* ICONKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICONKit.h; sourceTree = "<group>"; };
 		D4E25B9C212FA7C50027899B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			children = (
 				D4E25BBA212FABD90027899B /* ICON.swift */,
 				D44F2F1E217EE3A5008B4D1F /* ICON+Address.swift */,
+				D4DE9A2A218AC5EA00126CAD /* ICON+Amount.swift */,
 				D49E4746214925E8007A0B26 /* ICON+Call.swift */,
 				D4E25BBD212FABD90027899B /* ICON+Cipher.swift */,
 				D4E25BBE212FABD90027899B /* ICON+Error.swift */,
@@ -325,6 +328,7 @@
 				D4D4ED56217EC39F004F2D83 /* ICON+Request.swift in Sources */,
 				D40FA03521478E3600CB8E6E /* ICON+Transaction.swift in Sources */,
 				D4E25BC6212FABD90027899B /* ICON+Wallet.swift in Sources */,
+				D4DE9A2B218AC5EA00126CAD /* ICON+Amount.swift in Sources */,
 				D44F2F1F217EE3A5008B4D1F /* ICON+Address.swift in Sources */,
 				D4E25BCB212FABD90027899B /* Common+Extension.swift in Sources */,
 				D4ED1A0B2182EDC800171870 /* ICON+Keystore.swift in Sources */,
