@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ICONKit"
-  s.version      = "0.1.0"
+  s.version      = "0.1.1"
   s.summary      = "ICON SDK for swift"
 
   s.swift_version = "4.2"
@@ -25,10 +25,10 @@ Pod::Spec.new do |s|
   
   s.source_files  = "ICONKit/ICON/*.swift"
 
-  s.dependency 'Result'
-  s.dependency 'scrypt'
-  s.dependency 'secp256k1_ios'
-  s.dependency 'BigInt'
-  s.dependency 'CryptoSwift'
+  s.dependency 'Result', '~> 4.0.0'
+  s.dependency 'scrypt', '~> 2.0'
+  s.dependency 'secp256k1_ios', '~> 0.1.3'
+  s.dependency 'BigInt', '~> 3.1.0'
+  s.dependency 'CryptoSwift', '~> 0.12.0'
 
 end
