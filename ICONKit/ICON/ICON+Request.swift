@@ -62,12 +62,12 @@ extension Request {
 }
 
 extension ICONService {
-    public func getTotalSupply() -> Request<Response.Value> {
-        return Request<Response.Value>(id: self.getID(), provider: self.provider, method: .getTotalSupply, params: nil)
+    public func getTotalSupply() -> Request<Response.IntValue> {
+        return Request<Response.IntValue>(id: self.getID(), provider: self.provider, method: .getTotalSupply, params: nil)
     }
     
-    public func getBalance(address: String) -> Request<Response.Value> {
-        return Request<Response.Value>(id: self.getID(), provider: self.provider, method: .getBalance, params: ["address": address])
+    public func getBalance(address: String) -> Request<Response.IntValue> {
+        return Request<Response.IntValue>(id: self.getID(), provider: self.provider, method: .getBalance, params: ["address": address])
     }
     
     public func getBlock(height: UInt64) -> Request<Response.Block> {

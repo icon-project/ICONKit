@@ -36,7 +36,7 @@ open class ICONService {
 
 
 public enum ICONResult: Error {
-    case error(Response.DecodableResponse.ResponseError)
+    case error(Response.ResponseError)
     case httpError
     case invalidAddress
     case invalidRequest
