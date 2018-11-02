@@ -82,8 +82,8 @@ extension ICONService {
         return Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getLastBlock, params: nil)
     }
     
-    public func getScoreAPI(scoreAddress: String) -> Request<[Response.ScoreAPI]> {
-        return Request<[Response.ScoreAPI]>(id: self.getID(), provider: self.provider, method: .getScoreAPI, params: ["address": scoreAddress])
+    public func getScoreAPI(scoreAddress: String) -> Request<Response.ScoreAPI> {
+        return Request<Response.ScoreAPI>(id: self.getID(), provider: self.provider, method: .getScoreAPI, params: ["address": scoreAddress])
     }
     
     public func getTransaction(hash: String) -> Request<Response.Transaction> {
