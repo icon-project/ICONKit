@@ -48,7 +48,7 @@ open class Call {
 
 
 extension ICONService {
-    public func call<T>(_ call: Call) -> Request<Response.Call<T>> {
+    public func call(_ call: Call) -> Request<Response.Call> {
         return Request<Response.Call<T>>(id: self.getID(), provider: self.provider, method: .callMethod, params: call.getCallParams())
     }
 }

@@ -21,23 +21,25 @@ import BigInt
 // ICON Response Decodable
 
 open class Response {
-    open class DecodableResponse: Decodable {
+    
+    enum CodingKeys: String, CodingKey {
+        case jsonrpc
+        case id
+        case error
+        case result
+    }
+    
+    open class ResponseError: Decodable {
+        var code: Int
+        var message: String
+    }
+    
+    
+    open class Response<T>: Decodable {
         public var jsonrpc: String
         public var id: Int
         public var error: ResponseError?
-        
-        enum CodingKeys: String, CodingKey {
-            case jsonrpc
-            case id
-            case error
-            case result
-        }
-        
-        open class ResponseError: Decodable {
-            var code: Int
-            var message: String
-        }
-        
+        public var result: T?
         
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -55,29 +57,26 @@ open class Response {
 }
 
 extension Response {
-    
-    open class Block: DecodableResponse {
+    open class Block: Decodable {
         
-        open class BlockResult: Decodable {
-            public var version: String
-            public var prevBlockHash: String
-            public var merkleTreeRootHash: String
-            public var timestamp: UInt
-            public var confirmedTransactionList: [ConfirmedTransactionList]
-            public var blockHash: String
-            public var height: UInt
-            public var perrID: String
-            public var signature: String
+        public var version: String
+        public var prevBlockHash: String
+        public var merkleTreeRootHash: String
+        public var timestamp: UInt
+        public var confirmedTransactionList: [ConfirmedTransactionList]
+        public var blockHash: String
+        public var height: UInt
+        public var perrID: String
+        public var signature: String
+        
+        open class ConfirmedTransactionList: Decodable {
             
-            open class ConfirmedTransactionList: Decodable {
-                
-            }
         }
     }
 }
 
 extension Response {
-    open class Value: DecodableResponse {
+    open class IntValue: Decodable {
         public var value: BigUInt
         
         public required init(from decoder: Decoder) throws {
@@ -90,34 +89,27 @@ extension Response {
                 throw ICONResult.parsing
             }
             self.value = bigValue
-            try super.init(from: decoder)
         }
     }
 }
 
 extension Response {
-    open class TxHash: DecodableResponse {
-        public var result: String?
+    open class TxHash: Decodable {
+        public var value: String
         
         public required init(from decoder: Decoder) throws {
-            try super.init(from: decoder)
-            
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
-            if container.contains(.result) {
-                self.result = try container.decode(String.self, forKey: .result)
-            } else {
-                self.result = nil
-            }
+            self.value = try container.decode(String.self, forKey: .result)
         }
     }
 }
 
 extension Response {
-    open class ScoreAPI: DecodableResponse {
-        public var result: [Result]?
+    open class ScoreAPI: Decodable {
+        public var value: [String: API]
         
-        open class Result: Decodable {
+        open class API: Decodable {
             public var type: String
             public var name: String
             public var inputs: [[String: String?]]
@@ -159,51 +151,41 @@ extension Response {
         }
         
         public required init(from decoder: Decoder) throws {
-            try super.init(from: decoder)
-            
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
-            if container.contains(.result) {
-                self.result = try container.decode([Result].self, forKey: .result)
-            } else {
-                self.result = nil
+            let resultList = try container.decode([API].self, forKey: .result)
+            
+            var dic = [String: API]()
+            
+            for api in resultList {
+                dic[api.name] = api
             }
+            
+            self.value = dic
         }
     }
 }
 
 extension Response {
-    open class Balance: DecodableResponse {
-        public var result: String?
+    open class Balance: Decodable {
+        public var value: String
         
         public required init(from decoder: Decoder) throws {
-            try super.init(from: decoder)
-            
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
-            if container.contains(.result) {
-                self.result = try container.decode(String.self, forKey: .result)
-            } else {
-                self.result = nil
-            }
+            self.value = try container.decode(String.self, forKey: .result)
         }
     }
 }
 
 extension Response {
-    open class Transaction: DecodableResponse {
-        public var result: Result?
+    open class Transaction: Decodable {
+        public var value: Result
         
         public required init(from decoder: Decoder) throws {
-            try super.init(from: decoder)
-            
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
-            if container.contains(.result) {
-                self.result = try container.decode(Result.self, forKey: .result)
-            } else {
-                self.result = nil
-            }
+            self.value = try container.decode(Result.self, forKey: .result)
         }
         
         open class Result: Decodable {
@@ -282,8 +264,8 @@ extension Response {
 }
 
 extension Response {
-    open class TransactionResult: DecodableResponse {
-        public var result: Result?
+    open class TransactionResult: Decodable {
+        public var value: Result
         
         open class Result: Decodable {
             public var status: String
@@ -347,12 +329,10 @@ extension Response {
 
 extension Response {
     
-    open class Call<T: Decodable>: DecodableResponse {
+    open class Call<T: Decodable>: Decodable {
         public var result: T?
         
         public required init(from decoder: Decoder) throws {
-            try super.init(from: decoder)
-            
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
             let result = try container.decode(T.self, forKey: .result)
@@ -365,30 +345,40 @@ extension Response {
 extension Response {
     
     open class StepCosts: Decodable {
-        public var defaultValue: String
-        public var contractCall: String
-        public var contractCreate: String
-        public var contractDestruct: String
-        public var contractSet: String
-        public var set: String
-        public var replace: String
-        public var delete: String
-        public var input: String
-        public var eventLog: String
-        public var apiCall: String
+        public var value: Result
         
-        enum CodingKeys: String, CodingKey {
-            case defaultValue = "default"
-            case contractCall
-            case contractCreate
-            case contractDestruct
-            case contractSet
-            case set
-            case replace
-            case delete
-            case input
-            case eventLog
-            case apiCall
+        open class Result: Decodable {
+            public var defaultValue: String
+            public var contractCall: String
+            public var contractCreate: String
+            public var contractDestruct: String
+            public var contractSet: String
+            public var set: String
+            public var replace: String
+            public var delete: String
+            public var input: String
+            public var eventLog: String
+            public var apiCall: String
+            
+            enum CodingKeys: String, CodingKey {
+                case defaultValue = "default"
+                case contractCall
+                case contractCreate
+                case contractDestruct
+                case contractSet
+                case set
+                case replace
+                case delete
+                case input
+                case eventLog
+                case apiCall
+            }
+        }
+        
+        public required init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            self.value = try container.decode(Result.self, forKey: .result)
         }
     }
 }
