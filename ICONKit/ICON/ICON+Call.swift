@@ -17,7 +17,7 @@
 
 import Foundation
 
-open class Call {
+open class Call<T> {
     public var from: String
     public var to: String
     public var method: String
@@ -48,7 +48,7 @@ open class Call {
 
 
 extension ICONService {
-    public func call<T>(_ call: Call) -> Request<T> {
+    public func call<T>(_ call: Call<T>) -> Request<T> {
         return Request<T>(id: self.getID(), provider: self.provider, method: .callMethod, params: call.getCallParams())
     }
 }
