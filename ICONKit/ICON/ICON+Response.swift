@@ -345,40 +345,30 @@ extension Response {
 extension Response {
     
     open class StepCosts: Decodable {
-        public var value: Result
+        public var defaultValue: String
+        public var contractCall: String
+        public var contractCreate: String
+        public var contractDestruct: String
+        public var contractSet: String
+        public var set: String
+        public var replace: String
+        public var delete: String
+        public var input: String
+        public var eventLog: String
+        public var apiCall: String
         
-        open class Result: Decodable {
-            public var defaultValue: String
-            public var contractCall: String
-            public var contractCreate: String
-            public var contractDestruct: String
-            public var contractSet: String
-            public var set: String
-            public var replace: String
-            public var delete: String
-            public var input: String
-            public var eventLog: String
-            public var apiCall: String
-            
-            enum CodingKeys: String, CodingKey {
-                case defaultValue = "default"
-                case contractCall
-                case contractCreate
-                case contractDestruct
-                case contractSet
-                case set
-                case replace
-                case delete
-                case input
-                case eventLog
-                case apiCall
-            }
-        }
-        
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            self.value = try container.decode(Result.self, forKey: .result)
+        enum CodingKeys: String, CodingKey {
+            case defaultValue = "default"
+            case contractCall
+            case contractCreate
+            case contractDestruct
+            case contractSet
+            case set
+            case replace
+            case delete
+            case input
+            case eventLog
+            case apiCall
         }
     }
 }
