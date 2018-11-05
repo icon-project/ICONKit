@@ -49,7 +49,6 @@ extension Request {
                 
                 return .success(decoded)
             } catch {
-                print("catch - \(error)")
                 return .failure(ICONResult.parsing)
             }
             
