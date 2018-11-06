@@ -254,3 +254,9 @@ extension UnkeyedDecodingContainer {
         return try nestedContainer.decode(type)
     }
 }
+
+extension BigUInt {
+    var toHex: String {
+        return "0x" + String(self, radix: 16)
+    }
+}

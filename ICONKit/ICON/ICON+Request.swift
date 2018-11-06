@@ -51,11 +51,6 @@ extension Request {
             } catch {
                 return .failure(ICONResult.parsing)
             }
-            
-//            guard let decoded = try? decoder.decode(T.self, from: data) else {
-//                return .failure(ICONResult.parsing)
-//            }
-//            return .success(decoded)
         }
     }
 }

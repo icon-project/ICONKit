@@ -16,3 +16,39 @@
  */
 
 import Foundation
+import BigInt
+
+public enum Unit: Int {
+    case icx = 18
+    case gLoop = 9
+    case loop = 0
+}
+
+open class IconAmount {
+    private var _value: BigUInt
+    private var _unit: Unit
+    
+    init(amount: BigUInt, unit: Unit) {
+        _value = amount
+        _unit = unit
+    }
+    
+    convenience init?(hexString: String, _ unit: Unit = .loop) {
+        guard let value = BigUInt(hexString.prefix0xRemoved(), radix: 16) else {
+            return nil
+        }
+        self.init(amount: value, unit: unit)
+    }
+    
+    public var current: BigUInt {
+        return _value * BigUInt(10).power(_unit.rawValue)
+    }
+    
+    public var hex: String {
+        return current.toHex
+    }
+    
+    func convert(unit: Unit) -> BigUInt {
+        return _value * BigUInt(10).power(Unit.icx.rawValue - unit.rawValue)
+    }
+}
