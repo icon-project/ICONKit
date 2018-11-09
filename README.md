@@ -21,7 +21,7 @@ case: .failure(let error):
 APIs called through `ICONService`.
 
 It can be initialized as follows.
-```
+```swift
 let iconService = ICONService(provider: "https://wallet.icon.foundation", nid: nid)
 ```
 
@@ -31,7 +31,7 @@ All queries are requested by a `Request`.
 Its requests are executed as **Synchronized**.
 (*will supports asynchronized version soon.*)
 
-```
+```swift
 let request: Request<Response.Block> = service.getBlock(height: height)
 let result = request.execute()
 
