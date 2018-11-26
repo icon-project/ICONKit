@@ -1,0 +1,44 @@
+PODS:
+  - BigInt (3.1.0):
+    - SipHash (~> 1.2)
+  - CryptoSwift (0.13.0)
+  - ICONKit (0.1.2):
+    - BigInt (~> 3.1.0)
+    - CryptoSwift
+    - Result (~> 4.0.0)
+    - scrypt (~> 2.0)
+    - secp256k1_swift (~> 1.0.0)
+  - Result (4.0.0)
+  - scrypt (2.0):
+    - CryptoSwift (~> 0.11)
+  - secp256k1_swift (1.0.3)
+  - SipHash (1.2.2)
+
+DEPENDENCIES:
+  - ICONKit (from `~/works/ICONKit/`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - BigInt
+    - CryptoSwift
+    - Result
+    - scrypt
+    - secp256k1_swift
+    - SipHash
+
+EXTERNAL SOURCES:
+  ICONKit:
+    :path: "~/works/ICONKit/"
+
+SPEC CHECKSUMS:
+  BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
+  CryptoSwift: 16e78bebf567bad1c87b2d58f6547f25b74c31aa
+  ICONKit: ddf49375d6113153e79794f86df80880b03b0781
+  Result: 7645bb3f50c2ce726dd0ff2fa7b6f42bbe6c3713
+  scrypt: 3fe5b1a3b0976f97cd87488673a8f7c65708cc84
+  secp256k1_swift: 4fc5c4b2d2c6d21ee8ccb868cdc92da12f38bed9
+  SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
+
+PODFILE CHECKSUM: 577012f72070dd351cab210ff76e0ae7fd7bb5ba
+
+COCOAPODS: 1.5.0
