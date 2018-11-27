@@ -77,7 +77,7 @@ extension TransactionSigner where Self: Transaction {
         let keys = dictionary.keys.sorted()
         var serial = ""
         for key in keys {
-            serial += "." + key + "."
+            serial += "." + key
             if let value = dictionary[key] as? [String: Any] {
                 serial += "{"
                 serial += serializeDictionary(value)
@@ -87,7 +87,7 @@ extension TransactionSigner where Self: Transaction {
                 serial += serializeArray(value)
                 serial += "]"
             } else if let value = dictionary[key] as? String {
-                serial += "\(value)"
+                serial += "." + "\(value)"
             }
         }
         return serial
