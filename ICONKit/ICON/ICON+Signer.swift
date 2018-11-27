@@ -53,7 +53,6 @@ extension TransactionSigner where Self: Transaction {
         guard let data = ("icx_sendTransaction." + serialize(dic)).data(using: .utf8) else {
             throw ICError.convert(.data)
         }
-        print("data = \(String(data: data, encoding: .utf8))")
         return (data, dic)
     }
     
