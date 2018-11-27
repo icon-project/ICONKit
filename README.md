@@ -124,7 +124,7 @@ do {
 - [ICON Network](https://github.com/icon-project/icon-project.github.io/blob/master/docs/icon_network.md)
 
 ## Version
-0.1.1 (Beta)
+0.2.0 (Beta)
 
 ## Support
 - Xcode 10.x
