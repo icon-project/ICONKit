@@ -50,7 +50,7 @@ extension TransactionSigner where Self: Transaction {
             dic["dataType"] = dataType
         }
         
-        guard let data = ("icx_sendTransaction" + serializeDictionary(dic)).data(using: .utf8) else {
+        guard let data = ("icx_sendTransaction." + serialize(dic)).data(using: .utf8) else {
             throw ICError.convert(.data)
         }
         print("data = \(String(data: data, encoding: .utf8))")
@@ -60,15 +60,11 @@ extension TransactionSigner where Self: Transaction {
     private func serialize(_ object: Any) -> String {
         var serial = ""
         if let dic = object as? [String: Any] {
-            serial += "{"
             serial += serializeDictionary(dic)
-            serial += "}"
         } else if let arr = object as? [Any] {
-            serial += "["
             serial += serializeArray(arr)
-            serial += "]"
         } else {
-            serial += "." + "\(object)"
+            serial += ".\(object)"
         }
         return serial
     }
@@ -77,17 +73,13 @@ extension TransactionSigner where Self: Transaction {
         let keys = dictionary.keys.sorted()
         var serial = ""
         for key in keys {
-            serial += "." + key
+            if serial != "" { serial += "." }
             if let value = dictionary[key] as? [String: Any] {
-                serial += "{"
-                serial += serializeDictionary(value)
-                serial += "}"
+                serial += "\(key).{" + serializeDictionary(value) + "}"
             } else if let value = dictionary[key] as? [Any] {
-                serial += "["
-                serial += serializeArray(value)
-                serial += "]"
+                serial += "\(key).[" + serializeArray(value) + "]"
             } else if let value = dictionary[key] as? String {
-                serial += "." + "\(value)"
+                serial += "\(key).\(value)"
             }
         }
         return serial
@@ -96,7 +88,8 @@ extension TransactionSigner where Self: Transaction {
     private func serializeArray(_ array: [Any]) -> String {
         var serial = ""
         for item in array {
-            serial += ".\(item)"
+            if serial != "" { serial += "." }
+            serial += "\(item)"
         }
         return serial
     }
