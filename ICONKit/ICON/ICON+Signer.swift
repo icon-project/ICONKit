@@ -53,6 +53,7 @@ extension TransactionSigner where Self: Transaction {
         guard let data = ("icx_sendTransaction" + serializeDictionary(dic)).data(using: .utf8) else {
             throw ICError.convert(.data)
         }
+        print("data = \(String(data: data, encoding: .utf8))")
         return (data, dic)
     }
     
@@ -76,12 +77,17 @@ extension TransactionSigner where Self: Transaction {
         let keys = dictionary.keys.sorted()
         var serial = ""
         for key in keys {
+            serial += "." + key + "."
             if let value = dictionary[key] as? [String: Any] {
+                serial += "{"
                 serial += serializeDictionary(value)
+                serial += "}"
             } else if let value = dictionary[key] as? [Any] {
+                serial += "["
                 serial += serializeArray(value)
-            } else if let value = dictionary[key] {
-                serial += "." + key + "." + "\(value)"
+                serial += "]"
+            } else if let value = dictionary[key] as? String {
+                serial += "\(value)"
             }
         }
         return serial
