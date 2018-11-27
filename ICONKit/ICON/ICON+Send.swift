@@ -52,13 +52,14 @@ extension Sendable {
         task.resume()
         
         _ = semaphore.wait(timeout: .distantFuture)
-        guard error == nil else {
-            return .failure(ICONResult.httpError)
+        if let connectError = error {
+            return .failure(ICONResult.httpError(connectError.localizedDescription))
         }
         
-        guard let value = data else { return .failure(ICONResult.httpError) }
+        guard let value = data else { return .failure(ICONResult.httpError("Unknown Error")) }
         guard response?.statusCode == 200 else {
-            return .failure(ICONResult.httpError)
+            let message = String(data: value, encoding: .utf8)
+            return .failure(ICONResult.httpError(message ?? "Unknown Error"))
         }
         
         return .success(value)

@@ -37,7 +37,7 @@ open class ICONService {
 
 public enum ICONResult: Error {
     case error(Response.ResponseError)
-    case httpError
+    case httpError(String?)
     case invalidAddress
     case invalidRequest
     case noSuchKey(String)
