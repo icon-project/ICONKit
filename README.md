@@ -53,7 +53,7 @@ let request: Request<Response.Block> = service.getLastBlock()
 let request: Request<Response.Value> = service.getBalance(address: "hx000...000")
 
 // Gets a list of ScoreAPI
-let request: Request<[Response.ScoreAPI]> = service.getScoreAPI(scoreAddress: "cx000...000")
+let request: Request<Response.ScoreAPI> = service.getScoreAPI(scoreAddress: "cx000...000")
 
 // Gets the total supply of ICX
 let request: Request<Response.Value> = service.getTotalSupply()
@@ -124,7 +124,7 @@ do {
 - [ICON Network](https://github.com/icon-project/icon-project.github.io/blob/master/docs/icon_network.md)
 
 ## Version
-0.2.0 (Beta)
+0.2.1 (Beta)
 
 ## Support
 - Xcode 10.x
