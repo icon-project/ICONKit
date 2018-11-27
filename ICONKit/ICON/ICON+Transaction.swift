@@ -28,13 +28,13 @@ open class Transaction {
     public var value: BigUInt?
     public var nonce: String?
     public var dataType: String?
-    public var data: Codable?
+    public var data: Any?
     
     public init() {
         
     }
     
-    convenience init(from: String, to: String, stepLimit: BigUInt, nid: String, value: BigUInt, nonce: String, dataType: String? = nil, data: Codable? = nil) {
+    convenience init(from: String, to: String, stepLimit: BigUInt, nid: String, value: BigUInt, nonce: String, dataType: String? = nil, data: Any? = nil) {
         self.init()
         self.from = from
         self.to = to
@@ -106,11 +106,11 @@ open class Transaction {
     @discardableResult
     public func params(_ params: [String: Any]) -> Transaction {
         if self.data == nil {
-            self.data = ["params": params] as? Codable
+            self.data = ["params": params]
         } else {
             if var dic = self.data as? [String: Any] {
                 dic["params"] = params
-                self.data = dic as? Codable
+                self.data = dic
             }
         }
         return self
