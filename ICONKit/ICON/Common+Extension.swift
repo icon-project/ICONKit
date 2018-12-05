@@ -17,6 +17,7 @@
 
 import Foundation
 import BigInt
+import CryptoSwift
 
 // MARK: Date
 extension Date {
@@ -90,16 +91,18 @@ extension Date {
 extension String {
     
     public func hexToData() -> Data? {
-        var data = Data(capacity: self.count / 2)
-        
-        let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
-        regex.enumerateMatches(in: self, range: NSMakeRange(0, utf16.count)) { match, flags, stop in
-            let byteString = (self as NSString).substring(with: match!.range)
-            var num = UInt8(byteString, radix: 16)!
-            data.append(&num, count: 1)
+        let len = self.count / 2
+        var data = Data(capacity: len)
+        for i in 0..<len {
+            let j = self.index(self.startIndex, offsetBy: i*2)
+            let k = self.index(j, offsetBy: 2)
+            let bytes = self[j..<k]
+            if var num = UInt8(bytes, radix: 16) {
+                data.append(&num, count: 1)
+            } else {
+                return nil
+            }
         }
-        
-        guard data.count > 0 else { return nil }
         
         return data
     }
