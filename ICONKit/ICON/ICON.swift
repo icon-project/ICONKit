@@ -18,7 +18,6 @@
 import Foundation
 import BigInt
 
-/// ICX Keystore struct
 open class ICON {
     
 }
