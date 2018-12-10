@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ICONKit"
-  s.version      = "0.2.2"
+  s.version      = "0.2.3"
   s.summary      = "ICON SDK for swift"
 
   s.swift_version = "4.2"
