@@ -8,11 +8,11 @@ target 'ICONKit' do
   use_frameworks!
 
   # Pods for ICONKit
-  pod 'BigInt', '~> 3.1.0'
-  pod 'secp256k1_ios', '~> 0.1.3'
+  pod 'BigInt'
+  pod 'secp256k1_ios'
   pod 'Result'
   pod 'scrypt'
-  pod 'CryptoSwift', '~> 0.11.0'
+  pod 'CryptoSwift'
 
 #  target 'ICONKitTests' do
 #    inherit! :search_paths
