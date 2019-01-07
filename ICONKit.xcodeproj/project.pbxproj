@@ -28,7 +28,6 @@
 		D4E25BCC212FABD90027899B /* ICON+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC2212FABD90027899B /* ICON+Util.swift */; };
 		D4E25BCD212FABD90027899B /* ICON+SECP256k1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */; };
 		D4E25BCF212FAEF20027899B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E25BCE212FAEF20027899B /* Security.framework */; };
-		D4ED1A0B2182EDC800171870 /* ICON+Keystore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ED1A0A2182EDC800171870 /* ICON+Keystore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +76,6 @@
 		D4E25BC2212FABD90027899B /* ICON+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Util.swift"; sourceTree = "<group>"; };
 		D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+SECP256k1.swift"; sourceTree = "<group>"; };
 		D4E25BCE212FAEF20027899B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		D4ED1A0A2182EDC800171870 /* ICON+Keystore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Keystore.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,7 +156,6 @@
 				D49E4746214925E8007A0B26 /* ICON+Call.swift */,
 				D4E25BBD212FABD90027899B /* ICON+Cipher.swift */,
 				D4E25BBE212FABD90027899B /* ICON+Error.swift */,
-				D4ED1A0A2182EDC800171870 /* ICON+Keystore.swift */,
 				D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */,
 				D49E4748214928C6007A0B26 /* ICON+Response.swift */,
 				D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */,
@@ -331,7 +328,6 @@
 				D4DE9A2B218AC5EA00126CAD /* ICON+Amount.swift in Sources */,
 				D44F2F1F217EE3A5008B4D1F /* ICON+Address.swift in Sources */,
 				D4E25BCB212FABD90027899B /* Common+Extension.swift in Sources */,
-				D4ED1A0B2182EDC800171870 /* ICON+Keystore.swift in Sources */,
 				D4E25BC4212FABD90027899B /* ICON.swift in Sources */,
 				D48D181C2134014600BEAA2F /* ICONService.swift in Sources */,
 				D49E4749214928C6007A0B26 /* ICON+Response.swift in Sources */,
@@ -494,7 +490,11 @@
 				INFOPLIST_FILE = ICONKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -519,7 +519,11 @@
 				INFOPLIST_FILE = ICONKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -536,7 +540,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ICONKitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -550,7 +558,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ICONKitTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
