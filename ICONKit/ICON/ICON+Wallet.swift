@@ -23,15 +23,17 @@ import CryptoSwift
 
 extension ICON {
     
-    open class Wallet: SECP256k1, Cipher {
-        public var privateKey: String?
+    open class Wallet: SECP256k1 {
+        private var privateKey: String?
         public var address: String? {
             guard let key = self.privateKey, let publicKey = self.createPublicKey(privateKey: key) else { return nil }
             
             return self.makeAddress(key, publicKey)
         }
         
-        private init() {}
+        init() {
+            self.privateKey = self.generatePrivateKey()
+        }
     }
     
 }

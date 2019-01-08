@@ -22,7 +22,6 @@
 		D4E25BC4212FABD90027899B /* ICON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBA212FABD90027899B /* ICON.swift */; };
 		D4E25BC5212FABD90027899B /* ICON+Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBB212FABD90027899B /* ICON+Signer.swift */; };
 		D4E25BC6212FABD90027899B /* ICON+Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBC212FABD90027899B /* ICON+Wallet.swift */; };
-		D4E25BC7212FABD90027899B /* ICON+Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBD212FABD90027899B /* ICON+Cipher.swift */; };
 		D4E25BC8212FABD90027899B /* ICON+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBE212FABD90027899B /* ICON+Error.swift */; };
 		D4E25BCB212FABD90027899B /* Common+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC1212FABD90027899B /* Common+Extension.swift */; };
 		D4E25BCC212FABD90027899B /* ICON+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC2212FABD90027899B /* ICON+Util.swift */; };
@@ -70,7 +69,6 @@
 		D4E25BBA212FABD90027899B /* ICON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICON.swift; sourceTree = "<group>"; };
 		D4E25BBB212FABD90027899B /* ICON+Signer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Signer.swift"; sourceTree = "<group>"; };
 		D4E25BBC212FABD90027899B /* ICON+Wallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Wallet.swift"; sourceTree = "<group>"; };
-		D4E25BBD212FABD90027899B /* ICON+Cipher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Cipher.swift"; sourceTree = "<group>"; };
 		D4E25BBE212FABD90027899B /* ICON+Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Error.swift"; sourceTree = "<group>"; };
 		D4E25BC1212FABD90027899B /* Common+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Common+Extension.swift"; sourceTree = "<group>"; };
 		D4E25BC2212FABD90027899B /* ICON+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Util.swift"; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 				D44F2F1E217EE3A5008B4D1F /* ICON+Address.swift */,
 				D4DE9A2A218AC5EA00126CAD /* ICON+Amount.swift */,
 				D49E4746214925E8007A0B26 /* ICON+Call.swift */,
-				D4E25BBD212FABD90027899B /* ICON+Cipher.swift */,
 				D4E25BBE212FABD90027899B /* ICON+Error.swift */,
 				D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */,
 				D49E4748214928C6007A0B26 /* ICON+Response.swift */,
@@ -331,7 +328,6 @@
 				D4E25BC4212FABD90027899B /* ICON.swift in Sources */,
 				D48D181C2134014600BEAA2F /* ICONService.swift in Sources */,
 				D49E4749214928C6007A0B26 /* ICON+Response.swift in Sources */,
-				D4E25BC7212FABD90027899B /* ICON+Cipher.swift in Sources */,
 				D4D4ED54217EBB1E004F2D83 /* ICON+Send.swift in Sources */,
 				D4E25BCC212FABD90027899B /* ICON+Util.swift in Sources */,
 				D4E25BC8212FABD90027899B /* ICON+Error.swift in Sources */,
