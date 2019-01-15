@@ -25,8 +25,10 @@ extension ICON {
     
     open class Wallet: SECP256k1 {
         private var privateKey: String?
-        public var address: String? {
-            guard let key = self.privateKey, let publicKey = self.createPublicKey(privateKey: key) else { return nil }
+        public var address: String {
+            guard let key = self.privateKey, let publicKey = self.createPublicKey(privateKey: key) else { assertionFailure("Empty wallet")
+                return ""
+            }
             
             return self.makeAddress(key, publicKey)
         }
