@@ -45,12 +45,10 @@ extension Request {
         case .success(let data):
             let decoder = JSONDecoder()
             do {
-                print("data: \(String(data: data, encoding: .utf8))")
                 let decoded = try decoder.decode(T.self, from: data)
                 
                 return .success(decoded)
             } catch {
-                print("error: \(error)")
                 return .failure(ICONResult.parsing)
             }
         }

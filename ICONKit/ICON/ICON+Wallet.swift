@@ -33,7 +33,7 @@ extension ICON {
             return self.makeAddress(key, publicKey)
         }
         
-        init() {
+        public init() {
             self.privateKey = self.generatePrivateKey()
         }
     }
