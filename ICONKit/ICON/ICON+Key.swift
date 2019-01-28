@@ -17,16 +17,24 @@
 
 import Foundation
 
-open class Address {
-    var address: String
+open class Key {
+    public var key: Data
     
-    private init() {
-        self.address = ""
+    public var hexEncoded: String {
+        return self.key.hexEncodedString()
     }
     
-    convenience init?(address: String) {
-        guard address.count == 42 && address.lowercased().hasPrefix("hx") else { return nil }
-        self.init()
-        self.address = address
+    init(key: Data) {
+        self.key = key
     }
+}
+
+open class PublicKey: Key {
+    public var base64Encoded: String {
+        return self.key.base64EncodedString()
+    }
+}
+
+open class PrivateKey: Key {
+    
 }

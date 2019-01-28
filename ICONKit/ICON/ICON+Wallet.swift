@@ -21,26 +21,22 @@ import CryptoSwift
 
 // MARK: Wallet
 
-extension ICON {
-    
-    open class Wallet: SECP256k1 {
-        private var privateKey: String?
-        public var address: String {
-            guard let key = self.privateKey, let publicKey = self.createPublicKey(privateKey: key) else { assertionFailure("Empty wallet")
-                return ""
-            }
-            
-            return self.makeAddress(key, publicKey)
+open class Wallet: SECP256k1 {
+    private var privateKey: String?
+    public var address: String {
+        guard let key = self.privateKey, let publicKey = self.createPublicKey(privateKey: key) else { assertionFailure("Empty wallet")
+            return ""
         }
         
-        public init() {
-            self.privateKey = self.generatePrivateKey()
-        }
+        return self.makeAddress(key, publicKey)
     }
     
+    public init() {
+        self.privateKey = self.generatePrivateKey()
+    }
 }
 
-extension ICON.Wallet {
+extension Wallet {
     
     public convenience init(privateKey: String) {
         self.init()

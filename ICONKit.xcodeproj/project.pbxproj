@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8589AE6F40A54C0936BA39AF /* Pods_ICONKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B83D1DC45364C38EDB06174 /* Pods_ICONKit.framework */; };
 		D40FA03521478E3600CB8E6E /* ICON+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40FA03421478E3600CB8E6E /* ICON+Transaction.swift */; };
+		D413D09C21FEBACA00A45F88 /* ICON+Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413D09B21FEBACA00A45F88 /* ICON+Key.swift */; };
 		D44F2F1F217EE3A5008B4D1F /* ICON+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44F2F1E217EE3A5008B4D1F /* ICON+Address.swift */; };
 		D48D181C2134014600BEAA2F /* ICONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D181B2134014600BEAA2F /* ICONService.swift */; };
 		D49E4747214925E8007A0B26 /* ICON+Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49E4746214925E8007A0B26 /* ICON+Call.swift */; };
@@ -47,6 +48,7 @@
 		D4043F3F2150EBC100D2DA7F /* scrypt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = scrypt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4043F412150EBCA00D2DA7F /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D40FA03421478E3600CB8E6E /* ICON+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Transaction.swift"; sourceTree = "<group>"; };
+		D413D09B21FEBACA00A45F88 /* ICON+Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Key.swift"; sourceTree = "<group>"; };
 		D44F2F1E217EE3A5008B4D1F /* ICON+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Address.swift"; sourceTree = "<group>"; };
 		D4653B59213CE0CC0059C042 /* scrypt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = scrypt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4653B5B213CE0D30059C042 /* BigInt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BigInt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +155,7 @@
 				D4DE9A2A218AC5EA00126CAD /* ICON+Amount.swift */,
 				D49E4746214925E8007A0B26 /* ICON+Call.swift */,
 				D4E25BBE212FABD90027899B /* ICON+Error.swift */,
+				D413D09B21FEBACA00A45F88 /* ICON+Key.swift */,
 				D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */,
 				D49E4748214928C6007A0B26 /* ICON+Response.swift */,
 				D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */,
@@ -322,6 +325,7 @@
 				D4D4ED56217EC39F004F2D83 /* ICON+Request.swift in Sources */,
 				D40FA03521478E3600CB8E6E /* ICON+Transaction.swift in Sources */,
 				D4E25BC6212FABD90027899B /* ICON+Wallet.swift in Sources */,
+				D413D09C21FEBACA00A45F88 /* ICON+Key.swift in Sources */,
 				D4DE9A2B218AC5EA00126CAD /* ICON+Amount.swift in Sources */,
 				D44F2F1F217EE3A5008B4D1F /* ICON+Address.swift in Sources */,
 				D4E25BCB212FABD90027899B /* Common+Extension.swift in Sources */,
