@@ -24,6 +24,10 @@ open class Key {
         return self.key.hexEncodedString()
     }
     
+    public var data: Data {
+        return key
+    }
+    
     public init(key: Data) {
         self.key = key
     }
