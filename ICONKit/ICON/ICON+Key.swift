@@ -24,7 +24,7 @@ open class Key {
         return self.key.hexEncodedString()
     }
     
-    init(key: Data) {
+    public init(key: Data) {
         self.key = key
     }
 }
