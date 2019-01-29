@@ -17,8 +17,10 @@
 
 import Foundation
 
+typealias KeyPair = (pub: PublicKey, prv: PrivateKey)
+
 open class Key {
-    public var key: Data
+    private var key: Data
     
     public var hexEncoded: String {
         return self.key.hexEncodedString()
@@ -28,14 +30,14 @@ open class Key {
         return key
     }
     
-    public init(key: Data) {
-        self.key = key
+    public init(hexData: Data) {
+        self.key = hexData
     }
 }
 
 open class PublicKey: Key {
     public var base64Encoded: String {
-        return self.key.base64EncodedString()
+        return self.data.base64EncodedString()
     }
 }
 
