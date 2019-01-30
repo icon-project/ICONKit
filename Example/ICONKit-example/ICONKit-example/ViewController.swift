@@ -19,20 +19,20 @@ class ViewController: UIViewController {
         
         let example = ICONExample()
         
-        example.createWallet()
+//        example.createWallet()
+//
+//        example.getGovernanceScoreAPI()
+//
+//        example.getDefaultStepCost()
         
-        example.getGovernanceScoreAPI()
-        
-        example.getDefaultStepCost()
+        example.getLastBlock()
     }
 }
 
 class ICONExample {
     private var iconService: ICONService!
-    private var wallet: ICON.Wallet?
+    private var wallet: Wallet?
     private var stepCost: Response.StepCosts?
-    
-    private let walletPassword = "P@55w0rd"
     
     let governanceAddress = "cx0000000000000000000000000000000000000001"
     
@@ -49,40 +49,34 @@ class ICONExample {
     func createWallet() {
         print("========================")
         print("Begin createWallet")
-        let wallet = ICON.Wallet(privateKey: nil, password: walletPassword)
+        let wallet = Wallet(privateKey: nil)
         print("address: \(String(describing: wallet.address))")
-        let prvKey = try? wallet.extractPrivateKey(password: walletPassword)
-        print("privateKey: \(String(describing: prvKey))")
-        
-        print("keystore: \(String(describing: wallet.keystore))")
-        
+
         self.wallet = wallet
         print("Wallet created.")
     }
-    
+
     func loadWallet(privateKey: String) {
-        let wallet = ICON.Wallet(privateKey: privateKey, password: walletPassword)
+        let keyData = privateKey.hexToData()!
+        let prvKey = PrivateKey(hexData: keyData)
+        let wallet = Wallet(privateKey: prvKey)
         print("address: \(String(describing: wallet.address))")
-        let prvKey = try? wallet.extractPrivateKey(password: walletPassword)
-        print("privateKey: \(String(describing: prvKey))")
-        
-        print("keystore: \(String(describing: wallet.keystore))")
         
         self.wallet = wallet
         print("Wallet loaded.")
     }
-    
+
     func getGovernanceScoreAPI() {
         print("========================")
         print("Begin getGovernanceScoreAPI")
         let result = iconService.getScoreAPI(scoreAddress: governanceAddress).execute()
-        
+
         guard let apis = result.value else {
             return
         }
-        
+
         let set = apis.value
-        
+
         for key in set.keys {
             let api = set[key]!
             print("name: \(api.name) , type: \(api.type) , input: \(api.inputs) , output: \(api.outputs) , payable: \(api.payable) , readonly: \(api.readonly)")
@@ -94,7 +88,7 @@ class ICONExample {
         print("Begin getDefaultStepCost")
         let method = "getStepCosts"
         guard let wallet = self.wallet else { return }
-        let call = Call<Response.Call<Response.StepCosts>>(from: wallet.address!, to: governanceAddress, method: method, params: nil)
+        let call = Call<Response.Call<Response.StepCosts>>(from: wallet.address, to: governanceAddress, method: method, params: nil)
         
         let result = iconService.call(call).execute()
         
@@ -106,13 +100,14 @@ class ICONExample {
     }
     
     func sendTransaction() {
-        guard let wallet = self.wallet else {
-            print("No wallet exists.")
-            return
+        
+    }
+    
+    func getLastBlock() {
+        let result = iconService.getLastBlock().execute()
+        
+        if let value = result.value {
+            print("Block: \(value)")
         }
-        
-        // Fill 'toAddress' with your test wallet address
-        let toAddress = ""
-        
     }
 }

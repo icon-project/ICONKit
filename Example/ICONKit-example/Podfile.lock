@@ -2,7 +2,7 @@ PODS:
   - BigInt (3.1.0):
     - SipHash (~> 1.2)
   - CryptoSwift (0.11.0)
-  - ICONKit (0.2.1):
+  - ICONKit (0.2.3):
     - BigInt
     - CryptoSwift (= 0.11.0)
     - Result
@@ -15,10 +15,10 @@ PODS:
   - SipHash (1.2.2)
 
 DEPENDENCIES:
-  - ICONKit (from `../../../ICONKit/`)
+  - ICONKit (from `~/works/ICONKit/`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - BigInt
     - CryptoSwift
     - Result
@@ -28,17 +28,17 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   ICONKit:
-    :path: "../../../ICONKit/"
+    :path: "~/works/ICONKit/"
 
 SPEC CHECKSUMS:
   BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
   CryptoSwift: ad5208dd2aae0a764ea4ce2c2d34bd067cae67f0
-  ICONKit: be74faf972b3b4676f9c73d36fd2f12abb380d0e
+  ICONKit: fdbc68520fc9fbb74079959d7c5553f6981be491
   Result: 7645bb3f50c2ce726dd0ff2fa7b6f42bbe6c3713
   scrypt: 3fe5b1a3b0976f97cd87488673a8f7c65708cc84
   secp256k1_ios: ac9ef04e761f43c58012b28548afa91493761f17
   SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
 
-PODFILE CHECKSUM: d88265c392d34baf0cc97c18ddc82dbb281c93b4
+PODFILE CHECKSUM: 577012f72070dd351cab210ff76e0ae7fd7bb5ba
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
