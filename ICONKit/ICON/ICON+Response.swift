@@ -82,7 +82,7 @@ extension Response {
                 var value: String
                 var version: String
                 
-                // Testnet for Exchange
+                // Testnet
                 var nonce: String?
                 var dataType: String?
                 var data: String?
