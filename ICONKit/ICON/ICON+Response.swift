@@ -58,66 +58,34 @@ open class Response {
 
 extension Response {
     open class Block: Decodable {
-        public var value: Result
+        public var result: ResultInfo
         
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            self.value = try container.decode(Result.self, forKey: .result)
-        }
-        open class Result: Decodable {
-            
+        open class ResultInfo: Decodable {
             public var version: String
             public var prevBlockHash: String
             public var merkleTreeRootHash: String
-            public var timestamp: Double
+            public var timeStamp: Double
             public var confirmedTransactionList: [ConfirmedTransactionList]
             public var blockHash: String
             public var height: UInt
-            public var peerID: String
+            public var peerId: String
             public var signature: String
             
-            public enum BlockCodingKeys: String, CodingKey {
-                case version
-                case prevBlockHash = "prev_block_hash"
-                case merkleTreeRootHash = "merkle_tree_root_hash"
-                case timestamp = "time_stamp"
-                case confirmedTransactionList = "confirmed_transaction_list"
-                case blockHash = "block_hash"
-                case height = "height"
-                case peerID = "peer_id"
-                case signature = "signature"
-            }
-            
             open class ConfirmedTransactionList: Decodable {
-                var version: String
                 var from: String
-                var to: String
-                var value: String
+                var nid: String
+                var signature: String
                 var stepLimit: String
                 var timestamp: String
-                var nonce: String
-                var nid: String
-                var dataType: String
-                var data: String
-                var signature: String
+                var to: String
                 var txHash: String
-            }
-            
-            public required init(from decoder: Decoder) throws {
+                var value: String
+                var version: String
                 
-                
-                let container = try decoder.container(keyedBy: BlockCodingKeys.self)
-                
-                self.version = try container.decode(String.self, forKey: .version)
-                self.prevBlockHash = try container.decode(String.self, forKey: .prevBlockHash)
-                self.merkleTreeRootHash = try container.decode(String.self, forKey: .merkleTreeRootHash)
-                self.timestamp = try container.decode(Double.self, forKey: .timestamp)
-                self.confirmedTransactionList = try container.decode([ConfirmedTransactionList].self  , forKey: .confirmedTransactionList)
-                self.blockHash = try container.decode(String.self, forKey: .blockHash)
-                self.height = try container.decode(UInt.self, forKey: .height)
-                self.peerID = try container.decode(String.self, forKey: .peerID)
-                self.signature = try container.decode(String.self, forKey: .signature)
+                // Testnet for Exchange
+                var nonce: String?
+                var dataType: String?
+                var data: String?
             }
         }
     }
