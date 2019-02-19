@@ -13,7 +13,7 @@ DEPENDENCIES:
   - secp256k1_ios
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - BigInt
     - CryptoSwift
     - Result
@@ -29,4 +29,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 78c638f9c2ee438e7cb78a6e390f51e55773429e
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
