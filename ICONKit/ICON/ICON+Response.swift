@@ -73,19 +73,22 @@ extension Response {
             
             open class ConfirmedTransactionList: Decodable {
                 var from: String
-                var nid: String
-                var signature: String
-                var stepLimit: String
-                var timestamp: String
                 var to: String
+                var timestamp: String
+                var signature: String
                 var txHash: String
-                var value: String
-                var version: String
-                
-                // Testnet
+
+                var version: String?
+                var nid: String?
+                var stepLimit: String?
+                var value: String?
+
                 var nonce: String?
                 var dataType: String?
                 var data: String?
+
+                var fee: String?
+                var method: String?
             }
         }
     }
