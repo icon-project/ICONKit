@@ -58,7 +58,7 @@ open class Response {
 
 extension Response {
     open class Block: Decodable {
-        public var result: ResultInfo
+        public var value: ResultInfo
         
         open class ResultInfo: Decodable {
             public var version: String
@@ -72,23 +72,28 @@ extension Response {
             public var signature: String
             
             open class ConfirmedTransactionList: Decodable {
-                var from: String
-                var to: String
-                var timestamp: String
-                var signature: String
-                var txHash: String
+                public var from: String
+                public var to: String
+                public var timestamp: String
+                public var signature: String
+                public var txHash: String
 
-                var version: String?
-                var nid: String?
-                var stepLimit: String?
-                var value: String?
+                public var version: String?
+                public var nid: String?
+                public var stepLimit: String?
+                public var value: String?
 
-                var nonce: String?
-                var dataType: String?
-                var data: String?
+                public var nonce: String?
+                public var dataType: String?
+                public var data: DataInfo?
 
-                var fee: String?
-                var method: String?
+                public var fee: String?
+                public var method: String?
+                
+                open class DataInfo: Decodable {
+                    public var method: String?
+                    public var params: [String: String]?
+                }
             }
         }
     }
@@ -201,148 +206,62 @@ extension Response {
     open class Transaction: Decodable {
         public var value: Result
         
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            self.value = try container.decode(Result.self, forKey: .result)
-        }
-        
         open class Result: Decodable {
             public var version: String
             public var from: String
             public var to: String
-            public var value: String
+            public var value: String?
             public var stepLimit: String
             public var timestamp: String
-            public var nid: String
-            public var nonce: String
+            public var nid: String?
+            public var nonce: String?
             public var txHash: String
             public var txIndex: String
             public var blockHeight: String
             public var blockHash: String
             public var signature: String
             public var dataType: String?
-            public var data: [String: Any]?
-            public var dataString: String?
+            public var data: DataInfo?
             
-            public enum ResultKey: String, CodingKey {
-                case version
-                case from
-                case to
-                case value
-                case stepLimit
-                case timestamp
-                case nid
-                case nonce
-                case txHash
-                case txIndex
-                case blockHeight
-                case blockHash
-                case signature
-                case dataType
-                case data
-            }
-            
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: ResultKey.self)
-                
-                self.version = try container.decode(String.self, forKey: .version)
-                self.from = try container.decode(String.self, forKey: .from)
-                self.to = try container.decode(String.self, forKey: .to)
-                self.value = try container.decode(String.self, forKey: .value)
-                self.stepLimit = try container.decode(String.self, forKey: .stepLimit)
-                self.timestamp = try container.decode(String.self, forKey: .timestamp)
-                self.nid = try container.decode(String.self, forKey: .nid)
-                self.nonce = try container.decode(String.self, forKey: .nonce)
-                self.txHash = try container.decode(String.self, forKey: .txHash)
-                self.txIndex = try container.decode(String.self, forKey: .txIndex)
-                self.blockHeight = try container.decode(String.self, forKey: .blockHeight)
-                self.blockHash = try container.decode(String.self, forKey: .blockHash)
-                self.signature = try container.decode(String.self, forKey: .signature)
-                
-                if container.contains(.dataType) {
-                    self.dataType = try container.decode(String.self, forKey: .dataType)
-                    
-                    if container.contains(.data) {
-                        if let dataString = try? container.decode(String.self, forKey: .data) {
-                            self.dataString = dataString
-                            self.data = nil
-                        } else if let data = try? container.decode([String: Any].self, forKey: .data) {
-                            self.data = data
-                            self.dataString = nil
-                        }
-                    }
-                } else {
-                    self.dataType = nil
-                    self.data = nil
-                    self.dataString = nil
-                }
+            open class DataInfo: Decodable {
+                public var method: String
+                public var params: [String: String]?
             }
         }
     }
 }
+
 
 extension Response {
     open class TransactionResult: Decodable {
         public var value: Result
         
         open class Result: Decodable {
-            public var status: String
-            public var to: String
-            public var txHash: String
-            public var txIndex: String
-            public var blockHeight: String
-            public var blockHash: String
-            public var cumulativeStepUsed: String
-            public var stepUsed: String
-            public var stepPrice: String
-            public var scoreAddress: String?
-            public var eventLogs: EventLog?
+            public var txHash: String?
+            public var blockHeight: String?
+            public var blockHash: String?
+            public var txIndex: String?
+            public var to: String?
+            public var stepUsed: String?
+            public var stepPrice: String?
+            public var cumulativeStepUsed: String?
+            public var eventLogs: [EventLog]?
             public var logsBloom: String?
+            public var status: String?
             public var failure: Failure?
-            
-            public enum ResultKey: String, CodingKey {
-                case status, to, txHash, txIndex, blockHeight, blockHash, cumulativeStepUsed, stepUsed
-                case stepPrice, scoreAddress, eventLogs, logsBloom, failure
-            }
             
             open class EventLog: Decodable {
                 public var scoreAddress: String
                 public var indexed: [String]
-                public var data: [String]
+                public var data: [String]?
             }
             
             open class Failure: Decodable {
                 public var code: String
                 public var message: String
             }
-            
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: ResultKey.self)
-                
-                self.status = try container.decode(String.self, forKey: .status)
-                self.to = try container.decode(String.self, forKey: .to)
-                self.txHash = try container.decode(String.self, forKey: .txHash)
-                self.txIndex = try container.decode(String.self, forKey: .txIndex)
-                self.blockHeight = try container.decode(String.self, forKey: .blockHeight)
-                self.blockHash = try container.decode(String.self, forKey: .blockHash)
-                self.cumulativeStepUsed = try container.decode(String.self, forKey: .cumulativeStepUsed)
-                self.stepUsed = try container.decode(String.self, forKey: .stepUsed)
-                self.stepPrice = try container.decode(String.self, forKey: .stepPrice)
-                if container.contains(.scoreAddress) {
-                    self.scoreAddress = try container.decode(String.self, forKey: .scoreAddress)
-                }
-                if container.contains(.eventLogs) {
-                    self.eventLogs = try container.decode(EventLog.self, forKey: .eventLogs)
-                }
-                if container.contains(.logsBloom) {
-                    self.logsBloom = try container.decode(String.self, forKey: .logsBloom)
-                }
-                if container.contains(.failure) {
-                    self.failure = try container.decode(Failure.self, forKey: .failure)
-                }
-            }
         }
+        
     }
 }
 
