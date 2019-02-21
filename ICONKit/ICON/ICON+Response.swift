@@ -58,7 +58,7 @@ open class Response {
 
 extension Response {
     open class Block: Decodable {
-        public var value: ResultInfo
+        public var result: ResultInfo
         
         open class ResultInfo: Decodable {
             public var version: String
@@ -101,37 +101,31 @@ extension Response {
 
 extension Response {
     open class IntValue: Decodable {
-        public var value: BigUInt
+        public var result: BigUInt
         
         public required init(from decoder: Decoder) throws {
             
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
-            let result = try container.decode(String.self, forKey: .result)
-            let removed = result.prefix0xRemoved()
+            let value = try container.decode(String.self, forKey: .result)
+            let removed = value.prefix0xRemoved()
             guard let bigValue = BigUInt(removed, radix: 16) else {
                 throw ICONResult.parsing
             }
-            self.value = bigValue
+            self.result = bigValue
         }
     }
 }
 
 extension Response {
     open class TxHash: Decodable {
-        public var value: String
-        
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            self.value = try container.decode(String.self, forKey: .result)
-        }
+        public var result: String
     }
 }
 
 extension Response {
     open class ScoreAPI: Decodable {
-        public var value: [String: API]
+        public var result: [String: API]
         
         open class API: Decodable {
             public var type: String
@@ -140,38 +134,6 @@ extension Response {
             public var outputs: [[String: String]]?
             public var readonly: String?
             public var payable: String?
-            
-            enum ResultKeys: String, CodingKey {
-                case type
-                case name
-                case inputs
-                case outputs
-                case readonly
-                case payable
-            }
-            
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: ResultKeys.self)
-                
-                self.type = try container.decode(String.self, forKey: .type)
-                self.name = try container.decode(String.self, forKey: .name)
-                self.inputs = try container.decode([[String: String?]].self, forKey: .inputs)
-                if container.contains(.outputs) {
-                    self.outputs = try container.decode([[String: String]].self, forKey: .outputs)
-                } else {
-                    self.outputs = nil
-                }
-                if container.contains(.readonly) {
-                    self.readonly = try container.decode(String.self, forKey: .readonly)
-                } else {
-                    self.readonly = nil
-                }
-                if container.contains(.payable) {
-                    self.payable = try container.decode(String.self, forKey: .payable)
-                } else {
-                    self.payable = nil
-                }
-            }
         }
         
         public required init(from decoder: Decoder) throws {
@@ -185,26 +147,20 @@ extension Response {
                 dic[api.name] = api
             }
             
-            self.value = dic
+            self.result = dic
         }
     }
 }
 
 extension Response {
     open class Balance: Decodable {
-        public var value: String
-        
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            self.value = try container.decode(String.self, forKey: .result)
-        }
+        public var result: String
     }
 }
 
 extension Response {
     open class Transaction: Decodable {
-        public var value: Result
+        public var result: Result
         
         open class Result: Decodable {
             public var version: String
@@ -234,7 +190,7 @@ extension Response {
 
 extension Response {
     open class TransactionResult: Decodable {
-        public var value: Result
+        public var result: Result
         
         open class Result: Decodable {
             public var txHash: String?
@@ -269,14 +225,6 @@ extension Response {
     
     open class Call<T: Decodable>: Decodable {
         public var result: T?
-        
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            let result = try container.decode(T.self, forKey: .result)
-            
-            self.result = result
-        }
     }
 }
 
