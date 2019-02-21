@@ -123,11 +123,11 @@ extension Transaction: TransactionSigner {
 
 open class SignedTransaction {
     public var transaction: Transaction
-    public var key: String
+    public var key: PrivateKey
     public var signature: String
     public var params: [String: Any]
     
-    public init(transaction: Transaction, privateKey: String) throws {
+    public init(transaction: Transaction, privateKey: PrivateKey) throws {
         let value = try transaction.signTransaction(privateKey: privateKey)
         
         self.transaction = transaction

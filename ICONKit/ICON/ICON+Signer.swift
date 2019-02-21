@@ -93,7 +93,7 @@ extension TransactionSigner where Self: Transaction {
         return serial
     }
     
-    func signTransaction(privateKey: String) throws -> (String, [String: Any]) {
+    func signTransaction(privateKey: PrivateKey) throws -> (String, [String: Any]) {
         let v = try self.serialize()
         let serialized = v.0
 
