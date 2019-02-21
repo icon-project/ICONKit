@@ -13,106 +13,79 @@ import BigInt
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
+    public static var blockList = [Response.Block]()
+    
+    let example = ICONExample()
+    
+    public static var lastHeight: UInt = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let example = ICONExample()
+        // tableView xib
+        let nibName = UINib(nibName: "TableViewCell", bundle: nil)
+        tableView.register(nibName, forCellReuseIdentifier: "cell")
         
-        example.createWallet()
+        example.getLastBlock()
+        loadBlocks()
         
-        example.getGovernanceScoreAPI()
-        
-        example.getDefaultStepCost()
+        // Reload
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func loadBlocks() {
+        for _ in 1...15 {
+            example.getBlockByHeight(height: UInt64(ViewController.lastHeight - 1))
+        }
     }
 }
 
-class ICONExample {
-    private var iconService: ICONService!
-    private var wallet: ICON.Wallet?
-    private var stepCost: Response.StepCosts?
-    
-    private let walletPassword = "P@55w0rd"
-    
-    let governanceAddress = "cx0000000000000000000000000000000000000001"
-    
-    init() {
-        let provider = "https://test-ctz.solidwallet.io"
-        iconService = ICONService(provider: provider, nid: "0x2")
-        
-        // If you have a wallet which has some ICX for test, use loadWallet with your private key
-        createWallet()
-        
-        // loadWallet(privateKey: "YOUR_PRIVATE_KEY")
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return ViewController.blockList.count
     }
     
-    func createWallet() {
-        print("========================")
-        print("Begin createWallet")
-        let wallet = ICON.Wallet(privateKey: nil, password: walletPassword)
-        print("address: \(String(describing: wallet.address))")
-        let prvKey = try? wallet.extractPrivateKey(password: walletPassword)
-        print("privateKey: \(String(describing: prvKey))")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        print("keystore: \(String(describing: wallet.keystore))")
+        let data = ViewController.blockList[indexPath.row].result
         
-        self.wallet = wallet
-        print("Wallet created.")
+        cell.heightLabel.text = "\(data.height)"
+        cell.blockHashLabel.text = data.blockHash
+        
+        let date = calculateAge(timestamp: data.timeStamp)
+        cell.timestampLabel.text = date + " ago"
+        
+        cell.heightLabel.sizeToFit()
+        cell.blockHashLabel.sizeToFit()
+        cell.timestampLabel.sizeToFit()
+        
+        return cell
     }
-    
-    func loadWallet(privateKey: String) {
-        let wallet = ICON.Wallet(privateKey: privateKey, password: walletPassword)
-        print("address: \(String(describing: wallet.address))")
-        let prvKey = try? wallet.extractPrivateKey(password: walletPassword)
-        print("privateKey: \(String(describing: prvKey))")
-        
-        print("keystore: \(String(describing: wallet.keystore))")
-        
-        self.wallet = wallet
-        print("Wallet loaded.")
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+//        let result = ViewController.blockList[indexPath.row]
     }
-    
-    func getGovernanceScoreAPI() {
-        print("========================")
-        print("Begin getGovernanceScoreAPI")
-        let result = iconService.getScoreAPI(scoreAddress: governanceAddress).execute()
-        
-        guard let apis = result.value else {
-            return
+}
+
+extension ViewController {
+    func calculateAge(timestamp: Double) -> String {
+        let date = Date(timeIntervalSince1970: timestamp / 1000000.0)
+        let now = Date()
+        do {
+            let formatter = DateComponentsFormatter()
+            formatter.allowedUnits = [.year, .month, .day, .hour, .minute, .second]
+            formatter.unitsStyle = .short
+            formatter.maximumUnitCount = 1
+            let daysString = formatter.string(from: date, to: now)
+            return daysString!
         }
-        
-        let set = apis.value
-        
-        for key in set.keys {
-            let api = set[key]!
-            print("name: \(api.name) , type: \(api.type) , input: \(api.inputs) , output: \(api.outputs) , payable: \(api.payable) , readonly: \(api.readonly)")
-        }
-    }
-    
-    func getDefaultStepCost() {
-        print("========================")
-        print("Begin getDefaultStepCost")
-        let method = "getStepCosts"
-        guard let wallet = self.wallet else { return }
-        let call = Call<Response.Call<Response.StepCosts>>(from: wallet.address!, to: governanceAddress, method: method, params: nil)
-        
-        let result = iconService.call(call).execute()
-        
-        guard let response = result.value, let stepCost = response.result else {
-            print("error: \(String(describing: result.error))")
-            return }
-        self.stepCost = stepCost
-        print("default: \(stepCost.defaultValue)")
-    }
-    
-    func sendTransaction() {
-        guard let wallet = self.wallet else {
-            print("No wallet exists.")
-            return
-        }
-        
-        // Fill 'toAddress' with your test wallet address
-        let toAddress = ""
-        
     }
 }

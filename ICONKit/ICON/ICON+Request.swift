@@ -44,6 +44,8 @@ extension Request {
             
         case .success(let data):
             let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            
             do {
                 let decoded = try decoder.decode(T.self, from: data)
                 

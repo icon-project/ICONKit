@@ -16,16 +16,3 @@
  */
 
 import Foundation
-
-open class Address {
-    var address: String
-    
-    private init() {
-        self.address = ""
-    }
-    
-    convenience init(_ address: String) {
-        self.init()
-        self.address = address
-    }
-}

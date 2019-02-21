@@ -22,29 +22,32 @@ import CryptoSwift
 // MARK: Wallet
 
 open class Wallet: SECP256k1 {
-    private var privateKey: String?
+    private var privateKey: PrivateKey
     public var address: String {
-        guard let key = self.privateKey, let publicKey = self.createPublicKey(privateKey: key) else { assertionFailure("Empty wallet")
+        guard let publicKey = self.createPublicKey(privateKey: self.privateKey) else { assertionFailure("Empty wallet")
             return ""
         }
         
-        return self.makeAddress(key, publicKey)
+        return self.makeAddress(self.privateKey, publicKey)
     }
     
-    public init() {
-        self.privateKey = self.generatePrivateKey()
+    private init(privateKey: PrivateKey) {
+        self.privateKey = privateKey
     }
 }
 
 extension Wallet {
     
-    public convenience init(privateKey: String) {
-        self.init()
-        self.privateKey = privateKey
+    public convenience init(privateKey prvKey: PrivateKey?) {
+        if let key = prvKey {
+            self.init(privateKey: key)
+        } else {
+            let prvKey = Wallet.generatePrivateKey()
+            self.init(privateKey: prvKey)
+        }
     }
     
-    private func generatePrivateKey() -> String {
-        
+    class func generatePrivateKey() -> PrivateKey {
         var key = ""
         
         for _ in 0..<64 {
@@ -52,8 +55,9 @@ extension Wallet {
             
             key += String(format: "%x", code)
         }
-        
-        return key.sha3(.sha256)
+        let data = key.hexToData()!.sha3(.sha256)
+        let privateKey = PrivateKey(hexData: data)
+        return privateKey
     }
     
     /// Signing
@@ -64,7 +68,6 @@ extension Wallet {
     /// - Returns: Signed.
     /// - Throws: exceptions
     public func getSignature(password: String, data: Data) throws -> String {
-        guard let privateKey = self.privateKey else { throw ICError.empty }
         let hash = data.sha3(.sha256)
         
         let sign = try signECDSA(hashedMessage: hash, privateKey: privateKey)

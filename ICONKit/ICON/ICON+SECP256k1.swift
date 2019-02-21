@@ -20,15 +20,14 @@ import CryptoSwift
 import secp256k1_ios
 
 public protocol SECP256k1 {
-    func signECDSA(hashedMessage: Data, privateKey: String) throws -> Data
-    func createPublicKey(privateKey: String) -> String?
+    
 }
 
 extension SECP256k1 {
-    public func signECDSA(hashedMessage: Data, privateKey: String) throws -> Data {
+    public func signECDSA(hashedMessage: Data, privateKey: PrivateKey) throws -> Data {
         let flag = UInt32(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY)
-        
-        guard let privData = privateKey.hexToData(), let ctx = secp256k1_context_create(flag) else { throw ICError.convert(.data) }
+        let privData = privateKey.data
+        guard let ctx = secp256k1_context_create(flag) else { throw ICError.convert(.data) }
         
         var rsig = secp256k1_ecdsa_recoverable_signature()
         
@@ -52,12 +51,13 @@ extension SECP256k1 {
         return Data(bytes: bytes)
     }
     
-    public func createPublicKey(privateKey: String) -> String? {
+    public func createPublicKey(privateKey: PrivateKey) -> PublicKey? {
+        let prvKey = privateKey.data
         let flag = UInt32(SECP256K1_CONTEXT_SIGN)
-        guard let privData = privateKey.hexToData(), let ctx = secp256k1_context_create(flag) else { return nil }
+        guard let ctx = secp256k1_context_create(flag) else { return nil }
         var rawPubkey = secp256k1_pubkey()
         
-        guard secp256k1_ec_pubkey_create(ctx, &rawPubkey, privData.bytes) == 1 else { return nil }
+        guard secp256k1_ec_pubkey_create(ctx, &rawPubkey, prvKey.bytes) == 1 else { return nil }
         
         let serializedPubkey = UnsafeMutablePointer<UInt8>.allocate(capacity: 65)
         var pubLen = 65
@@ -68,17 +68,14 @@ extension SECP256k1 {
         
         secp256k1_context_destroy(ctx)
         
-        let publicKey = Data(bytes: serializedPubkey, count: 65).toHexString()
-        
-        return String(publicKey.suffix(publicKey.count - 2))
+        let pubKeyData = Data(bytes: serializedPubkey, count: 64)
+        let pubKey = PublicKey(hexData: pubKeyData)
+        return pubKey
     }
     
-    func makeAddress(_ privateKey: String?, _ publicKey: String) -> String {
-        return makeAddress(privateKey, publicKey.hexToData()!)
-    }
-    
-    func makeAddress(_ privateKey: String?, _ publicKey: Data) -> String {
+    func makeAddress(_ privateKey: PrivateKey?, _ pubKey: PublicKey) -> String {
         var hash: Data
+        let publicKey = pubKey.data
         if publicKey.count > 64 {
             hash = publicKey.subdata(in: 1...64)
             hash = hash.sha3(.sha256)
@@ -93,21 +90,21 @@ extension SECP256k1 {
             if checkAddress(privateKey: privKey, address: address) {
                 return address
             } else {
-                return makeAddress(privKey, publicKey)
+                return makeAddress(privKey, pubKey)
             }
         }
         
         return address
     }
     
-    func checkAddress(privateKey: String, address: String) -> Bool {
+    func checkAddress(privateKey: PrivateKey, address: String) -> Bool {
         let fixed = Date.timestampString.sha3(.sha256).hexToData()!
         
         guard var rsign = ecdsaRecoverSign(privateKey: privateKey, hashed: fixed) else { return false }
         
         guard let vPub = verifyPublickey(hashedMessage: fixed, signature: &rsign), let hexPub = vPub.hexToData() else { return false }
-        
-        let vaddr = makeAddress(nil, hexPub)
+        let pubKey = PublicKey(hexData: hexPub)
+        let vaddr = makeAddress(nil, pubKey)
         
         return address == vaddr
     }
@@ -147,10 +144,10 @@ extension SECP256k1 {
         return publicKey
     }
     
-    public func ecdsaRecoverSign(privateKey: String, hashed: Data) -> secp256k1_ecdsa_recoverable_signature? {
+    fileprivate func ecdsaRecoverSign(privateKey: PrivateKey, hashed: Data) -> secp256k1_ecdsa_recoverable_signature? {
         let flag = UInt32(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY)
-        
-        guard let ctx = secp256k1_context_create(flag), let privData = privateKey.hexToData() else { return nil }
+        let privData = privateKey.data
+        guard let ctx = secp256k1_context_create(flag) else { return nil }
         var rsig = secp256k1_ecdsa_recoverable_signature()
         
         guard secp256k1_ecdsa_sign_recoverable(ctx, &rsig, hashed.bytes, privData.bytes, nil, nil) == 1 else {

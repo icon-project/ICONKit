@@ -24,7 +24,7 @@ extension ICON {
         case getTransactionResult = "icx_getTransactionResult"
         case getLastBlock = "icx_getLastBlock"
         case getBlockByHash = "icx_getBlockByHash"
-        case getBlockByHeight = "icx_getBlockBytHeight"
+        case getBlockByHeight = "icx_getBlockByHeight"
         case getTotalSupply = "icx_getTotalSupply"
         case getTransactionByHash = "icx_getTransactionByHash"
         case callMethod = "icx_call"

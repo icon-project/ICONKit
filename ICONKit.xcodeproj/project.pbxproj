@@ -14,6 +14,7 @@
 		D48D181C2134014600BEAA2F /* ICONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D181B2134014600BEAA2F /* ICONService.swift */; };
 		D49E4747214925E8007A0B26 /* ICON+Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49E4746214925E8007A0B26 /* ICON+Call.swift */; };
 		D49E4749214928C6007A0B26 /* ICON+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49E4748214928C6007A0B26 /* ICON+Response.swift */; };
+		D4CE20F4220043D900A6EF90 /* ICON+Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE20F3220043D900A6EF90 /* ICON+Converter.swift */; };
 		D4D4ED54217EBB1E004F2D83 /* ICON+Send.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4ED53217EBB1E004F2D83 /* ICON+Send.swift */; };
 		D4D4ED56217EC39F004F2D83 /* ICON+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */; };
 		D4DE9A2B218AC5EA00126CAD /* ICON+Amount.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DE9A2A218AC5EA00126CAD /* ICON+Amount.swift */; };
@@ -59,6 +60,7 @@
 		D48D181B2134014600BEAA2F /* ICONService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICONService.swift; sourceTree = "<group>"; };
 		D49E4746214925E8007A0B26 /* ICON+Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Call.swift"; sourceTree = "<group>"; };
 		D49E4748214928C6007A0B26 /* ICON+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Response.swift"; sourceTree = "<group>"; };
+		D4CE20F3220043D900A6EF90 /* ICON+Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Converter.swift"; sourceTree = "<group>"; };
 		D4D4ED53217EBB1E004F2D83 /* ICON+Send.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Send.swift"; sourceTree = "<group>"; };
 		D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Request.swift"; sourceTree = "<group>"; };
 		D4DE9A2A218AC5EA00126CAD /* ICON+Amount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Amount.swift"; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				D44F2F1E217EE3A5008B4D1F /* ICON+Address.swift */,
 				D4DE9A2A218AC5EA00126CAD /* ICON+Amount.swift */,
 				D49E4746214925E8007A0B26 /* ICON+Call.swift */,
+				D4CE20F3220043D900A6EF90 /* ICON+Converter.swift */,
 				D4E25BBE212FABD90027899B /* ICON+Error.swift */,
 				D413D09B21FEBACA00A45F88 /* ICON+Key.swift */,
 				D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */,
@@ -329,6 +332,7 @@
 				D4DE9A2B218AC5EA00126CAD /* ICON+Amount.swift in Sources */,
 				D44F2F1F217EE3A5008B4D1F /* ICON+Address.swift in Sources */,
 				D4E25BCB212FABD90027899B /* Common+Extension.swift in Sources */,
+				D4CE20F4220043D900A6EF90 /* ICON+Converter.swift in Sources */,
 				D4E25BC4212FABD90027899B /* ICON.swift in Sources */,
 				D48D181C2134014600BEAA2F /* ICONService.swift in Sources */,
 				D49E4749214928C6007A0B26 /* ICON+Response.swift in Sources */,
