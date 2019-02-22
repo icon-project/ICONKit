@@ -4,7 +4,7 @@ ICON supports SDK for 3rd party or user services development. You can integrate 
 ## Quick start
 A simple query of the block by height is as follows.
 ```swift
-let service = ICONService(provider: "https://wallet.icon.foundation", nid: nid)
+let service = ICONService(provider: "https://ctz.solidwallet.io/api/v3", nid: "0x1")
 
 // Gets a block matching the block height.
 let request: Request<Response.Block> = service.getBlock(height: height)
@@ -22,7 +22,7 @@ APIs called through `ICONService`.
 
 It can be initialized as follows.
 ```swift
-let iconService = ICONService(provider: "https://wallet.icon.foundation", nid: nid)
+let iconService = ICONService(provider: "https://ctz.solidwallet.io/api/v3", nid: "0x1")
 ```
 
 ## Queries
