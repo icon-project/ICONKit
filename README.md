@@ -108,7 +108,7 @@ let wallet = Wallet(privateKey: nil)
 // OR
 
 // Load a wallet from the private key.
-let privateKey = PrivateKey(hexData: data)
+let privateKey = PrivateKey(hex: data)
 let wallet = Wallet(privateKey: privateKey)
 ```
 
