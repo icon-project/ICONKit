@@ -63,11 +63,10 @@ extension Wallet {
     /// Signing
     ///
     /// - Parameters:
-    ///   - password: Wallet's password
     ///   - data: Data
     /// - Returns: Signed.
     /// - Throws: exceptions
-    public func getSignature(password: String, data: Data) throws -> String {
+    public func getSignature(data: Data) throws -> String {
         let hash = data.sha3(.sha256)
         
         let sign = try signECDSA(hashedMessage: hash, privateKey: privateKey)
