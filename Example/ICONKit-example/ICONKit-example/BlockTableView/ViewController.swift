@@ -14,7 +14,7 @@ import BigInt
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    public static var blockList = [Response.Block]()
+    public static var blockList = [Response.Block.ResultInfo.ConfirmedTransactionList]()
     
     let example = ICONExample()
     
@@ -23,23 +23,25 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        self.navigationItem.title = "Transactions"
         // tableView xib
         let nibName = UINib(nibName: "TableViewCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "cell")
         
+        tableView.rowHeight = 80
+        tableView.estimatedRowHeight = 80
         example.getLastBlock()
-        loadBlocks()
         
-        // Reload
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        loadBlocks()
+
     }
     
     func loadBlocks() {
-        for _ in 1...15 {
+        for _ in 1...10 {
             example.getBlockByHeight(height: UInt64(ViewController.lastHeight - 1))
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
 }
@@ -52,18 +54,18 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        let data = ViewController.blockList[indexPath.row].result
+        let data = ViewController.blockList[indexPath.row]
         
-        cell.heightLabel.text = "\(data.height)"
-        cell.blockHashLabel.text = data.blockHash
-        
-        let date = calculateAge(timestamp: data.timeStamp)
-        cell.timestampLabel.text = date + " ago"
-        
-        cell.heightLabel.sizeToFit()
-        cell.blockHashLabel.sizeToFit()
-        cell.timestampLabel.sizeToFit()
-        
+        cell.statusLabel.text = "success"
+        cell.txHashLabel.text = data.txHash
+        cell.amountLabel.text = data.value
+        cell.feeLabel.text = data.stepLimit
+
+        cell.statusLabel.sizeToFit()
+        cell.txHashLabel.sizeToFit()
+        cell.amountLabel.sizeToFit()
+        cell.feeLabel.sizeToFit()
+
         return cell
     }
 }
@@ -71,7 +73,14 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        let result = ViewController.blockList[indexPath.row]
+        let result = ViewController.blockList[indexPath.row]
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "BlockInfo", bundle: nil)
+        let nextView = storyboard.instantiateInitialViewController()
+        let vc = nextView as? BlockInfoViewController
+        vc?.blockInfo = result
+        
+        self.navigationController?.pushViewController(vc!, animated: true)
     }
 }
 
@@ -84,8 +93,11 @@ extension ViewController {
             formatter.allowedUnits = [.year, .month, .day, .hour, .minute, .second]
             formatter.unitsStyle = .short
             formatter.maximumUnitCount = 1
-            let daysString = formatter.string(from: date, to: now)
-            return daysString!
+            if let daysString = formatter.string(from: date, to: now) {
+                return daysString + " ago"
+            }
+            return "unknown"
+            
         }
     }
 }

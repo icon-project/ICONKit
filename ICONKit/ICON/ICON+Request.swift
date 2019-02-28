@@ -55,6 +55,28 @@ extension Request {
             }
         }
     }
+    
+    public func async(_ completion: @escaping (Result<T, ICONResult>) -> Void){
+        self.send { (result) in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+                return
+                
+            case .success(let data):
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                
+                do {
+                    let decoded = try decoder.decode(T.self, from: data)
+                    completion(.success(decoded))
+                    return
+                } catch {
+                    completion(.failure(ICONResult.parsing))
+                }
+            }
+        }
+    }
 }
 
 extension ICONService {

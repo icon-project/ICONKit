@@ -10,9 +10,10 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
 
-    @IBOutlet weak var heightLabel: UILabel!
-    @IBOutlet weak var blockHashLabel: UILabel!
-    @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var txHashLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var feeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
