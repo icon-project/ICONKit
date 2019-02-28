@@ -64,6 +64,34 @@ extension Sendable {
         
         return .success(value)
     }
+    
+    func send(_ completion: @escaping ((Result<Data, ICONResult>) -> Void)) {
+        guard let provider = URL(string: self.provider) else {
+            completion(.failure(.provider))
+            return
+        }
+        let request = ICONRequest(provider: provider, method: method, params: params, id: self.getID())
+        
+        let task = URLSession.shared.dataTask(with: request.asURLRequest()) { (data, response, error) in
+            
+            if let connectError = error {
+                completion(.failure(ICONResult.httpError(connectError.localizedDescription)))
+            }
+            
+            guard let value = data else {
+                completion(.failure(ICONResult.httpError("Unknown Error")))
+                return
+            }
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                let message = String(data: value, encoding: .utf8)
+                completion(.failure(ICONResult.httpError(message ?? "Unknown Error")))
+                return
+            }
+            completion(.success(value))
+            return
+        }
+        task.resume()
+    }
 }
 
 private class ICONRequest {

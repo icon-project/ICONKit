@@ -8,6 +8,7 @@
 
 import Foundation
 import ICONKit
+import BigInt
 
 class ICONExample {
     private var iconService: ICONService!
@@ -31,7 +32,6 @@ class ICONExample {
         
         // If you have a wallet which has some ICX for test, use loadWallet with your private key
         //        createWallet()
-        //
         //        loadWallet(privateKey: "YOUR_PRIVATE_KEY")
     }
     
@@ -94,114 +94,102 @@ class ICONExample {
     
     func getLastBlock() {
         let response = iconService.getLastBlock().execute()
-        if let result = response.value {
-            ViewController.blockList.append(result)
-            ViewController.lastHeight = result.result.height
+        if let value = response.value {
+            for i in value.result.confirmedTransactionList {
+                ViewController.blockList.append(i)
+            }
+            ViewController.lastHeight = value.result.height
+
+        } else {
+            print("Error: \(String(describing: response.error))")
         }
     }
     
     func getBlockByHeight(height: UInt64) {
-        let result = iconService.getBlock(height: height).execute()
+        let response = iconService.getBlock(height: height).execute()
         
-        if let value = result.value {
-            ViewController.blockList.append(value)
+        if let value = response.value {
+            for i in value.result.confirmedTransactionList {
+                ViewController.blockList.append(i)
+            }
             ViewController.lastHeight = value.result.height
-            
+        
         } else {
-            print("ERROR: \(String(describing: result.error))")
+            print("ERROR: \(String(describing: response.error))")
         }
     }
     
     func getBlockByHash() {
-        // Mainnet -provider 확인을 잘 하자.
-        //        let result = iconService.getBlock(hash: "0x4e468893e56ef2cd75eb82cc4ff7026bf2baf72a47c0355a7a94da523af7aa3f").execute()
+        let response = iconService.getBlock(hash: "0x4e468893e56ef2cd75eb82cc4ff7026bf2baf72a47c0355a7a94da523af7aa3f").execute()
         
-        // DApps
-        let result = iconService.getBlock(hash: "0x3023106753b7545610916085d088df8d8ebd1fd0a12aa6b955b516b4133b3710").execute()
-        
-        // Exchange
-        //        let result = iconService.getBlock(hash: "0x11658452bd891c717b95d262d0fa2006fa49f59da8fcd5dd53987891ae12e0a1").execute()
-        
-        if let value = result.value {
-            print("getBlockHash: \(value.result)")
+        if let value = response.value {
+            print("result: \(value.result)")
             
         } else {
-            print("error: \(String(describing: result.error))")
+            print("ERROR: \(String(describing: response.error))")
         }
     }
     
     func getBalance() {
+        let response = iconService.getBalance(address: "hx7ccc54932b913c71f7051e9dc1b621074c91d462").execute()
         
-        // DApps
-        let result = iconService.getBalance(address: "hxb49c75ce26b0f147a0d5c213082a33035e22c6fc").execute()
-        
-        // Exchange
-        //        let result = iconService.getBalance(address: "hx9f63a41ccca7935d750d140d913d31bee375606e").execute()
-        
-        if let value = result.value {
-            print("getBalance: \(value.result)")
+        if let value = response.value {
+            print("result: \(value.result)")
             
         } else {
-            print("error: \(String(describing: result.error))")
+            print("ERROR: \(String(describing: response.error))")
         }
     }
     
+
     func getScoreAPI() {
-        // DApps
-        let result = iconService.getScoreAPI(scoreAddress: "cx5b479511f199d601b4230da4d631b660cc0cb5b9").execute()
-        
-        //        // Exchange
-        //        let result = iconService.getScoreAPI(scoreAddress: "cx5b479511f199d601b4230da4d631b660cc0cb5b9").execute()
-        
-        if let value = result.value {
-            print("result: \(value.result)")
+        let response = iconService.getScoreAPI(scoreAddress: "cx3ec2814520c0096715159b8fc55fa1f385be038c").execute()
+
+        if let value = response.value {
+            print("result score: \(value.result)")
         } else {
-            print("ERROR: \(String(describing: result.error))")
+            print("ERROR: \(String(describing: response.error))")
         }
     }
     
+    // sync
     func getTotalSupply() {
-        let result = iconService.getTotalSupply().execute()
+        let response = iconService.getTotalSupply().execute()
         
-        if let value = result.value {
+        if let value = response.value {
             print("result: \(value.result)")
         } else {
-            print("ERROR: \(String(describing: result.error))")
+            print("ERROR: \(String(describing: response.error))")
+        }
+    }
+    
+    // async
+    func asyncTotalSupply(_ completion: @escaping ((BigUInt) -> Void)) {
+        iconService.getTotalSupply().async { (response) in
+            if let value = response.value {
+                completion(value.result)        
+            }
         }
     }
     
     func getTransactionResult() {
-        // Mainnet
-        //        let result = iconService.getTransactionResult(hash: "0x0966446bcb94b6bae3f6a0b9e8949842d0d4b10f3fa26e9bd6c2ccda185fe3a7").execute()
-        
-        // DApps
-        let result = iconService.getTransactionResult(hash: "0x86bada0b473e7f537fba2bfd09347e2e7e3f84f49c45342372d9a65a79440680").execute()
-        
-        // Exchange
-        //        let result = iconService.getTransactionResult(hash: "0x399c9a1e66c073cfd865e2867b0aef6737ae9c3fdd288648a78ee99a2f7403fb").execute()
-        
-        if let value = result.value {
-            print("result: \(String(describing: value.result.txHash))")
+        let response = iconService.getTransactionResult(hash: "0xdca3d024e8361da7a2de42c506f0af2105be7b551ddb2e311b388ae5a41ad304").execute()
+
+        if let value = response.value {
+            print("result: \(String(describing: value.result))")
         } else {
-            print("ERROR: \(String(describing: result.error))")
+            print("ERROR: \(String(describing: response.error))")
         }
     }
     
     func getTransactionByHash() {
-        // Mainnet
-        //        let result = iconService.getTransaction(hash: "0x0b01b95928fb8ef92f82f1764e36c515a1c1a04946dc04e94df407545098c20b").execute()
+        let response = iconService.getTransaction(hash: "0x0b01b95928fb8ef92f82f1764e36c515a1c1a04946dc04e94df407545098c20b").execute()
         
-        // DApps
-        let result = iconService.getTransaction(hash: "0x86bada0b473e7f537fba2bfd09347e2e7e3f84f49c45342372d9a65a79440680").execute()
-        
-        // Exchange
-        //        let result = iconService.getTransaction(hash: "0x399c9a1e66c073cfd865e2867b0aef6737ae9c3fdd288648a78ee99a2f7403fb").execute()
-        
-        if let value = result.value {
-            print("BlockHash: \(value.result.blockHash)")
+        if let value = response.value {
+            print("result: \(value.result.blockHash)")
             
         } else {
-            print("ERROR: \(String(describing: result.error))")
+            print("ERROR: \(String(describing: response.error))")
         }
     }
 }
