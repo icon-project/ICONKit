@@ -10,7 +10,6 @@ import UIKit
 
 class BlockInfoTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     
     override func awakeFromNib() {

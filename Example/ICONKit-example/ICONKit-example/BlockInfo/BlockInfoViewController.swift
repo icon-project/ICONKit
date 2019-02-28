@@ -39,19 +39,64 @@ class BlockInfoViewController: UIViewController {
 }
 
 extension BlockInfoViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 8
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "txHash"
+        case 1:
+            return "status"
+        case 2:
+            return "timeStamp"
+        case 3:
+            return "from"
+        case 4:
+            return "to"
+        case 5:
+            return "value"
+        case 6:
+            return "stepLimit"
+        case 7:
+            return "signature"
+        default:
+            return "unknown"
+        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath) as! BlockInfoTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell") as! BlockInfoTableViewCell
         
-        if let list = blockInfo {
-            cell.titleLabel.text = "signature"
-            cell.contentLabel.text = list.signature
-            cell.titleLabel.sizeToFit()
+        if let info = blockInfo {
+            switch indexPath.section {
+            case 0:
+                
+                cell.contentLabel.text = info.txHash
+            case 1:
+                cell.contentLabel.text = "success"
+            case 2:
+                cell.contentLabel.text = info.timestamp
+            case 3:
+                cell.contentLabel.text = info.from
+            case 4:
+                cell.contentLabel.text = info.to
+            case 5:
+                cell.contentLabel.text = info.value
+            case 6:
+                cell.contentLabel.text = info.stepLimit
+            case 7:
+                cell.contentLabel.text = info.signature
+            default:
+                cell.contentLabel.text = "unknown"
+            }
             cell.contentLabel.sizeToFit()
         }
+        
         return cell
     }
 }
