@@ -22,22 +22,22 @@ import CryptoSwift
 // MARK: Wallet
 
 open class Wallet: SECP256k1 {
-    private var privateKey: PrivateKey
+    private let _key: KeyPair
+    public var key: KeyPair {
+        return _key
+    }
     public var address: String {
-        guard let publicKey = self.createPublicKey(privateKey: self.privateKey) else { assertionFailure("Empty wallet")
-            return ""
-        }
-        
-        return self.makeAddress(self.privateKey, publicKey)
+        return self.makeAddress(self.key.privateKey, self.key.publicKey)
     }
     
     private init(privateKey: PrivateKey) {
-        self.privateKey = privateKey
+        let publicKey = Wallet.createPublicKey(privateKey: privateKey)!
+        
+        _key = KeyPair(publicKey: publicKey, privateKey: privateKey)
     }
 }
 
 extension Wallet {
-    
     public convenience init(privateKey prvKey: PrivateKey?) {
         if let key = prvKey {
             self.init(privateKey: key)
@@ -56,7 +56,7 @@ extension Wallet {
             key += String(format: "%x", code)
         }
         let data = key.hexToData()!.sha3(.sha256)
-        let privateKey = PrivateKey(hexData: data)
+        let privateKey = PrivateKey(hex: data)!
         return privateKey
     }
     
@@ -69,7 +69,7 @@ extension Wallet {
     public func getSignature(data: Data) throws -> String {
         let hash = data.sha3(.sha256)
         
-        let sign = try signECDSA(hashedMessage: hash, privateKey: privateKey)
+        let sign = try signECDSA(hashedMessage: hash, privateKey: key.privateKey)
         
         return sign.base64EncodedString()
         

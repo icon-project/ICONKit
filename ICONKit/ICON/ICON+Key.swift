@@ -17,7 +17,7 @@
 
 import Foundation
 
-typealias KeyPair = (pub: PublicKey, prv: PrivateKey)
+public typealias KeyPair = (publicKey: PublicKey, privateKey: PrivateKey)
 
 open class Key {
     private var key: Data
@@ -30,8 +30,9 @@ open class Key {
         return key
     }
     
-    public init(hexData: Data) {
-        self.key = hexData
+    public init?(hex: Data) {
+        guard hex.count == 64 else { return nil }
+        self.key = hex
     }
 }
 
