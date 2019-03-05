@@ -51,7 +51,7 @@ extension SECP256k1 {
         return Data(bytes: bytes)
     }
     
-    static func createPublicKey(privateKey: PrivateKey) -> PublicKey? {
+    public static func createPublicKey(privateKey: PrivateKey) -> PublicKey? {
         let prvKey = privateKey.data
         let flag = UInt32(SECP256K1_CONTEXT_SIGN)
         guard let ctx = secp256k1_context_create(flag) else { return nil }
@@ -73,7 +73,7 @@ extension SECP256k1 {
         return pubKey
     }
     
-    func makeAddress(_ privateKey: PrivateKey?, _ pubKey: PublicKey) -> String {
+    public func makeAddress(_ pubKey: PublicKey) -> String {
         var hash: Data
         let publicKey = pubKey.data
         if publicKey.count > 64 {
@@ -86,14 +86,6 @@ extension SECP256k1 {
         let sub = hash.suffix(20)
         let address = "hx" + String(sub.toHexString())
         
-        if let privKey = privateKey {
-            if checkAddress(privateKey: privKey, address: address) {
-                return address
-            } else {
-                return makeAddress(privKey, pubKey)
-            }
-        }
-        
         return address
     }
     
@@ -103,8 +95,8 @@ extension SECP256k1 {
         guard var rsign = ecdsaRecoverSign(privateKey: privateKey, hashed: fixed) else { return false }
         
         guard let vPub = verifyPublickey(hashedMessage: fixed, signature: &rsign), let hexPub = vPub.hexToData() else { return false }
-        guard let pubKey = PublicKey(hex: hexPub) else { return false }
-        let vaddr = makeAddress(nil, pubKey)
+        let pubKey = PublicKey(hex: hexPub)//guard let pubKey = PublicKey(hex: hexPub) else { return false }
+        let vaddr = makeAddress(pubKey)
         
         return address == vaddr
     }

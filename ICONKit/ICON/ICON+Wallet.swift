@@ -27,7 +27,7 @@ open class Wallet: SECP256k1 {
         return _key
     }
     public var address: String {
-        return self.makeAddress(self.key.privateKey, self.key.publicKey)
+        return self.makeAddress(self.key.publicKey)
     }
     
     private init(privateKey: PrivateKey) {
@@ -47,7 +47,7 @@ extension Wallet {
         }
     }
     
-    class func generatePrivateKey() -> PrivateKey {
+    public class func generatePrivateKey() -> PrivateKey {
         var key = ""
         
         for _ in 0..<64 {
@@ -56,7 +56,7 @@ extension Wallet {
             key += String(format: "%x", code)
         }
         let data = key.hexToData()!.sha3(.sha256)
-        let privateKey = PrivateKey(hex: data)!
+        let privateKey = PrivateKey(hex: data)//!
         return privateKey
     }
     
