@@ -22,22 +22,22 @@ import CryptoSwift
 // MARK: Wallet
 
 open class Wallet: SECP256k1 {
-    private var privateKey: PrivateKey
+    private let _key: KeyPair
+    public var key: KeyPair {
+        return _key
+    }
     public var address: String {
-        guard let publicKey = self.createPublicKey(privateKey: self.privateKey) else { assertionFailure("Empty wallet")
-            return ""
-        }
-        
-        return self.makeAddress(self.privateKey, publicKey)
+        return self.makeAddress(self.key.publicKey)
     }
     
     private init(privateKey: PrivateKey) {
-        self.privateKey = privateKey
+        let publicKey = Wallet.createPublicKey(privateKey: privateKey)!
+        
+        _key = KeyPair(publicKey: publicKey, privateKey: privateKey)
     }
 }
 
 extension Wallet {
-    
     public convenience init(privateKey prvKey: PrivateKey?) {
         if let key = prvKey {
             self.init(privateKey: key)
@@ -47,7 +47,7 @@ extension Wallet {
         }
     }
     
-    class func generatePrivateKey() -> PrivateKey {
+    public class func generatePrivateKey() -> PrivateKey {
         var key = ""
         
         for _ in 0..<64 {
@@ -56,21 +56,20 @@ extension Wallet {
             key += String(format: "%x", code)
         }
         let data = key.hexToData()!.sha3(.sha256)
-        let privateKey = PrivateKey(hexData: data)
+        let privateKey = PrivateKey(hex: data)//!
         return privateKey
     }
     
     /// Signing
     ///
     /// - Parameters:
-    ///   - password: Wallet's password
     ///   - data: Data
     /// - Returns: Signed.
     /// - Throws: exceptions
-    public func getSignature(password: String, data: Data) throws -> String {
+    public func getSignature(data: Data) throws -> String {
         let hash = data.sha3(.sha256)
         
-        let sign = try signECDSA(hashedMessage: hash, privateKey: privateKey)
+        let sign = try signECDSA(hashedMessage: hash, privateKey: key.privateKey)
         
         return sign.base64EncodedString()
         

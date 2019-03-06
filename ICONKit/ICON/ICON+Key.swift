@@ -17,28 +17,26 @@
 
 import Foundation
 
-typealias KeyPair = (pub: PublicKey, prv: PrivateKey)
+public typealias KeyPair = (publicKey: PublicKey, privateKey: PrivateKey)
 
 open class Key {
-    private var key: Data
+    public let data: Data
     
     public var hexEncoded: String {
-        return self.key.hexEncodedString()
+        return self.data.hexEncodedString()
     }
     
-    public var data: Data {
-        return key
+    public var base64Encoded: String {
+        return self.data.base64EncodedString()
     }
     
-    public init(hexData: Data) {
-        self.key = hexData
+    public init(hex: Data) {
+        self.data = hex
     }
 }
 
 open class PublicKey: Key {
-    public var base64Encoded: String {
-        return self.data.base64EncodedString()
-    }
+    
 }
 
 open class PrivateKey: Key {
