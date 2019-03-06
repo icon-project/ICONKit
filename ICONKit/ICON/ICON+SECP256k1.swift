@@ -68,8 +68,13 @@ extension SECP256k1 {
         
         secp256k1_context_destroy(ctx)
         
-        let pubKeyData = Data(bytes: serializedPubkey, count: 64)
-        let pubKey = PublicKey(hex: pubKeyData)
+        
+        
+        let serialized = Data(bytes: serializedPubkey, count: 65).toHexString()
+        let covered = String(serialized.suffix(serialized.count - 2))
+        
+        
+        let pubKey = PublicKey(hex: Data(hex: covered))
         return pubKey
     }
     
@@ -138,7 +143,7 @@ extension SECP256k1 {
         
         secp256k1_context_destroy(ctx)
         
-        let publicKey = Data(bytes: serializedPubkey, count: 64).toHexString()
+        let publicKey = Data(bytes: serializedPubkey, count: 65).toHexString()
         
         return publicKey
     }
