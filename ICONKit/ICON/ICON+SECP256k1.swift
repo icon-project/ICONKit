@@ -73,7 +73,7 @@ extension SECP256k1 {
         return pubKey
     }
     
-    public func makeAddress(_ pubKey: PublicKey) -> String {
+    public static func makeAddress(_ privateKey: PrivateKey?, _ pubKey: PublicKey) -> String {
         var hash: Data
         let publicKey = pubKey.data
         if publicKey.count > 64 {
@@ -82,21 +82,28 @@ extension SECP256k1 {
         } else {
             hash = publicKey.sha3(.sha256)
         }
-        
         let sub = hash.suffix(20)
         let address = "hx" + String(sub.toHexString())
+        
+        if let privKey = privateKey {
+            if Self.checkAddress(privateKey: privKey, address: address) {
+                return address
+            } else {
+                return makeAddress(privKey, pubKey)
+            }
+        }
         
         return address
     }
     
-    func checkAddress(privateKey: PrivateKey, address: String) -> Bool {
-        let fixed = Date.timestampString.sha3(.sha256).hexToData()!
+    public static func checkAddress(privateKey: PrivateKey, address: String) -> Bool {
+        let fixed = Date.timestampString.data(using: .utf8)!.sha3(.sha256)
         
-        guard var rsign = ecdsaRecoverSign(privateKey: privateKey, hashed: fixed) else { return false }
+        guard var rsign = Self.ecdsaRecoverSign(privateKey: privateKey, hashed: fixed) else { return false }
         
-        guard let vPub = verifyPublickey(hashedMessage: fixed, signature: &rsign), let hexPub = vPub.hexToData() else { return false }
-        let pubKey = PublicKey(hex: hexPub)//guard let pubKey = PublicKey(hex: hexPub) else { return false }
-        let vaddr = makeAddress(pubKey)
+        guard let vPub = Self.verifyPublickey(hashedMessage: fixed, signature: &rsign), let hexPub = vPub.hexToData() else { return false }
+        let pubKey = PublicKey(hex: hexPub)
+        let vaddr = makeAddress(nil, pubKey)
         
         return address == vaddr
     }
@@ -105,7 +112,7 @@ extension SECP256k1 {
     /// Reference from web3swift
     /// https://github.com/BANKEX/web3swift
     ///
-    public func verifyPublickey(hashedMessage: Data, signature: inout secp256k1_ecdsa_recoverable_signature) -> String? {
+    public static func verifyPublickey(hashedMessage: Data, signature: inout secp256k1_ecdsa_recoverable_signature) -> String? {
         let flag = UInt32(SECP256K1_CONTEXT_VERIFY)
         
         guard let ctx = secp256k1_context_create(flag) else { return nil }
@@ -131,12 +138,12 @@ extension SECP256k1 {
         
         secp256k1_context_destroy(ctx)
         
-        let publicKey = Data(bytes: serializedPubkey, count: 65).toHexString()
+        let publicKey = Data(bytes: serializedPubkey, count: 64).toHexString()
         
         return publicKey
     }
     
-    fileprivate func ecdsaRecoverSign(privateKey: PrivateKey, hashed: Data) -> secp256k1_ecdsa_recoverable_signature? {
+    public static func ecdsaRecoverSign(privateKey: PrivateKey, hashed: Data) -> secp256k1_ecdsa_recoverable_signature? {
         let flag = UInt32(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY)
         let privData = privateKey.data
         guard let ctx = secp256k1_context_create(flag) else { return nil }

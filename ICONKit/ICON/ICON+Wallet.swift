@@ -22,18 +22,14 @@ import CryptoSwift
 // MARK: Wallet
 
 open class Wallet: SECP256k1 {
-    private let _key: KeyPair
-    public var key: KeyPair {
-        return _key
-    }
-    public var address: String {
-        return self.makeAddress(self.key.publicKey)
-    }
+    public let key: KeyPair
+    public let address: String
     
     private init(privateKey: PrivateKey) {
         let publicKey = Wallet.createPublicKey(privateKey: privateKey)!
         
-        _key = KeyPair(publicKey: publicKey, privateKey: privateKey)
+        self.address = Wallet.makeAddress(privateKey, publicKey)
+        self.key = KeyPair(publicKey: publicKey, privateKey: privateKey)
     }
 }
 
