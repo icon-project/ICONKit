@@ -5,9 +5,7 @@ ICON supports SDK for 3rd party or user services development. You can integrate 
 ## Installation
 
 ### CocoaPods
-
 [CocoaPods](https://cocoapods.org/) is a dependecy manager for Swift Cocoa projects.
-
 ```
 $ sudo gem install cocoapods
 ```
@@ -24,22 +22,19 @@ end
 ```
 
 Now install the ICONKit
-
 ```
 $ pod install
 ```
 
 ## Result
-
 ICONKit uses [Result](https://github.com/antitypical/Result) framework. All functions of ICONService returns Result<T, ICONResult>. `T` for successor, `ICONResult` for error.
 Refer to [Result](https://github.com/antitypical/Result) for more detail.
 
 ## Quick start
 
 A simple query of the block by height is as follows.
-
 ```Swift
-let iconService = ICONService(provider: "https://ctz.solidwallet.io", nid: "0x1")
+let service = ICONService(provider: "https://ctz.solidwallet.io/api/v3", nid: "0x1")
 
 // Gets a block matching the block height.
 let request: Request<Response.Block> = iconService.getBlock(height: height)
@@ -58,26 +53,20 @@ case .failure(let error):
 APIs called through `ICONService`.
 
 It can be initialized as follows.
-
 ```Swift
-let iconService = ICONService(provider: "https://ctz.solidwallet.io", nid: "0x1")
+let iconService = ICONService(provider: "https://ctz.solidwallet.io/api/v3", nid: "0x1")
 ```
 
 ## Queries
+All queries are requested by a `Request<T>`.
 
 All queries are requested by a `Request<T>`.
 
-Its requests are executed as **Synchronized** and **Asynchornized**.
-
-### Synchronous
-
 ```Swift
-let response = iconService.getLastBlock().execute()
+let response = service.getBlock(height: height).execute()
 
 switch response {
-case .success(let responseBlock):
-  	...
-case .failure(let error):
+case: .success(let responseBlock):
     ...
 }
 ```
@@ -123,7 +112,7 @@ let request: Request<Response.TransactionResult> = iconService.getTransactionRes
 
 // Calls a SCORE API just for reading
 let call = Call(from: wallet.address, to: scoreAddress, method: "balanceOf", params: params)
-let request: Request<Response.IntValue> = iconService.call(call)
+let request: Request<Response.IntValue> = service.call(call)
 ```
 
 ## Sending transactions
@@ -133,7 +122,6 @@ Calling SCORE APIs to change states is requested as sending a transaction.
 Before sending a transaction, the transaction should be signed.
 
 **Loading wallets and storing the Keystore**
-
 ```Swift
 // Generates a wallet.
 let wallet = Wallet(privateKey: nil)
@@ -177,6 +165,7 @@ let transaction = Transaction()
     .nonce("0x1")
     .nid(service.nid)
 ```
+`SignedTransaction` object signs a transaction using the wallet.
 
 `SignedTransaction` object signs a transaction using the wallet.
 
@@ -186,7 +175,7 @@ And a request is executed as **Synchronized** and **Asynchronized** like a query
 do {
     let signed = try SignedTransaction(transaction: transaction, privateKey: privateKey)
 
-    let request: Request<Response.TxHash> = iconService.sendTransaction(signedTransaction: signed)
+    let request: Request<Response.TxHash> = service.sendTransaction(signedTransaction: signed)
     let response = request.execute()
     switch response {
     case .success(let result):
@@ -209,11 +198,9 @@ do {
 - [ICON Network](https://github.com/icon-project/icon-project.github.io/blob/master/docs/icon_network.md)
 
 ## Version
-
 0.2.4 (Beta)
 
 ## Requirement
-
 - Xcode 10 or higher
 - iOS 10 or higher
 - Swift 4
