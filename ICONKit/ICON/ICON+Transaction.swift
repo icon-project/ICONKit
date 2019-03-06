@@ -34,7 +34,7 @@ open class Transaction {
         
     }
     
-    convenience init(from: String, to: String, stepLimit: BigUInt, nid: String, value: BigUInt, nonce: String, dataType: String? = nil, data: Any? = nil) {
+    convenience init(from: String, to: String, stepLimit: BigUInt, nid: String, value: BigUInt, nonce: String, dataType: String, data: Any) {
         self.init()
         self.from = from
         self.to = to
@@ -47,50 +47,49 @@ open class Transaction {
     }
     
     @discardableResult
-    public func from(_ from: String) -> Transaction {
+    public func from(_ from: String) -> Self {
         self.from = from
         return self
     }
     
     @discardableResult
-    public func to(_ to: String) -> Transaction {
+    public func to(_ to: String) -> Self {
         self.to = to
         return self
     }
     
     @discardableResult
-    public func stepLimit(_ limit: BigUInt) -> Transaction {
+    public func stepLimit(_ limit: BigUInt) -> Self {
         self.stepLimit = limit
         return self
     }
     
     @discardableResult
-    public func nid(_ nid: String) -> Transaction {
+    public func nid(_ nid: String) -> Self {
         self.nid = nid
         return self
     }
     
     @discardableResult
-    public func value(_ value: BigUInt) -> Transaction {
+    public func value(_ value: BigUInt) -> Self {
         self.value = value
         return self
     }
     
     @discardableResult
-    public func nonce(_ nonce: String) -> Transaction {
+    public func nonce(_ nonce: String) -> Self {
         self.nonce = nonce
         return self
     }
+}
+
+extension Transaction: TransactionSigner {
     
+}
+
+open class CallTransaction: Transaction {
     @discardableResult
-    public func message(_ message: String) -> Transaction {
-        self.dataType = "message"
-        self.data = message
-        return self
-    }
-    
-    @discardableResult
-    public func call(_ method: String) -> Transaction {
+    public func call(_ method: String) -> Self {
         self.dataType = "call"
         if self.data == nil {
             self.data = ["method": method]
@@ -104,7 +103,7 @@ open class Transaction {
     }
     
     @discardableResult
-    public func params(_ params: [String: Any]) -> Transaction {
+    public func params(_ params: [String: Any]) -> Self {
         if self.data == nil {
             self.data = ["params": params]
         } else {
@@ -117,8 +116,58 @@ open class Transaction {
     }
 }
 
-extension Transaction: TransactionSigner {
-    
+open class DeployTransaction: Transaction {
+    @discardableResult
+    public func contentType(_ contentType: String) -> Self {
+        if self.data == nil {
+            self.data = ["contentType": contentType]
+        } else {
+            if var dic = self.data as? [String: Any] {
+                dic["contentType"] = contentType
+                self.data = dic
+            }
+        }
+        return self
+    }
+    @discardableResult
+    public func content(_ content: String) -> Self {
+        if self.data == nil {
+            self.data = ["content": content]
+        } else {
+            if var dic = self.data as? [String: Any] {
+                dic["content"] = content
+                self.data = dic
+            }
+        }
+        return self
+    }
+    @discardableResult
+    public func params(_ params: [String: Any]) -> Self {
+        if self.data == nil {
+            self.data = ["params": params]
+        } else {
+            if var dic = self.data as? [String: Any] {
+                dic["params"] = params
+                self.data = dic
+            }
+        }
+        return self
+    }
+}
+
+open class MessageTransaction: Transaction {
+    @discardableResult
+    public func message(_ message: String) -> Self {
+        if self.data == nil {
+            self.data = ["message": message]
+        } else {
+            if var dic = self.data as? [String: Any] {
+                dic["message"] = message
+                self.data = dic
+            }
+        }
+        return self
+    }
 }
 
 open class SignedTransaction {
