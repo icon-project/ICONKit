@@ -35,7 +35,7 @@ open class Transaction {
         
     }
     
-    convenience init(from: String, to: String, stepLimit: BigUInt, nid: String, value: BigUInt, nonce: String, dataType: String, data: Any) {
+    convenience init(from: String, to: String, stepLimit: BigUInt, nid: String, value: BigUInt, nonce: String, dataType: String? = nil, data: Any? = nil) {
         self.init()
         self.from = from
         self.to = to
