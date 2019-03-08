@@ -88,43 +88,51 @@ extension Transaction: TransactionSigner {
     
 }
 
-open class CallTransaction: Transaction {
-    @discardableResult
-    public func method(_ method: String) -> Self {
-        self.dataType = "call"
-        if self.data == nil {
-            self.data = ["method": method]
-        } else {
-            if var dic = self.data as? [String: Any] {
-                dic["method"] = method
-                self.data = dic as? Codable
+extension Transaction {
+    /// Call function in SCORE
+    ///
+    /// `Call` used when calling a function in SCORE, and `data` has dictionary value as method and params.
+    open class Call: Transaction {
+        @discardableResult
+        public func method(_ method: String) -> Self {
+            self.dataType = "call"
+            if self.data == nil {
+                self.data = ["method": method]
+            } else {
+                if var dic = self.data as? [String: Any] {
+                    dic["method"] = method
+                    self.data = dic as? Codable
+                }
             }
+            return self
         }
-        return self
+        
+        @discardableResult
+        public func params(_ params: [String: Any]) -> Self {
+            if self.data == nil {
+                self.data = ["params": params]
+            } else {
+                if var dic = self.data as? [String: Any] {
+                    dic["params"] = params
+                    self.data = dic
+                }
+            }
+            return self
+        }
     }
-    
-    @discardableResult
-    public func params(_ params: [String: Any]) -> Self {
-        if self.data == nil {
-            self.data = ["params": params]
-        } else {
-            if var dic = self.data as? [String: Any] {
-                dic["params"] = params
-                self.data = dic
-            }
+    /// Transfer a message.
+    ///
+    /// `MessageTransaction` used transfer a message and `data` has a HEX String.
+    open class Message: Transaction {
+        @discardableResult
+        public func message(_ message: String) -> Self {
+            self.dataType = "message"
+            self.data = message
+            return self
         }
-        return self
     }
 }
 
-open class MessageTransaction: Transaction {
-    @discardableResult
-    public func message(_ message: String) -> Self {
-        self.dataType = "message"
-        self.data = message
-        return self
-    }
-}
 
 open class SignedTransaction {
     public var transaction: Transaction
@@ -143,6 +151,7 @@ open class SignedTransaction {
 }
 
 extension ICONService {
+    /// Send transaction
     public func sendTransaction(signedTransaction: SignedTransaction) -> Request<Response.TxHash> {
         return Request<Response.TxHash>(id: self.getID(), provider: self.provider, method: .sendTransaction, params: signedTransaction.params)
     }
