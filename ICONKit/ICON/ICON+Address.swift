@@ -24,7 +24,9 @@ open class Address {
         self.address = ""
     }
     
-    convenience init(_ address: String) {
+    convenience init?(_ address: String) {
+        guard address.count == 42, address.hasPrefix("hx") else { return nil }
+        
         self.init()
         self.address = address
     }

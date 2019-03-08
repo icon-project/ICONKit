@@ -18,8 +18,10 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/helloicon'
 
   s.platform     = :ios, "10.0"
+  s.platform	 = :osx, "10.14"
 
   s.ios.deployment_target = "10.0"
+  s.osx.deployment_target = "10.14"
 
   s.source       = { :git => "https://github.com/icon-project/ICONKit.git", :tag => s.version.to_s }
   
