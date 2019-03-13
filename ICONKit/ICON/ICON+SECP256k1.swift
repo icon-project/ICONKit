@@ -51,6 +51,26 @@ extension SECP256k1 {
         return Data(bytes: bytes)
     }
     
+    public static func createRecoveryKey(privateKey: PrivateKey) -> PublicKey? {
+        let prvKey = privateKey.data
+        let flag = UInt32(SECP256K1_CONTEXT_SIGN)
+        guard let ctx = secp256k1_context_create(flag) else { return nil }
+        var rawPubkey = secp256k1_pubkey()
+        
+        guard secp256k1_ec_pubkey_create(ctx, &rawPubkey, prvKey.bytes) == 1 else { return nil }
+        
+        let serializedPubkey = UnsafeMutablePointer<UInt8>.allocate(capacity: 65)
+        var pubLen = 65
+        
+        guard secp256k1_ec_pubkey_serialize(ctx, serializedPubkey, &pubLen, &rawPubkey, UInt32(SECP256K1_EC_UNCOMPRESSED)) == 1 else {
+            secp256k1_context_destroy(ctx)
+            return nil }
+        
+        secp256k1_context_destroy(ctx)
+        
+        return PublicKey(hex: Data(bytes: serializedPubkey, count: pubLen))
+    }
+    
     public static func createPublicKey(privateKey: PrivateKey) -> PublicKey? {
         let prvKey = privateKey.data
         let flag = UInt32(SECP256K1_CONTEXT_SIGN)
