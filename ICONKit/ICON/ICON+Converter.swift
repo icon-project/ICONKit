@@ -24,42 +24,26 @@ public enum Unit: Int {
     case loop = 0
 }
 
-extension BigUInt {
-    /// Convert BigUInt value to HEX String.
-    ///
-    /// - Parameters:
-    ///   - unit: The unit of BigUInt. default = `.loop`
-    /// - Returns: The HEX `String` converted to loop from BigUInt.
-    public func toHexString(unit: Unit = .loop) -> String {
-        var val = self
-        
-        switch unit {
-        case .gLoop:
-            val = val.convert(unit: .gLoop)
-        case .icx:
-            val = val.convert()
-        default: break
-        }
-        let valString = String(val, radix: 16)
-        return "0x" + valString
-    }
+public struct Converter {
+    
 }
-
-extension String {
-    /// Convert HEX String to BigUInt.
+extension Converter {
+    /// Convert ICX or gLoop value to loop.
     ///
     /// - Parameters:
-    ///   - unit: The unit of String value.
-    /// - Returns: Returns `BigUInt` or `nil`.
-    public func hexToBigUInt(unit: Unit = .loop) -> BigUInt? {
-        guard let value = BigUInt(self.prefix0xRemoved(), radix: 16) else {
-            return nil
-        }
+    ///   - value: The value convert to loop.
+    ///   - unit: The Unit of value. `default = .icx`.
+    /// - Returns: A value converted to loop.
+    public static func convertToLoop(value: BigUInt, unit: Unit = .icx) -> BigUInt {
+        let base: BigInt = 10
+        let indices: BigUInt = BigUInt(base.power(unit.rawValue))
         switch unit {
         case .gLoop:
-            return value.convert(unit: .gLoop)
+            let result = value.multiplied(by: indices)
+            return result
         case .icx:
-            return value.convert(unit: .icx)
+            let result = value.multiplied(by: indices)
+            return result
         default:
             return value
         }
@@ -67,25 +51,18 @@ extension String {
 }
 
 extension BigUInt {
-    /// Convert ICX or gLoop value to loop.
-    ///
-    /// - Parameters:
-    ///   - unit: The Unit of value. default = `.icx`.
-    /// - Returns: Returns `BigUInt` value converted to loop.
-    public func convert(unit: Unit = .icx) -> BigUInt {
-        let base: BigInt = 10
-        let power: BigUInt = BigUInt(base.power(unit.rawValue))
-        switch unit {
-        case .gLoop:
-            let result = self.multiplied(by: power)
-            return result
-        case .icx:
-            let result = self.multiplied(by: power)
-            return result
-        default:
-            return self
-        }
+    /// Convert BigUInt to hexString.
+    public var toHexString: String? {
+        return "0x" + String(self, radix: 16)
     }
+}
+
+extension Data {
+    /// Convert hexData to BigUInt.
+    public var toBigUInt: BigUInt {
+        return BigUInt(self)
+    }
+
 }
 
 
