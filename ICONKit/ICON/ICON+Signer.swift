@@ -28,7 +28,6 @@ extension TransactionSigner where Self: Transaction {
         guard let from = self.from,
             let to = self.to,
             let nid = self.nid,
-            let nonce = self.nonce,
             let stepLimit = self.stepLimit else {
                 throw ICError.invalid(.transaction)
         }
@@ -37,7 +36,9 @@ extension TransactionSigner where Self: Transaction {
         dic["from"] = from
         dic["to"] = to
         dic["nid"] = nid
-        dic["nonce"] = nonce
+        if let nonce = self.nonce {
+            dic["nonce"] = nonce
+        }
         dic["stepLimit"] = "0x" + String(stepLimit, radix: 16)
         if let value = self.value {
             let hexValue = "0x" + String(value, radix: 16)
@@ -49,8 +50,9 @@ extension TransactionSigner where Self: Transaction {
             }
             dic["dataType"] = dataType
         }
-        
-        guard let data = ("icx_sendTransaction." + serialize(dic)).data(using: .utf8) else {
+        let tbs = "icx_sendTransaction." + serialize(dic)
+        print("tbs - \(tbs)")
+        guard let data = tbs.data(using: .utf8) else {
             throw ICError.convert(.data)
         }
         return (data, dic)
@@ -63,7 +65,7 @@ extension TransactionSigner where Self: Transaction {
         } else if let arr = object as? [Any] {
             serial += serializeArray(arr)
         } else {
-            serial += ".\(object)"
+            serial += ".\((object as! String).replacingOccurrences(of: ".", with: "\\."))"
         }
         return serial
     }
@@ -77,8 +79,9 @@ extension TransactionSigner where Self: Transaction {
                 serial += "\(key).{" + serializeDictionary(value) + "}"
             } else if let value = dictionary[key] as? [Any] {
                 serial += "\(key).[" + serializeArray(value) + "]"
-            } else if let value = dictionary[key] as? String {
-                serial += "\(key).\(value)"
+            } else {
+                let value = dictionary[key] as! String
+                serial += "\(key).\(value.replacingOccurrences(of: ".", with: "\\."))"
             }
         }
         return serial
@@ -88,6 +91,16 @@ extension TransactionSigner where Self: Transaction {
         var serial = ""
         for item in array {
             if serial != "" { serial += "." }
+            
+            if let value = item as? [String: Any] {
+                serial += "{" + serializeDictionary(value) + "}"
+            } else if let value = item as? [Any] {
+                serial += "[" + serializeArray(value) + "]"
+            } else {
+                let value = item as! String
+                serial = value.replacingOccurrences(of: ".", with: "\\.")
+            }
+            
             serial += "\(item)"
         }
         return serial
