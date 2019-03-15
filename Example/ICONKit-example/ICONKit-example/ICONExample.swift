@@ -19,26 +19,29 @@ class ICONExample {
     
     init() {
         // Mainnet
-        let provider = "https://ctz.solidwallet.io"
-        iconService = ICONService(provider: provider, nid: "0x1")
+//        let provider = "https://ctz.solidwallet.io"
+//        iconService = ICONService(provider: provider, nid: "0x1")
         
         // Testnet for DApps
-        //        let provider = "https://bicon.net.solidwallet.io"
-        //        iconService = ICONService(provider: provider, nid: "0x3")
+//        let provider = "https://bicon.net.solidwallet.io"
+//        iconService = ICONService(provider: provider, nid: "0x3")
         
         // Testnet for Exchanger
-        //        let provider = "https://test-ctz.solidwallet.io"
-        //        iconService = ICONService(provider: provider, nid: "0x2")
+        let provider = "https://test-ctz.solidwallet.io"
+        iconService = ICONService(provider: provider, nid: "0x2")
         
         // If you have a wallet which has some ICX for test, use loadWallet with your private key
         //        createWallet()
-        //        loadWallet(privateKey: "YOUR_PRIVATE_KEY")
+//        getBalance()
+        sendTransaction()
+
     }
     
     func createWallet() {
         print("========================")
         print("Begin createWallet")
-        let wallet = Wallet(privateKey: nil)
+        let prvStr = "pkpk".hexToData()!
+        let wallet = Wallet(privateKey: PrivateKey(hex: prvStr))
         print("address: \(String(describing: wallet.address))")
         
         self.wallet = wallet
@@ -47,7 +50,7 @@ class ICONExample {
     
     func loadWallet(privateKey: String) {
         let keyData = privateKey.hexToData()!
-        let prvKey = PrivateKey(hexData: keyData)
+        let prvKey = PrivateKey(hex: keyData)
         let wallet = Wallet(privateKey: prvKey)
         print("address: \(String(describing: wallet.address))")
         
@@ -89,7 +92,52 @@ class ICONExample {
     }
     
     func sendTransaction() {
+        // coin transfer
+        let coinTransfer = Transaction()
+            .from("hx9043346dbaa72bca42ecec6b6e22845a4047426d")
+            .to("hx2e26d96bd7f1f46aac030725d1e302cf91420458")
+            .value(BigUInt(15000000))
+            .stepLimit(BigUInt(1000000))
+            .nid(self.iconService.nid)
+            .nonce("0x1")
         
+        // SCORE function call
+        let call = CallTransaction()
+            .from("hx9043346dbaa72bca42ecec6b6e22845a4047426d")
+            .to("cx8471dca4cff173206d33773c9b74a3cc281efb21")
+            .value(BigUInt(15000000))
+            .stepLimit(BigUInt(1000000))
+            .nid(self.iconService.nid)
+            .nonce("0x1")
+            .method("transfer")
+            .params(["_to": "hx2e26d96bd7f1f46aac030725d1e302cf91420458", "_value": "0x29a2241af62c0000"])
+        
+        // Message transfer
+        let message = MessageTransaction()
+            .from("hx9043346dbaa72bca42ecec6b6e22845a4047426d")
+            .to("hx2e26d96bd7f1f46aac030725d1e302cf91420458")
+            .stepLimit(BigUInt(15000000))
+            .nonce("0x1")
+            .nid(self.iconService.nid)
+            .message("Hello, World!")
+        
+        do {
+            let signed = try SignedTransaction(transaction: call, privateKey: PrivateKey(hex: Data(hex: "pkpkpk")))
+            
+            let request: Request<Response.TxHash> = iconService.sendTransaction(signedTransaction: signed)
+            let response = request.execute()
+            switch response {
+            case .success(let result):
+                print("tx result - \(result.result.description)")
+                
+            case .failure(let error):
+                // Error handling
+                print("ERROR 실패 \(error.localizedDescription)")
+                print(error)
+            }
+        } catch {
+            print(error)
+        }
     }
     
     func getLastBlock() {
@@ -131,10 +179,10 @@ class ICONExample {
     }
     
     func getBalance() {
-        let response = iconService.getBalance(address: "hx7ccc54932b913c71f7051e9dc1b621074c91d462").execute()
+        let response = iconService.getBalance(address: "hx9043346dbaa72bca42ecec6b6e22845a4047426d").execute()
         
         if let value = response.value {
-            print("result: \(value.result)")
+            print("result: \(value.result) loop")
             
         } else {
             print("ERROR: \(String(describing: response.error))")

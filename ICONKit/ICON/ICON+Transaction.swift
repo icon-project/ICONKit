@@ -18,6 +18,7 @@
 import Foundation
 import BigInt
 
+/// `Transaction` is the common supperclass of all Transction types.
 open class Transaction {
     public var version: String { return ICONService.ver }
     public var from: String?
@@ -47,50 +48,49 @@ open class Transaction {
     }
     
     @discardableResult
-    public func from(_ from: String) -> Transaction {
+    public func from(_ from: String) -> Self {
         self.from = from
         return self
     }
     
     @discardableResult
-    public func to(_ to: String) -> Transaction {
+    public func to(_ to: String) -> Self {
         self.to = to
         return self
     }
     
     @discardableResult
-    public func stepLimit(_ limit: BigUInt) -> Transaction {
+    public func stepLimit(_ limit: BigUInt) -> Self {
         self.stepLimit = limit
         return self
     }
     
     @discardableResult
-    public func nid(_ nid: String) -> Transaction {
+    public func nid(_ nid: String) -> Self {
         self.nid = nid
         return self
     }
     
     @discardableResult
-    public func value(_ value: BigUInt) -> Transaction {
+    public func value(_ value: BigUInt) -> Self {
         self.value = value
         return self
     }
     
     @discardableResult
-    public func nonce(_ nonce: String) -> Transaction {
+    public func nonce(_ nonce: String) -> Self {
         self.nonce = nonce
         return self
     }
+}
+
+extension Transaction: TransactionSigner {
     
+}
+
+open class CallTransaction: Transaction {
     @discardableResult
-    public func message(_ message: String) -> Transaction {
-        self.dataType = "message"
-        self.data = message
-        return self
-    }
-    
-    @discardableResult
-    public func call(_ method: String) -> Transaction {
+    public func method(_ method: String) -> Self {
         self.dataType = "call"
         if self.data == nil {
             self.data = ["method": method]
@@ -104,7 +104,7 @@ open class Transaction {
     }
     
     @discardableResult
-    public func params(_ params: [String: Any]) -> Transaction {
+    public func params(_ params: [String: Any]) -> Self {
         if self.data == nil {
             self.data = ["params": params]
         } else {
@@ -117,8 +117,13 @@ open class Transaction {
     }
 }
 
-extension Transaction: TransactionSigner {
-    
+open class MessageTransaction: Transaction {
+    @discardableResult
+    public func message(_ message: String) -> Self {
+        self.dataType = "message"
+        self.data = message
+        return self
+    }
 }
 
 open class SignedTransaction {
