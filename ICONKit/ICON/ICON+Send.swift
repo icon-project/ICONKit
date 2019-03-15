@@ -103,9 +103,7 @@ private class ICONRequest {
     var timestamp: String
     
     public func asURLRequest() -> URLRequest {
-        var url = provider.appendingPathComponent("api")
-        url = url.appendingPathComponent("v3")
-        var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 60)
+        var request = URLRequest(url: self.provider, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 60)
         request.httpMethod = "POST"
         var req = ["jsonrpc": "2.0", "method": method.rawValue, "id": id] as [String: Any]
         if let param = params {
