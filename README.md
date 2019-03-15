@@ -33,17 +33,18 @@ Refer to [Result](https://github.com/antitypical/Result) for more detail.
 ## Quick start
 
 A simple query of the block by height is as follows.
+
 ```Swift
-let service = ICONService(provider: "https://ctz.solidwallet.io/api/v3", nid: "0x1")
+// ICON Mainnet
+let iconService = ICONService(provider: "https://ctz.solidwallet.io/api/v3", nid: "0x1")
 
 // Gets a block matching the block height.
 let request: Request<Response.Block> = iconService.getBlock(height: height)
-let result = request.execute()
 
-switch result {
-case .success(let responseBlock):
+switch request {
+case .result(let responseBlock):
     ...
-case .failure(let error):
+case .error(let error):
     print(error)
 }
 ```
@@ -60,10 +61,8 @@ let iconService = ICONService(provider: "https://ctz.solidwallet.io/api/v3", nid
 ## Queries
 All queries are requested by a `Request<T>`.
 
-All queries are requested by a `Request<T>`.
-
 ```Swift
-let response = service.getBlock(height: height).execute()
+let response = iconService.getBlock(height: height).execute()
 
 switch response {
 case: .success(let responseBlock):
@@ -71,7 +70,7 @@ case: .success(let responseBlock):
 }
 ```
 
-### Asynchronous
+#### Asynchronous
 
 You can request a query asynchronously using a closure as below.
 
@@ -122,6 +121,7 @@ Calling SCORE APIs to change states is requested as sending a transaction.
 Before sending a transaction, the transaction should be signed.
 
 **Loading wallets and storing the Keystore**
+
 ```Swift
 // Generates a wallet.
 let wallet = Wallet(privateKey: nil)
@@ -137,60 +137,80 @@ let wallet = Wallet(privateKey: privateKey)
 
 ```Swift
 // Sending ICX
+let coinTransfer = Transaction()
+		.from(wallet.address)
+		.to(to)
+		.value(BigUInt(15000000))
+		.stepLimit(BigUInt(1000000))
+		.nid(iconService.nid)
+		.nonce("0x1")
+
+// SCORE function call
+let call = CallTransaction()
+		.from(wallet.address)
+		.to(scoreAddress)
+		.stepLimit(BigUInt(1000000))
+		.nid(iconService.nid)
+		.nonce("0x1")
+		.method("transfer")
+		.params(["_to": to, "_value": "0x1234"])
+
+// Message transfer
 let transaction = Transaction()
     .from(wallet.address)
     .to(to)
     .value(BigUInt(15000000))
     .stepLimit(BigUInt(1000000))
     .nonce("0x1")
-    .nid(service.nid)
-
-// Call
-let transaction = Transaction()
-    .from(wallet.address)
-    .to(scoreAddress)
-    .stepLimit(BigUInt(1000000))
-    .call("transfer")
-    .nonce("0x1")
-    .nid(service.nid)
-    .params(["_to": to, "_value": "0x1234"])
-
-// Message
-let transaction = Transaction()
-    .from(wallet.address)
-    .to(to)
-    .value(BigUInt(15000000))
-    .stepLimit(BigUInt(1000000))
-    .message("Hello, World!")
-    .nonce("0x1")
-    .nid(service.nid)
+		.nid(iconService.nid)
+		.message("Hello, ICON!")
 ```
-`SignedTransaction` object signs a transaction using the wallet.
-
 `SignedTransaction` object signs a transaction using the wallet.
 
 And a request is executed as **Synchronized** and **Asynchronized** like a querying request.
 
+##### Synchronous request
+
 ```Swift
 do {
-    let signed = try SignedTransaction(transaction: transaction, privateKey: privateKey)
-
-    let request: Request<Response.TxHash> = service.sendTransaction(signedTransaction: signed)
-    let response = request.execute()
-    switch response {
-    case .success(let result):
-        print("tx result - \(result)")
-
-    case .failure(let error):
-        // Error handling
-        print("error")
-    }
-    ...
+    let signed = try SignedTransaction(transaction: coinTransfer, privateKey: privateKey)
+            
+    let response = iconService.sendTransaction(signedTransaction: signed)
+  		switch response {
+				case .result(let result):
+					print("SUCCESS: TXHash - \(result)")
+          ...
+        case .error(let error):
+					print("FAIL: \(error.message)")
+          ...
+      }
 } catch {
     print(error)
     ...
 }
 ```
+
+##### Asynchronous request
+
+```swift
+do {
+  let signed = try SignedTransaction(transaction: transaction, privateKey: privateKey)
+  
+	iconService.sendTransactionAsync(signedTransaction: signed) { (response) in
+		switch response {
+      case .result(let result):
+				print("SUCCESS: TXHash - \(result)")      
+      case .error(let error):
+      	print("FAIL: \(error.message)")
+     }
+	}
+} catch {
+  	print(error)
+  	...
+}
+```
+
+
 
 ## Reference
 
