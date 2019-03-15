@@ -18,12 +18,6 @@
 import Foundation
 import BigInt
 
-public enum Unit: Int {
-    case icx = 18
-    case gLoop = 9
-    case loop = 0
-}
-
 open class IconAmount {
     private var _value: BigUInt
     private var _unit: Unit
