@@ -56,7 +56,7 @@ extension Request {
         }
     }
     
-    public func async(_ completion: @escaping (Result<T, ICONResult>) -> Void){
+    public func async(_ completion: @escaping (Result<T, ICONResult>) -> Void) {
         self.send { (result) in
             switch result {
             case .failure(let error):
@@ -73,6 +73,7 @@ extension Request {
                     return
                 } catch {
                     completion(.failure(ICONResult.parsing))
+                    return
                 }
             }
         }
@@ -80,35 +81,143 @@ extension Request {
 }
 
 extension ICONService {
-    public func getTotalSupply() -> Request<Response.IntValue> {
-        return Request<Response.IntValue>(id: self.getID(), provider: self.provider, method: .getTotalSupply, params: nil)
+    /// Used to define whether to return `error` or `result`.
+    ///
+    /// - error: `Response.ResponseError`
+    /// - result: T
+    public enum Foo<T: Decodable>: Decodable {
+        case error(Response.ResponseError)
+        case result(T)
+        
+        public init(from decoder: Decoder) throws {
+            if let error = try? decoder.singleValueContainer().decode(Response.ResponseError.self) {
+                self = .error(error)
+            }
+            if let result = try? decoder.singleValueContainer().decode(T.self) {
+                self = .result(result)
+            }
+            throw FooValueError.missingValue
+        }
     }
     
-    public func getBalance(address: String) -> Request<Response.IntValue> {
-        return Request<Response.IntValue>(id: self.getID(), provider: self.provider, method: .getBalance, params: ["address": address])
+    public enum FooValueError: Error {
+        case missingValue
     }
     
-    public func getBlock(height: UInt64) -> Request<Response.Block> {
-        return Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getBlockByHeight, params: ["height": "0x" + String(height, radix: 16)])
+    /// getLastBlock
+    ///
+    /// - Returns: `.error(Response.ResponseError)` or `.result(Response.ResultInfo)`.
+    public func getLastBlock() -> Foo<Response.ResultInfo> {
+        let response = Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getLastBlock, params: nil).execute()
+        guard let res = response.value?.result else {
+            return .error((response.value?.error)!)
+        }
+        return .result(res)
+
     }
     
-    public func getBlock(hash: String) -> Request<Response.Block> {
-        return Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getBlockByHash, params: ["hash": hash])
+    /// getBlockByHeight
+    ///
+    /// - Parameters:
+    ///   - height: A height of block.
+    /// - Returns: `.error(Response.ResponseError)` or `.result(Response.ResultInfo)`.
+    public func getBlock(height: UInt64) -> Foo<Response.ResultInfo> {
+        let response = Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getBlockByHeight, params: ["height": "0x" + String(height, radix: 16)]).execute()
+        guard let res = response.value?.result else {
+            return .error((response.value?.error)!)
+        }
+        return .result(res)
     }
     
-    public func getLastBlock() -> Request<Response.Block> {
-        return Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getLastBlock, params: nil)
+    /// getBlockByHash
+    ///
+    /// - Parameters:
+    ///   - hash: A hash of block.
+    /// - Returns: `.error(Response.ResponseError)` or `.result(Response.ResultInfo)`.
+    public func getBlock(hash: String) -> Foo<Response.ResultInfo> {
+        let response = Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getBlockByHash, params: ["hash": hash]).execute()
+        guard let res = response.value?.result else {
+            return .error((response.value?.error)!)
+        }
+        return .result(res)
     }
     
-    public func getScoreAPI(scoreAddress: String) -> Request<Response.ScoreAPI> {
-        return Request<Response.ScoreAPI>(id: self.getID(), provider: self.provider, method: .getScoreAPI, params: ["address": scoreAddress])
+    /// getBalance
+    ///
+    /// - Parameters:
+    ///   - address: A address.
+    /// - Returns: `.error(Response.ResponseError)` or `.result(String)`.
+    public func getBalance(address: String) -> Foo<String> {
+        let response = Request<Response.Balance>(id: self.getID(), provider: self.provider, method: .getBalance, params: ["address": address]).execute()
+        guard let res = response.value?.result else {
+            return .error((response.value?.error)!)
+        }
+        return .result(res)
     }
     
-    public func getTransaction(hash: String) -> Request<Response.Transaction> {
-        return Request<Response.Transaction>(id: self.getID(), provider: self.provider, method: .getTransactionByHash, params: ["txHash": hash])
+    /// getBalance Asynchronously
+    ///
+    /// - Parameters:
+    ///   - address: A address.
+    public func getBalanceAsync(address: String, _ completion: @escaping(Foo<String>) -> Void) {
+        Request<Response.Balance>(id: self.getID(), provider: self.provider, method: .getBalance, params: ["address": address]).async { (response) in
+            if let res = response.value?.result {
+                completion(.result(res))
+                return
+            } else {
+                completion(.error((response.value?.error)!))
+                return
+            }
+        }
     }
     
-    public func getTransactionResult(hash: String) -> Request<Response.TransactionResult> {
-        return Request<Response.TransactionResult>(id: self.getID(), provider: self.provider, method: .getTransactionResult, params: ["txHash": hash])
+    /// getScoreApi
+    ///
+    /// - Parameters:
+    ///   - scoreAddress: A String
+    /// - Returns: `.error(Response.ResponseError)` or `.result(String)`
+    public func getScoreAPI(scoreAddress: String) -> Foo<[String: Response.ScoreAPI.API]> {
+        let response = Request<Response.ScoreAPI>(id: self.getID(), provider: self.provider, method: .getScoreAPI, params: ["address": scoreAddress]).execute()
+        guard let res = response.value?.result else {
+            return .error((response.value?.error)!)
+        }
+        return .result(res)
+    }
+    
+    /// getTotalSupply
+    ///
+    /// - Returns: `BigUInt` or `nil`
+    public func getTotalSupply() -> BigUInt? {
+        let response = Request<Response.IntValue>(id: self.getID(), provider: self.provider, method: .getTotalSupply, params: nil).execute()
+        guard let res = response.value?.result else {
+            return nil
+        }
+        return res
+    }
+    
+    /// getTransactionResult
+    ///
+    /// - Parameters:
+    ///   - hash: A hash of transaction.
+    /// - Returns: `.error(Response.ResponseError)` or `.result(Response.Result)`.
+    public func getTransactionResult(hash: String) -> Foo<Response.Result> {
+        let response = Request<Response.TransactionResult>(id: self.getID(), provider: self.provider, method: .getTransactionResult, params: ["txHash": hash]).execute()
+        guard let res = response.value?.result else {
+            return .error((response.value?.error)!)
+        }
+        return .result(res)
+    }
+    
+    /// getTransactionByHash
+    ///
+    /// - Parameters:
+    ///   - hash: A hash of transaction.
+    /// - Returns: `.error(Response.ResponseError)` or `.result(Response.Transaction.Result)`.
+    public func getTransaction(hash: String) -> Foo<Response.Transaction.Result> {
+        let response = Request<Response.Transaction>(id: self.getID(), provider: self.provider, method: .getTransactionByHash, params: ["txHash": hash]).execute()
+        guard let res = response.value?.result else {
+            return .error((response.value?.error)!)
+        }
+        return .result(res)
     }
 }

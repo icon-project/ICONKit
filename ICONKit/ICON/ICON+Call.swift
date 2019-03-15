@@ -48,7 +48,13 @@ open class Call<T> {
 
 
 extension ICONService {
-    public func call<T>(_ call: Call<T>) -> Request<T> {
-        return Request<T>(id: self.getID(), provider: self.provider, method: .callMethod, params: call.getCallParams())
+    public func call<T: Decodable>(_ call: Call<T>) -> Foo<T> {
+        let response = Request<Response.Call<T>>(id: self.getID(), provider: self.provider, method: .callMethod, params: call.getCallParams()).execute()
+        
+        guard let res = response.value?.result else {
+            return .error((response.value?.error)!)
+        }
+        return .result(res)
+        
     }
 }

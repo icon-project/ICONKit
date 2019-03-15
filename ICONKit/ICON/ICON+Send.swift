@@ -57,7 +57,8 @@ extension Sendable {
         }
         
         guard let value = data else { return .failure(ICONResult.httpError("Unknown Error")) }
-        guard response?.statusCode == 200 else {
+
+        guard response?.statusCode == 200 || response?.statusCode == 400 || response?.statusCode == 500 else {
             let message = String(data: value, encoding: .utf8)
             return .failure(ICONResult.httpError(message ?? "Unknown Error"))
         }
