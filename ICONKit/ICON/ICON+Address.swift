@@ -25,7 +25,9 @@ open class Address {
     }
     
     convenience init?(_ address: String) {
-        guard address.count == 42, address.hasPrefix("hx") else { return nil }
+        // EOA = hx
+        // SCORE = cx
+        guard address.count == 42, address.hasPrefix("hx") || address.hasPrefix("cx") else { return nil }
         
         self.init()
         self.address = address
