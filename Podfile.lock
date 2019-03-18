@@ -1,8 +1,10 @@
 PODS:
   - BigInt (3.1.0):
     - SipHash (~> 1.2)
-  - CryptoSwift (0.13.1)
-  - Result (4.0.0)
+  - CryptoSwift (0.14.0)
+  - Result (4.1.0)
+  - scrypt (1.8.1):
+    - CryptoSwift (~> 0.11)
   - secp256k1_ios (0.1.3)
   - SipHash (1.2.2)
 
@@ -10,6 +12,7 @@ DEPENDENCIES:
   - BigInt
   - CryptoSwift
   - Result
+  - scrypt (from `https://github.com/a1ahn/scrypt-cryptoswift.git`)
   - secp256k1_ios
 
 SPEC REPOS:
@@ -20,13 +23,23 @@ SPEC REPOS:
     - secp256k1_ios
     - SipHash
 
+EXTERNAL SOURCES:
+  scrypt:
+    :git: https://github.com/a1ahn/scrypt-cryptoswift.git
+
+CHECKOUT OPTIONS:
+  scrypt:
+    :commit: 2ced9c58054328c723135a16717dd3ff0fcf6e57
+    :git: https://github.com/a1ahn/scrypt-cryptoswift.git
+
 SPEC CHECKSUMS:
   BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
-  CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
-  Result: 7645bb3f50c2ce726dd0ff2fa7b6f42bbe6c3713
+  CryptoSwift: 35a10419f4dbf0619c13f8c1c180037e115323fa
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  scrypt: 3f6c9e7597091c0e79c4516870b9989064ceee5d
   secp256k1_ios: ac9ef04e761f43c58012b28548afa91493761f17
   SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
 
-PODFILE CHECKSUM: def2b3ee1f46f89df4a00c86d33946d2fc50b89a
+PODFILE CHECKSUM: b923793855d127a82218a2ca2b25d62ec2f82b5d
 
 COCOAPODS: 1.5.3

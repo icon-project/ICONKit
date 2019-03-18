@@ -33,27 +33,6 @@ open class Response {
         var code: Int
         var message: String
     }
-    
-    
-    open class Response<T>: Decodable {
-        public var jsonrpc: String
-        public var id: Int
-        public var error: ResponseError?
-        public var result: T?
-        
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            self.jsonrpc = try container.decode(String.self, forKey: .jsonrpc)
-            self.id = try container.decode(Int.self, forKey: .id)
-            
-            if container.contains(.error) {
-                self.error = try container.decode(ResponseError.self, forKey: .error)
-            } else {
-                self.error = nil
-            }
-        }
-    }
 }
 
 extension Response {

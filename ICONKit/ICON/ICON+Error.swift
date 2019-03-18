@@ -20,6 +20,7 @@ import Foundation
 public enum ICDetail {
     case privateKey
     case publicKey
+    case keystore
     case hexString
     case string
     case data
