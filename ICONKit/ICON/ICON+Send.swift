@@ -83,7 +83,7 @@ extension Sendable {
                 completion(.failure(ICONResult.httpError("Unknown Error")))
                 return
             }
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 400 || response.statusCode == 500 else {
                 let message = String(data: value, encoding: .utf8)
                 completion(.failure(ICONResult.httpError(message ?? "Unknown Error")))
                 return
