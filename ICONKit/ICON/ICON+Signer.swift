@@ -29,7 +29,7 @@ extension TransactionSigner where Self: Transaction {
             let to = self.to,
             let nid = self.nid,
             let stepLimit = self.stepLimit else {
-                throw ICError.invalid(.transaction)
+                throw ICError.invalid(reason: .missing(parameter: .stepLimit))
         }
         dic["version"] = self.version
         dic["timestamp"] = self.timestamp
@@ -53,7 +53,7 @@ extension TransactionSigner where Self: Transaction {
         let tbs = "icx_sendTransaction." + serialize(dic)
         print("tbs - \(tbs)")
         guard let data = tbs.data(using: .utf8) else {
-            throw ICError.convert(.data)
+            throw ICError.fail(reason: .convert(to: .data))
         }
         return (data, dic)
     }

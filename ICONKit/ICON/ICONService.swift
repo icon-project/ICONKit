@@ -34,22 +34,6 @@ open class ICONService {
     }
 }
 
-
-public enum ICONResult: Error {
-    case error(Response.ResponseError)
-    case httpError(String?)
-    case invalidAddress
-    case invalidRequest
-    case noSuchKey(String)
-    case noAddress
-    case parsing
-    case privateKey
-    case provider
-    case sign
-    case typeMismatch
-    case unknown
-}
-
 extension ICONService {
     
 }

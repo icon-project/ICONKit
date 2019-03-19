@@ -18,10 +18,14 @@
 import Foundation
 
 open class Call<T> {
-    public var from: String
-    public var to: String
-    public var method: String
+    public var from: String?
+    public var to: String?
+    public var method: String?
     public var params: [String: Any]?
+    
+    public init() {
+        
+    }
     
     public init(from: String, to: String, method: String, params: [String: Any]?) {
         self.from = from
@@ -32,15 +36,21 @@ open class Call<T> {
     
     public func getCallParams() -> [String: Any] {
         var params = [String: Any]()
-        params["from"] = self.from
-        params["to"] = self.to
-        params["dataType"] = "call"
-        var data = [String: Any]()
-        data["method"] = self.method
-        if let params = self.params {
-            data["params"] = params
+        if let from = self.from {
+            params["from"] = from
         }
-        params["data"] = data
+        if let to = self.to {
+            params["to"] = to
+        }
+        if let method = self.method {
+            params["dataType"] = "call"
+            var data = [String: Any]()
+            data["method"] = method
+            if let params = self.params {
+                data["params"] = params
+            }
+            params["data"] = data
+        }
         
         return params
     }

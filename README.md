@@ -5,7 +5,7 @@ ICON supports SDK for 3rd party or user services development. You can integrate 
 ## Installation
 
 ### CocoaPods
-[CocoaPods](https://cocoapods.org/) is a dependecy manager for Swift Cocoa projects.
+[CocoaPods](https://cocoapods.org/) is a dependency manager for Swift Cocoa projects.
 ```
 $ sudo gem install cocoapods
 ```
@@ -146,24 +146,24 @@ let transaction = Transaction()
     .nid(service.nid)
 
 // Call
-let transaction = Transaction()
+let transaction = CallTransaction()
     .from(wallet.address)
     .to(scoreAddress)
     .stepLimit(BigUInt(1000000))
-    .call("transfer")
     .nonce("0x1")
     .nid(service.nid)
+    .method("transfer")
     .params(["_to": to, "_value": "0x1234"])
 
 // Message
-let transaction = Transaction()
+let transaction = MessageTransaction()
     .from(wallet.address)
     .to(to)
     .value(BigUInt(15000000))
     .stepLimit(BigUInt(1000000))
-    .message("Hello, World!")
     .nonce("0x1")
     .nid(service.nid)
+    .message("Hello, World!")
 ```
 `SignedTransaction` object signs a transaction using the wallet.
 
@@ -198,7 +198,7 @@ do {
 - [ICON Network](https://github.com/icon-project/icon-project.github.io/blob/master/docs/icon_network.md)
 
 ## Version
-0.2.4 (Beta)
+0.2.5 (Beta)
 
 ## Requirement
 - Xcode 10 or higher

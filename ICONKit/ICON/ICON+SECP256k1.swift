@@ -27,19 +27,19 @@ extension SECP256k1 {
     public func signECDSA(hashedMessage: Data, privateKey: PrivateKey) throws -> Data {
         let flag = UInt32(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY)
         let privData = privateKey.data
-        guard let ctx = secp256k1_context_create(flag) else { throw ICError.convert(.data) }
+        guard let ctx = secp256k1_context_create(flag) else { throw ICError.fail(reason: .convert(to: .data)) }
         
         var rsig = secp256k1_ecdsa_recoverable_signature()
         
         guard secp256k1_ecdsa_sign_recoverable(ctx, &rsig, hashedMessage.bytes, privData.bytes, nil, nil) == 1 else {
             secp256k1_context_destroy(ctx)
-            throw ICError.sign }
+            throw ICError.fail(reason: .sign) }
         
         let ser_rsig = UnsafeMutablePointer<UInt8>.allocate(capacity: 65)
         var recid = Int32(0)
         guard secp256k1_ecdsa_recoverable_signature_serialize_compact(ctx, ser_rsig, &recid, &rsig) == 1 else {
             secp256k1_context_destroy(ctx)
-            throw ICError.sign
+            throw ICError.fail(reason: .sign)
         }
         
         let signature = Data(bytes: ser_rsig, count: 65)
