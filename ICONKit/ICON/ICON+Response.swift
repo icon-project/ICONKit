@@ -116,7 +116,7 @@ extension Response {
             let value = try container.decode(String.self, forKey: .result)
             let removed = value.prefix0xRemoved()
             guard let bigValue = BigUInt(removed, radix: 16) else {
-                throw ICONResult.parsing
+                throw ICError.fail(reason: .parsing)
             }
             self.result = bigValue
         }

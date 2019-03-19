@@ -29,8 +29,8 @@ extension Sendable {
         return Int(arc4random_uniform(9999))
     }
     
-    func send() -> Result<Data, ICONResult> {
-        guard let provider = URL(string: self.provider) else { return .failure(.provider) }
+    func send() -> Result<Data, ICError> {
+        guard let provider = URL(string: self.provider) else { return .failure(ICError.fail(reason: .convert(to: .url(string: self.provider)))) }
         let request = ICONRequest(provider: provider, method: method, params: params, id: self.getID())
         
         let config = URLSessionConfiguration.default
@@ -53,21 +53,21 @@ extension Sendable {
         
         _ = semaphore.wait(timeout: .distantFuture)
         if let connectError = error {
-            return .failure(ICONResult.httpError(connectError.localizedDescription))
+            return .failure(ICError.error(error: connectError))
         }
         
-        guard let value = data else { return .failure(ICONResult.httpError("Unknown Error")) }
+        guard let value = data else { return .failure(ICError.message(error: "Unknown Error")) }
         guard response?.statusCode == 200 else {
             let message = String(data: value, encoding: .utf8)
-            return .failure(ICONResult.httpError(message ?? "Unknown Error"))
+            return .failure(ICError.message(error: message ?? "Unknown Error"))
         }
         
         return .success(value)
     }
     
-    func send(_ completion: @escaping ((Result<Data, ICONResult>) -> Void)) {
+    func send(_ completion: @escaping ((Result<Data, ICError>) -> Void)) {
         guard let provider = URL(string: self.provider) else {
-            completion(.failure(.provider))
+            completion(.failure(ICError.fail(reason: .convert(to: .url(string: self.provider)))))
             return
         }
         let request = ICONRequest(provider: provider, method: method, params: params, id: self.getID())
@@ -75,16 +75,16 @@ extension Sendable {
         let task = URLSession.shared.dataTask(with: request.asURLRequest()) { (data, response, error) in
             
             if let connectError = error {
-                completion(.failure(ICONResult.httpError(connectError.localizedDescription)))
+                completion(.failure(ICError.error(error: connectError)))
             }
             
             guard let value = data else {
-                completion(.failure(ICONResult.httpError("Unknown Error")))
+                completion(.failure(ICError.message(error: "Unknown Error")))
                 return
             }
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                 let message = String(data: value, encoding: .utf8)
-                completion(.failure(ICONResult.httpError(message ?? "Unknown Error")))
+                completion(.failure(ICError.message(error: message ?? "Unknown Error")))
                 return
             }
             completion(.success(value))

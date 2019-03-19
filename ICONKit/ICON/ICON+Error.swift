@@ -17,27 +17,81 @@
 
 import Foundation
 
-public enum ICDetail {
-    case privateKey
-    case publicKey
-    case keystore
-    case hexString
-    case string
-    case data
-    case notSupported
-    case transaction
+public enum ICError: Error {
+    
+    public enum JSONParameterKey {
+        /// Required
+        case version, from, to, stepLimit, timestamp, nid, signature
+        /// Optional
+        case value, nonce, dataType, data
+    }
+    
+    public enum InvalidReason {
+        case missing(parameter: JSONParameterKey)
+    }
+    
+    public enum FailureReason {
+        
+        public enum ConvertFailure {
+            case data
+            case url(string: String)
+        }
+        
+        case sign
+        case parsing
+        case convert(to: ConvertFailure)
+    }
+    
+    case invalid(reason: InvalidReason)
+    case fail(reason: FailureReason)
+    case error(error: Error)
+    case message(error: String)
 }
 
-public enum ICError: Error {
-    case generateKey
-    case convert(ICDetail)
-    case verify(ICDetail)
-    case malformed
-    case sign
-    case encrypt
-    case decrypt
-    case empty
-    case duplicate(ICDetail)
-    case invalid(ICDetail)
-    
+extension ICError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .invalid(reason: let reason):
+            return "Invalid: \(reason)"
+            
+        case .fail(reason: let reason):
+            return "Failed: \(reason)"
+            
+        case .message(error: let msg):
+            return "Error occured. \(msg)"
+            
+        case .error(error: let error):
+            return error.localizedDescription
+        }
+    }
+}
+
+extension ICError.JSONParameterKey {
+    var localizedDescription: String {
+        return "parameter key. \(self)"
+    }
+}
+
+extension ICError.InvalidReason {
+    var localizedDescription: String {
+        switch self {
+        case .missing(parameter: let key):
+            return "missing \(key.localizedDescription)"
+        }
+    }
+}
+
+extension ICError.FailureReason {
+    var localizedDescription: String {
+        switch self {
+        case .parsing:
+            return "parsing"
+            
+        case .sign:
+            return "signing"
+            
+        case .convert(to: let to):
+            return "convert to \(to)"
+        }
+    }
 }
