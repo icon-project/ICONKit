@@ -184,31 +184,12 @@ open class SignedTransaction {
 }
 
 extension ICONService {
-    /// Send transaction synchornously.
+    /// Send transaction.
     ///
     /// - Parameters:
     ///   - signedTransaction: Signed Transaction and private key.
-    /// - Returns: `.result(String)` or `.error(Response.ResponseError)`.
-    public func sendTransaction(signedTransaction: SignedTransaction) -> Foo<String> {
-        let response = Request<Response.TxHash>(id: self.getID(), provider: self.provider, method: .sendTransaction, params: signedTransaction.params).execute()
-        
-        guard let res = response.value?.result else {
-            return .error((response.value?.error)!)
-        }
-        return .result(res)
-    }
-    
-    /// Send transaction asynchronously.
-    ///
-    /// - Parameters:
-    ///   - signedTransaction: A `SignedTransaction`
-    public func sendTransactionAsync(signedTransaction: SignedTransaction, _ completion: @escaping(Foo<String>) -> Void) {
-        Request<Response.TxHash>(id: self.getID(), provider: self.provider, method: .sendTransaction, params: signedTransaction.params).async { (response) in
-            if let res = response.value?.result {
-                completion(.result(res))
-            } else {
-                completion(.error((response.value?.error)!))
-            }
-        }
+    /// - Returns: `Request<String>`.
+    public func sendTransaction(signedTransaction: SignedTransaction) -> Request<String> {
+        return Request<String>(id: self.getID(), provider: self.provider, method: .sendTransaction, params: signedTransaction.params)
     }
 }
