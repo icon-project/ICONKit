@@ -36,159 +36,38 @@ open class Response {
 }
 
 extension Response {
-    open class Block: Decodable {
-        public var result: ResultInfo
-        
-        open class ResultInfo: Decodable {
-            public var version: String
-            public var prevBlockHash: String
-            public var merkleTreeRootHash: String
-            public var timeStamp: Double
-            public var confirmedTransactionList: [ConfirmedTransactionList]
-            public var blockHash: String
-            public var height: UInt
-            public var peerId: String
-            public var signature: String
-            
-            
-            
-            open class ConfirmedTransactionList: Decodable {
-                public var from: String
-                public var to: String
-                public var timestamp: String
-                public var signature: String
-                public var txHash: String
+    open class ResultInfo: Decodable {
+        public var version: String
+        public var prevBlockHash: String
+        public var merkleTreeRootHash: String
+        public var timeStamp: Double
+        public var confirmedTransactionList: [ConfirmedTransactionList]
+        public var blockHash: String
+        public var height: UInt
+        public var peerId: String
+        public var signature: String
 
-                public var version: String?
-                public var nid: String?
-                public var stepLimit: String?
-                public var value: String?
-
-                public var nonce: String?
-                public var dataType: String?
-                
-                // https://stackoverflow.com/a/47319012
-                // https://stackoverflow.com/a/50067514
-                public var data: DataValue?
-                
-                public var fee: String?
-                public var method: String?
-                
-                public enum DataValue: Decodable {
-                    case string(String)
-                    case dataInfo(DataInfo)
-                    
-                    public init(from decoder: Decoder) throws {
-                        if let string = try? decoder.singleValueContainer().decode(String.self) {
-                            self = .string(string)
-                            return
-                        }
-
-                        if let dataInfo = try? decoder.singleValueContainer().decode(DataInfo.self) {
-                            self = .dataInfo(dataInfo)
-                            return
-                        }
-                        throw DataValueError.missingValue
-                    }
-                    public enum DataValueError: Error {
-                        case missingValue
-
-                    }
-                }
-                
-                open class DataInfo: Decodable {
-                    public var method: String?
-                    public var params: [String: String]?
-                }
-            }
-        }
-    }
-}
-
-extension Response {
-    open class IntValue: Decodable {
-        public var result: BigUInt
-        
-        public required init(from decoder: Decoder) throws {
-            
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            let value = try container.decode(String.self, forKey: .result)
-            let removed = value.prefix0xRemoved()
-            guard let bigValue = BigUInt(removed, radix: 16) else {
-                throw ICError.fail(reason: .parsing)
-            }
-            self.result = bigValue
-        }
-    }
-}
-
-extension Response {
-    open class TxHash: Decodable {
-        public var result: String
-    }
-}
-
-extension Response {
-    open class ScoreAPI: Decodable {
-        public var result: [String: API]
-        
-        open class API: Decodable {
-            public var type: String
-            public var name: String
-            public var inputs: [[String: String?]]
-            public var outputs: [[String: String]]?
-            public var readonly: String?
-            public var payable: String?
-        }
-        
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            let resultList = try container.decode([API].self, forKey: .result)
-            
-            var dic = [String: API]()
-            
-            for api in resultList {
-                dic[api.name] = api
-            }
-            
-            self.result = dic
-        }
-    }
-}
-
-extension Response {
-    open class Balance: Decodable {
-        public var result: String
-    }
-}
-
-extension Response {
-    open class Transaction: Decodable {
-        public var result: Result
-        
-        open class Result: Decodable {
-            public var version: String
+        open class ConfirmedTransactionList: Decodable {
             public var from: String
             public var to: String
-            public var value: String?
-            public var stepLimit: String
             public var timestamp: String
-            public var nid: String?
-            public var nonce: String?
-            public var txHash: String
-            public var txIndex: String
-            public var blockHeight: String
-            public var blockHash: String
             public var signature: String
+            public var txHash: String
+            
+            public var version: String?
+            public var nid: String?
+            public var stepLimit: String?
+            public var value: String?
+            
+            public var nonce: String?
             public var dataType: String?
+            
+            // https://stackoverflow.com/a/47319012
+            // https://stackoverflow.com/a/50067514
             public var data: DataValue?
             
-            open class DataInfo: Decodable {
-                public var method: String
-                public var params: [String: String]?
-            }
+            public var fee: String?
+            public var method: String?
             
             public enum DataValue: Decodable {
                 case string(String)
@@ -211,53 +90,120 @@ extension Response {
                     
                 }
             }
+            
+            open class DataInfo: Decodable {
+                public var method: String?
+                public var params: [String: String]?
+            }
+        }
+    }
+}
+
+extension Response {
+    open class API: Decodable {
+        public var type: String
+        public var name: String
+        public var inputs: [[String: String?]]
+        public var outputs: [[String: String]]?
+        public var readonly: String?
+        public var payable: String?
+    }
+}
+
+extension Response {
+    // getTransactionByHash
+    open class Transaction: Decodable {
+        public var result: TransactionByHashResult
+    }
+    
+    open class TransactionByHashResult: Decodable {
+        public var version: String
+        public var from: String
+        public var to: String
+        public var value: String?
+        public var stepLimit: String
+        public var timestamp: String
+        public var nid: String?
+        public var nonce: String?
+        public var txHash: String
+        public var txIndex: String
+        public var blockHeight: String
+        public var blockHash: String
+        public var signature: String
+        public var dataType: String?
+        public var data: DataValue?
+        
+        open class DataInfo: Decodable {
+            public var method: String
+            public var params: [String: String]?
+        }
+        
+        public enum DataValue: Decodable {
+            case string(String)
+            case dataInfo(DataInfo)
+            
+            public init(from decoder: Decoder) throws {
+                if let string = try? decoder.singleValueContainer().decode(String.self) {
+                    self = .string(string)
+                    return
+                }
+                
+                if let dataInfo = try? decoder.singleValueContainer().decode(DataInfo.self) {
+                    self = .dataInfo(dataInfo)
+                    return
+                }
+                throw DataValueError.missingValue
+            }
+            public enum DataValueError: Error {
+                case missingValue
+                
+            }
         }
     }
 }
 
 
 extension Response {
+    // getTransaction
     open class TransactionResult: Decodable {
         public var result: Result
+    }
+    
+    open class Result: Decodable {
+        public var txHash: String
+        public var blockHeight: String
+        public var blockHash: String
+        public var txIndex: String
+        public var to: String
+        public var stepUsed: String
+        public var stepPrice: String
+        public var cumulativeStepUsed: String
+        public var eventLogs: [EventLog]?
+        public var logsBloom: String?
+        public var status: String
+        public var failure: Failure?
+        public var scoreAddress: String?
         
-        open class Result: Decodable {
-            public var txHash: String?
-            public var blockHeight: String?
-            public var blockHash: String?
-            public var txIndex: String?
-            public var to: String?
-            public var stepUsed: String?
-            public var stepPrice: String?
-            public var cumulativeStepUsed: String?
-            public var eventLogs: [EventLog]?
-            public var logsBloom: String?
-            public var status: String?
-            public var failure: Failure?
-            
-            open class EventLog: Decodable {
-                public var scoreAddress: String
-                public var indexed: [String]
-                public var data: [String]?
-            }
-            
-            open class Failure: Decodable {
-                public var code: String
-                public var message: String
-            }
+        open class EventLog: Decodable {
+            public var scoreAddress: String
+            public var indexed: [String]
+            public var data: [String]?
         }
         
+        open class Failure: Decodable {
+            public var code: String
+            public var message: String
+        }
     }
 }
 
 extension Response {
-    
     open class Call<T: Decodable>: Decodable {
         public var result: T?
     }
 }
 
 extension Response {
-    
     open class StepCosts: Decodable {
         public var defaultValue: String
         public var contractCall: String
