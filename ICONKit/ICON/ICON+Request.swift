@@ -218,7 +218,7 @@ extension ICONService {
     /// - Parameters:
     ///   - hash: A hash of transaction.
     /// - Returns: `Request<Response.Result>`
-    public func getTransactionResult(hash: String) -> Request<Response.Result> {
-        return Request<Response.Result>(id: self.getID(), provider: self.provider, method: .getTransactionResult, params: ["txHash": hash])
+    public func getTransactionResult(hash: String) -> Request<Response.TransactionResult> {
+        return Request<Response.TransactionResult>(id: self.getID(), provider: self.provider, method: .getTransactionResult, params: ["txHash": hash])
     }
 }

@@ -111,11 +111,7 @@ extension Response {
 }
 
 extension Response {
-    // getTransactionByHash
-    open class Transaction: Decodable {
-        public var result: TransactionByHashResult
-    }
-    
+    // icx_getTransactionByHash
     open class TransactionByHashResult: Decodable {
         public var version: String
         public var from: String
@@ -164,12 +160,8 @@ extension Response {
 
 
 extension Response {
-    // getTransaction
+    // icx_getTransactionResult
     open class TransactionResult: Decodable {
-        public var result: Result
-    }
-    
-    open class Result: Decodable {
         public var txHash: String
         public var blockHeight: String
         public var blockHash: String
