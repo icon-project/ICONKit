@@ -55,7 +55,6 @@ extension Request {
                         return .success(jsonRes)
                         
                     } else if let jsonRes = jsonResult as? [String : Any] {
-                        print(json)
                         // icx_getBlockByHeight, icx_getBlockByHash, icx_getTransactionResult, icx_getTransactionByHash, icx_getTransactionResult, icx_getTransactionByHash
                         let resultData = try JSONSerialization.data(withJSONObject: jsonRes, options: .prettyPrinted)
                         let decoded = try decoder.decode(T.self, from: resultData)
