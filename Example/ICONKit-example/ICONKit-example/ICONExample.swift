@@ -38,12 +38,11 @@ class ICONExample {
 //        createWallet()
 //        loadWallet(privateKey: yourPrivateKey)
         
-        asyncBlock()
-        asyncSupply()
-        asyncTransaction()
-        getLastBlock()
-        getBlockByHash()
-        
+//        asyncBlock()
+//        asyncSupply()
+//        asyncTransaction()
+//        getLastBlock()
+//        getBlockByHash()
 //        getBlockByHeight(height: 54156)
 //        getTransactionByHash()
 //        getTransactionResult()
@@ -66,13 +65,15 @@ class ICONExample {
             
         }
     }
-    func asyncSupply() {
+    func asyncSupply(_ completion: @escaping(BigUInt) -> Void) {
         iconService.getTotalSupply().async { (result) in
             switch result {
             case .success(let val):
                 print(val)
+                completion(val)
             case .failure(let err):
                 print(err.errorDescription)
+//                completion(err.errorDescription)
             }
         }
     }
@@ -199,23 +200,25 @@ class ICONExample {
         }
     }
     
-    func getLastBlock() {
+    func getLastBlock(_ completion: @escaping(Response.ResultInfo) -> Void) {
         let response = iconService.getLastBlock().execute()
         
         switch response {
         case .success(let result):
             print(result.blockHash)
+            completion(result)
         case .failure(let err):
             print(err.errorDescription)
         }
     }
     
-    func getBlockByHeight(height: UInt64) {
+    func getBlockByHeight(height: UInt64, _ completion: @escaping(Response.ResultInfo) -> Void) {
         let response = iconService.getBlock(height: height).execute()
         
         switch response {
         case .success(let result):
             print(result.blockHash)
+            completion(result)
         case .failure(let err):
             print(err.errorDescription)
         }
