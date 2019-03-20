@@ -43,7 +43,7 @@ extension Response {
         public var timeStamp: Double
         public var confirmedTransactionList: [ConfirmedTransactionList]
         public var blockHash: String
-        public var height: UInt
+        public var height: UInt64
         public var peerId: String
         public var signature: String
 
