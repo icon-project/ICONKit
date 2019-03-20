@@ -13,7 +13,7 @@ class BlockInfoViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    public var blockInfo: Response.Block.ResultInfo.ConfirmedTransactionList?
+    public var blockInfo: Response.ResultInfo.ConfirmedTransactionList?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,9 +86,11 @@ extension BlockInfoViewController: UITableViewDataSource {
             case 4:
                 cell.contentLabel.text = info.to
             case 5:
-                cell.contentLabel.text = info.value
+                let value: String = String(info.value?.hexToBigUInt() ?? 0)
+                cell.contentLabel.text = value
             case 6:
-                cell.contentLabel.text = info.stepLimit
+                let fee: String = String(info.stepLimit?.hexToBigUInt() ?? 0)
+                cell.contentLabel.text = fee
             case 7:
                 cell.contentLabel.text = info.signature
             default:
