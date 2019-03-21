@@ -36,7 +36,7 @@ open class Response {
 }
 
 extension Response {
-    open class ResultInfo: Decodable {
+    open class Block: Decodable {
         public var version: String
         public var prevBlockHash: String
         public var merkleTreeRootHash: String

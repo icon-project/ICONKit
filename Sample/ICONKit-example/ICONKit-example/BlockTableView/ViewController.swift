@@ -15,7 +15,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    public var blockList = [Response.ResultInfo.ConfirmedTransactionList]()
+    public var blockList = [Response.Block.ConfirmedTransactionList]()
     
     let example = ICONExample()
     

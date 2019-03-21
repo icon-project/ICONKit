@@ -13,7 +13,7 @@ class BlockInfoViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    public var blockInfo: Response.ResultInfo.ConfirmedTransactionList?
+    public var blockInfo: Response.Block.ConfirmedTransactionList?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +80,8 @@ extension BlockInfoViewController: UITableViewDataSource {
             case 1:
                 cell.contentLabel.text = "success"
             case 2:
-                cell.contentLabel.text = info.timestamp
+                let ts: NSString = info.timestamp as NSString
+                cell.contentLabel.text = ts.hexToTimestamp()
             case 3:
                 cell.contentLabel.text = info.from
             case 4:

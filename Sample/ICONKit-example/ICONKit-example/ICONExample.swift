@@ -200,7 +200,7 @@ class ICONExample {
         }
     }
     
-    func getLastBlock(_ completion: @escaping(Response.ResultInfo) -> Void) {
+    func getLastBlock(_ completion: @escaping(Response.Block) -> Void) {
         let response = iconService.getLastBlock().execute()
         
         switch response {
@@ -212,7 +212,7 @@ class ICONExample {
         }
     }
     
-    func getBlockByHeight(height: UInt64, _ completion: @escaping(Response.ResultInfo) -> Void) {
+    func getBlockByHeight(height: UInt64, _ completion: @escaping(Response.Block) -> Void) {
         let response = iconService.getBlock(height: height).execute()
         
         switch response {

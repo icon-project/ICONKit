@@ -156,27 +156,27 @@ extension Request {
 extension ICONService {
     /// getLastBlock
     ///
-    /// - Returns: `Request<Response.ResultInfo>`
-    public func getLastBlock() -> Request<Response.ResultInfo> {
-        return Request<Response.ResultInfo>(id: self.getID(), provider: self.provider, method: .getLastBlock, params: nil)
+    /// - Returns: `Request<Response.Block>`
+    public func getLastBlock() -> Request<Response.Block> {
+        return Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getLastBlock, params: nil)
     }
     
     /// getBlockByHeight
     ///
     /// - Parameters:
     ///   - height: A height of block.
-    /// - Returns: `Request<Response.ResultInfo>`
-    public func getBlock(height: UInt64) -> Request<Response.ResultInfo> {
-        return Request<Response.ResultInfo>(id: self.getID(), provider: self.provider, method: .getBlockByHeight, params: ["height": "0x" + String(height, radix: 16)])
+    /// - Returns: `Request<Response.Block>`
+    public func getBlock(height: UInt64) -> Request<Response.Block> {
+        return Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getBlockByHeight, params: ["height": "0x" + String(height, radix: 16)])
     }
     
     /// getBlockByHash
     ///
     /// - Parameters:
     ///   - hash: A hash of block.
-    /// - Returns: `Request<Response.ResultInfo>`
-    public func getBlock(hash: String) -> Request<Response.ResultInfo> {
-        return Request<Response.ResultInfo>(id: self.getID(), provider: self.provider, method: .getBlockByHash, params: ["hash": hash])
+    /// - Returns: `Request<Response.Block>`
+    public func getBlock(hash: String) -> Request<Response.Block> {
+        return Request<Response.Block>(id: self.getID(), provider: self.provider, method: .getBlockByHash, params: ["hash": hash])
     }
     
     /// getBalance
