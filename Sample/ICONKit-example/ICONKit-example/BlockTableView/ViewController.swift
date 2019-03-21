@@ -14,11 +14,12 @@ import BigInt
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    public static var blockList = [Response.Block.ResultInfo.ConfirmedTransactionList]()
+    
+    public var blockList = [Response.Block.ConfirmedTransactionList]()
     
     let example = ICONExample()
     
-    public static var lastHeight: UInt = 0
+    public var lastHeight: UInt64 = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,15 +31,25 @@ class ViewController: UIViewController {
         
         tableView.rowHeight = 80
         tableView.estimatedRowHeight = 80
-        example.getLastBlock()
-        
+        example.getLastBlock { (block) in
+            
+            self.lastHeight = block.height
+            if let list = block.confirmedTransactionList.first {
+                self.blockList.append(list)
+            }
+            
+        }
         loadBlocks()
-
     }
     
     func loadBlocks() {
         for _ in 1...10 {
-            example.getBlockByHeight(height: UInt64(ViewController.lastHeight - 1))
+            example.getBlockByHeight(height: self.lastHeight - 1) { (block) in
+                if let list = block.confirmedTransactionList.first {
+                    self.blockList.append(list)
+                    self.lastHeight = block.height
+                }
+            }
         }
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -48,18 +59,20 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ViewController.blockList.count
+        return self.blockList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        let data = ViewController.blockList[indexPath.row]
+        let data = self.blockList[indexPath.row]
         
         cell.statusLabel.text = "success"
         cell.txHashLabel.text = data.txHash
-        cell.amountLabel.text = data.value
-        cell.feeLabel.text = data.stepLimit
+        let amount: String = String(data.value?.hexToBigUInt() ?? 0)
+        let fee: String = String(data.stepLimit?.hexToBigUInt() ?? 0)
+        cell.amountLabel.text = amount
+        cell.feeLabel.text = fee
 
         cell.statusLabel.sizeToFit()
         cell.txHashLabel.sizeToFit()
@@ -73,7 +86,7 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let result = ViewController.blockList[indexPath.row]
+        let result = self.blockList[indexPath.row]
         
         let storyboard: UIStoryboard = UIStoryboard(name: "BlockInfo", bundle: nil)
         let nextView = storyboard.instantiateInitialViewController()
@@ -81,23 +94,5 @@ extension ViewController: UITableViewDelegate {
         vc?.blockInfo = result
         
         self.navigationController?.pushViewController(vc!, animated: true)
-    }
-}
-
-extension ViewController {
-    func calculateAge(timestamp: Double) -> String {
-        let date = Date(timeIntervalSince1970: timestamp / 1000000.0)
-        let now = Date()
-        do {
-            let formatter = DateComponentsFormatter()
-            formatter.allowedUnits = [.year, .month, .day, .hour, .minute, .second]
-            formatter.unitsStyle = .short
-            formatter.maximumUnitCount = 1
-            if let daysString = formatter.string(from: date, to: now) {
-                return daysString + " ago"
-            }
-            return "unknown"
-            
-        }
     }
 }

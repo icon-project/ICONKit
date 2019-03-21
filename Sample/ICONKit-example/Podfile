@@ -6,5 +6,5 @@ target 'ICONKit-example' do
   use_frameworks!
 
   # Pods for ICONKit-example
-  pod 'ICONKit', :path => '~/works/ICONKit/'
+  pod 'ICONKit', :path => '~/ICONKit/'
 end

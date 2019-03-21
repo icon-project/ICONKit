@@ -20,7 +20,7 @@ class SupplyViewController: UIViewController {
         view.backgroundColor = UIColor(red: 26/255, green: 170/255, blue: 186/255, alpha: 1.0)
         
         // Request asynchronously
-        self.example.asyncTotalSupply({ (supply) in
+        self.example.asyncSupply ({ (supply) in
             DispatchQueue.main.async {
                 self.supplyLabel.text = "\(supply / BigUInt(1000000000000000000))"
             }
