@@ -1,7 +1,7 @@
 PODS:
   - BigInt (3.1.0):
     - SipHash (~> 1.2)
-  - CryptoSwift (0.14.0)
+  - CryptoSwift (0.11.0)
   - Result (4.1.0)
   - scrypt (1.8.1):
     - CryptoSwift (~> 0.11)
@@ -10,7 +10,7 @@ PODS:
 
 DEPENDENCIES:
   - BigInt
-  - CryptoSwift
+  - CryptoSwift (~> 0.11.0)
   - Result
   - scrypt (from `https://github.com/a1ahn/scrypt-cryptoswift.git`)
   - secp256k1_ios
@@ -34,12 +34,12 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
-  CryptoSwift: 35a10419f4dbf0619c13f8c1c180037e115323fa
+  CryptoSwift: ad5208dd2aae0a764ea4ce2c2d34bd067cae67f0
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   scrypt: 3f6c9e7597091c0e79c4516870b9989064ceee5d
   secp256k1_ios: ac9ef04e761f43c58012b28548afa91493761f17
   SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
 
-PODFILE CHECKSUM: b923793855d127a82218a2ca2b25d62ec2f82b5d
+PODFILE CHECKSUM: a4b11421913340efbcde53425692e79f12782032
 
 COCOAPODS: 1.5.3
