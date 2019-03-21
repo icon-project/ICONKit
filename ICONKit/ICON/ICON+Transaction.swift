@@ -19,6 +19,17 @@ import Foundation
 import BigInt
 
 /// `Transaction` is the common supperclass of all Transction types.
+///
+/// Sending ICX
+/// ````
+/// let coinTransfer = Transaction()
+///     .from(from)
+///     .to(to)
+///     .value(BigUInt(15000000))
+///     .stepLimit(BigUInt(1000000))
+///     .nid(nid)
+///     .nonce("0x1")
+/// ````
 open class Transaction {
     public var version: String { return ICONService.ver }
     public var from: String?
@@ -88,6 +99,19 @@ extension Transaction: TransactionSigner {
     
 }
 
+/// Transfer SCORE function call.
+///
+/// `CallTransaction` is a subclass of `Transaction` class.
+/// ````
+/// let call = CallTransaction()
+///     .from(wallet.address)
+///     .to(scoreAddress)
+///     .stepLimit(BigUInt(1000000))
+///     .nid(iconService.nid)
+///     .nonce("0x1")
+///     .method("transfer")
+///     .params(["_to": to, "_value": "0x1234"])
+/// ````
 open class CallTransaction: Transaction {
     @discardableResult
     public func method(_ method: String) -> Self {
@@ -117,6 +141,18 @@ open class CallTransaction: Transaction {
     }
 }
 
+/// Transfer Message.
+///
+/// `MessageTransaction` is a subclass of `Transaction` class.
+/// ````
+/// let message = MessageTransaction()
+///     .from(from)
+///     .to(to)
+///     .stepLimit(BigUInt(15000000))
+///     .nonce("0x1")
+///     .nid(nid)
+///     .message("Hello, ICON!")
+/// ````
 open class MessageTransaction: Transaction {
     @discardableResult
     public func message(_ message: String) -> Self {
@@ -132,6 +168,11 @@ open class SignedTransaction {
     public var signature: String
     public var params: [String: Any]
     
+    /// Create a signedTransaction instance with the given transaction and privateKey.
+    ///
+    /// - Parameters:
+    ///   - transaction: A `Transaction` that will be signed.
+    ///   - privateKey: A `PrivateKey` that will be used to signing.
     public init(transaction: Transaction, privateKey: PrivateKey) throws {
         let value = try transaction.signTransaction(privateKey: privateKey)
         
@@ -143,7 +184,12 @@ open class SignedTransaction {
 }
 
 extension ICONService {
-    public func sendTransaction(signedTransaction: SignedTransaction) -> Request<Response.TxHash> {
-        return Request<Response.TxHash>(id: self.getID(), provider: self.provider, method: .sendTransaction, params: signedTransaction.params)
+    /// Send transaction.
+    ///
+    /// - Parameters:
+    ///   - signedTransaction: Signed Transaction and private key.
+    /// - Returns: `Request<String>`.
+    public func sendTransaction(signedTransaction: SignedTransaction) -> Request<String> {
+        return Request<String>(id: self.getID(), provider: self.provider, method: .sendTransaction, params: signedTransaction.params)
     }
 }

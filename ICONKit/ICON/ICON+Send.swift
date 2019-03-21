@@ -57,7 +57,7 @@ extension Sendable {
         }
         
         guard let value = data else { return .failure(ICError.message(error: "Unknown Error")) }
-        guard response?.statusCode == 200 else {
+        guard response?.statusCode == 200 || response?.statusCode == 400 || response?.statusCode == 500 else {
             let message = String(data: value, encoding: .utf8)
             return .failure(ICError.message(error: message ?? "Unknown Error"))
         }
@@ -82,7 +82,7 @@ extension Sendable {
                 completion(.failure(ICError.message(error: "Unknown Error")))
                 return
             }
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 || response.statusCode == 400 || response.statusCode == 500 else {
                 let message = String(data: value, encoding: .utf8)
                 completion(.failure(ICError.message(error: message ?? "Unknown Error")))
                 return
