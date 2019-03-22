@@ -192,9 +192,9 @@ extension ICONService {
     ///
     /// - Parameters:
     ///   - scoreAddress: A String
-    /// - Returns: `Request<[Response.API]>`
-    public func getScoreAPI(scoreAddress: String) -> Request<[Response.API]> {
-        return Request<[Response.API]>(id: self.getID(), provider: self.provider, method: .getScoreAPI, params: ["address": scoreAddress])
+    /// - Returns: `Request<[Response.ScoreAPI]>`
+    public func getScoreAPI(scoreAddress: String) -> Request<[Response.ScoreAPI]> {
+        return Request<[Response.ScoreAPI]>(id: self.getID(), provider: self.provider, method: .getScoreAPI, params: ["address": scoreAddress])
     }
     
     /// getTotalSupply

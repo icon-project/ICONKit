@@ -100,7 +100,7 @@ extension Response {
 }
 
 extension Response {
-    open class API: Decodable {
+    open class ScoreAPI: Decodable {
         public var type: String
         public var name: String
         public var inputs: [[String: String?]]
