@@ -66,6 +66,18 @@ extension String {
     }
 }
 
+extension NSString {
+    /// Convert HEX String to Date
+    ///
+    /// - Returns: `Date` or `nil`.
+    public func hexToDate() -> Date? {
+        guard let value = Int(self.substring(from: 2), radix:16) else {
+            return nil
+        }
+        return Date(timeIntervalSince1970: Double(value) / 1000000.0)
+    }
+}
+
 extension BigUInt {
     /// Convert ICX or gLoop value to loop.
     ///
