@@ -25,6 +25,12 @@ class BlockInfoViewController: UIViewController {
         tableView.register(nibName, forCellReuseIdentifier: "infoCell")
     }
     
+    var dateformatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:SSS"
+        formatter.timeZone = TimeZone(identifier: "ko")
+        return formatter
+    }()
 
     /*
     // MARK: - Navigation
@@ -81,7 +87,11 @@ extension BlockInfoViewController: UITableViewDataSource {
                 cell.contentLabel.text = "success"
             case 2:
                 let ts: NSString = info.timestamp as NSString
-                cell.contentLabel.text = ts.hexToTimestamp()
+                if let date = ts.hexToDate() {
+                    cell.contentLabel.text = dateformatter.string(from: date)
+                } else {
+                    cell.contentLabel.text = "err"
+                }
             case 3:
                 cell.contentLabel.text = info.from
             case 4:
