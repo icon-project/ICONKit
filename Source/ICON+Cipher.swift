@@ -23,20 +23,20 @@ import CommonCrypto
 
 let PBE_DKLEN: Int = 32
 
-struct Cipher {
-    static func pbkdf2SHA1(password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
+public struct Cipher {
+    public static func pbkdf2SHA1(password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
         return pbkdf2(hash: CCPBKDFAlgorithm(kCCPRFHmacAlgSHA1), password: password, salt: salt, keyByteCount: keyByteCount, round: round)
     }
     
-    static func pbkdf2SHA256(password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
+    public static func pbkdf2SHA256(password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
         return pbkdf2(hash: CCPBKDFAlgorithm(kCCPRFHmacAlgSHA256), password: password, salt: salt, keyByteCount: keyByteCount, round: round)
     }
     
-    static func pbkdf2SHA512(password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
+    public static func pbkdf2SHA512(password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
         return pbkdf2(hash: CCPBKDFAlgorithm(kCCPRFHmacAlgSHA512), password: password, salt: salt, keyByteCount: keyByteCount, round: round)
     }
     
-    static func pbkdf2(hash: CCPBKDFAlgorithm, password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
+    public static func pbkdf2(hash: CCPBKDFAlgorithm, password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
         let passwordData = password.data(using: .utf8)!
         var derivedKeyData = Data(count: keyByteCount)
         var localVariables = derivedKeyData
@@ -56,7 +56,7 @@ struct Cipher {
         return localVariables
     }
     
-    static func encrypt(devKey:Data, data: Data, salt: Data) throws -> (cipherText: String, mac: String, iv: String) {
+    public static func encrypt(devKey:Data, data: Data, salt: Data) throws -> (cipherText: String, mac: String, iv: String) {
         let eKey: [UInt8] = Array(devKey.bytes[0..<PBE_DKLEN/2])
         let mKey: [UInt8] = Array(devKey.bytes[PBE_DKLEN/2..<PBE_DKLEN])
         
@@ -70,7 +70,7 @@ struct Cipher {
         return (Data(bytes: encrypted).toHexString(), Data(bytes: digest).toHexString(), Data(iv).toHexString())
     }
     
-    static func decrypt(devKey: Data, enc: Data, dkLen: Int, iv: Data) throws -> (decryptText: String, mac: String) {
+    public static func decrypt(devKey: Data, enc: Data, dkLen: Int, iv: Data) throws -> (decryptText: String, mac: String) {
         let eKey: [UInt8] = Array(devKey.bytes[0..<PBE_DKLEN/2])
         let mKey: [UInt8] = Array(devKey.bytes[PBE_DKLEN/2..<PBE_DKLEN])
         
@@ -82,7 +82,7 @@ struct Cipher {
         return (Data(bytes: decrypted).toHexString(), Data(bytes: digest).toHexString())
     }
     
-    static func scrypt(password: String, saltData: Data? = nil, dkLen: Int = 32, N: Int = 4096, R: Int = 6, P: Int = 1) -> Data? {
+    public static func scrypt(password: String, saltData: Data? = nil, dkLen: Int = 32, N: Int = 4096, R: Int = 6, P: Int = 1) -> Data? {
         let passwordData = password.data(using: .utf8)!
         var salt = Data()
         if let saltValue = saltData {
@@ -101,15 +101,15 @@ struct Cipher {
         return Data(bytes: result)
     }
     
-    static func getHash(_ value: String) -> String {
+    public static func getHash(_ value: String) -> String {
         return value.sha3(.sha256)
     }
     
-    static func getHash(_ value: Data) -> Data {
+    public static func getHash(_ value: Data) -> Data {
         return value.sha3(.sha256)
     }
     
-    static func signECDSA(hashedMessage: Data, privateKey: PrivateKey) throws -> Data {
+    public static func signECDSA(hashedMessage: Data, privateKey: PrivateKey) throws -> Data {
         let flag = UInt32(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY)
         let privData = privateKey.data
         guard let ctx = secp256k1_context_create(flag) else { throw ICError.fail(reason: .convert(to: .data)) }
@@ -136,7 +136,7 @@ struct Cipher {
         return Data(bytes: bytes)
     }
     
-    static func createRecoveryKey(privateKey: PrivateKey) -> PublicKey? {
+    public static func createRecoveryKey(privateKey: PrivateKey) -> PublicKey? {
         let prvKey = privateKey.data
         let flag = UInt32(SECP256K1_CONTEXT_SIGN)
         guard let ctx = secp256k1_context_create(flag) else { return nil }
@@ -156,7 +156,7 @@ struct Cipher {
         return PublicKey(hex: Data(bytes: serializedPubkey, count: pubLen))
     }
     
-    static func createPublicKey(privateKey: PrivateKey) -> PublicKey? {
+    public static func createPublicKey(privateKey: PrivateKey) -> PublicKey? {
         let prvKey = privateKey.data
         let flag = UInt32(SECP256K1_CONTEXT_SIGN)
         guard let ctx = secp256k1_context_create(flag) else { return nil }
@@ -183,7 +183,7 @@ struct Cipher {
         return pubKey
     }
     
-    static func makeAddress(_ privateKey: PrivateKey?, _ pubKey: PublicKey) -> String {
+    public static func makeAddress(_ privateKey: PrivateKey?, _ pubKey: PublicKey) -> String {
         var hash: Data
         let publicKey = pubKey.data
         if publicKey.count > 64 {
@@ -206,7 +206,7 @@ struct Cipher {
         return address
     }
     
-    static func checkAddress(privateKey: PrivateKey, address: String) -> Bool {
+    public static func checkAddress(privateKey: PrivateKey, address: String) -> Bool {
         let fixed = Date.timestampString.data(using: .utf8)!.sha3(.sha256)
         
         guard var rsign = Cipher.ecdsaRecoverSign(privateKey: privateKey, hashed: fixed) else { return false }
@@ -222,7 +222,7 @@ struct Cipher {
     /// Reference from web3swift
     /// https://github.com/BANKEX/web3swift
     ///
-    static func verifyPublickey(hashedMessage: Data, signature: inout secp256k1_ecdsa_recoverable_signature) -> String? {
+    public static func verifyPublickey(hashedMessage: Data, signature: inout secp256k1_ecdsa_recoverable_signature) -> String? {
         let flag = UInt32(SECP256K1_CONTEXT_VERIFY)
         
         guard let ctx = secp256k1_context_create(flag) else { return nil }
@@ -253,7 +253,7 @@ struct Cipher {
         return publicKey
     }
     
-    static func ecdsaRecoverSign(privateKey: PrivateKey, hashed: Data) -> secp256k1_ecdsa_recoverable_signature? {
+    public static func ecdsaRecoverSign(privateKey: PrivateKey, hashed: Data) -> secp256k1_ecdsa_recoverable_signature? {
         let flag = UInt32(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY)
         let privData = privateKey.data
         guard let ctx = secp256k1_context_create(flag) else { return nil }
