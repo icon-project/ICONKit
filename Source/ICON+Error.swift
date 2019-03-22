@@ -19,6 +19,8 @@ import Foundation
 
 public enum ICError: Error {
     
+    /// Keys for Transaction
+    ///
     public enum JSONParameterKey {
         /// Required
         case version, from, to, stepLimit, timestamp, nid, signature
@@ -28,6 +30,8 @@ public enum ICError: Error {
     
     public enum InvalidReason {
         case missing(parameter: JSONParameterKey)
+        case malformedKeystore
+        case wrongPassword
     }
     
     public enum FailureReason {
@@ -37,11 +41,14 @@ public enum ICError: Error {
             case url(string: String)
         }
         
+        case generateKey
         case sign
         case parsing
+        case decrypt
         case convert(to: ConvertFailure)
     }
     
+    case emptyKeystore
     case invalid(reason: InvalidReason)
     case fail(reason: FailureReason)
     case error(error: Error)
@@ -51,6 +58,9 @@ public enum ICError: Error {
 extension ICError: LocalizedError {
     public var errorDescription: String? {
         switch self {
+        case .emptyKeystore:
+            return "Empty keystore. Password required."
+            
         case .invalid(reason: let reason):
             return "Invalid: \(reason)"
             
@@ -68,7 +78,7 @@ extension ICError: LocalizedError {
 
 extension ICError.JSONParameterKey {
     var localizedDescription: String {
-        return "parameter key. \(self)"
+        return "parameter. \(self)"
     }
 }
 
@@ -77,6 +87,12 @@ extension ICError.InvalidReason {
         switch self {
         case .missing(parameter: let key):
             return "missing \(key.localizedDescription)"
+            
+        case .malformedKeystore:
+            return "keystore data malformed."
+            
+        case .wrongPassword:
+            return "wrong password."
         }
     }
 }
@@ -84,11 +100,17 @@ extension ICError.InvalidReason {
 extension ICError.FailureReason {
     var localizedDescription: String {
         switch self {
+        case .generateKey:
+            return "generate key"
+            
         case .parsing:
             return "parsing"
             
         case .sign:
             return "signing"
+            
+        case .decrypt:
+            return "decrypt"
             
         case .convert(to: let to):
             return "convert to \(to)"

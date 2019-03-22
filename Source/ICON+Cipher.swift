@@ -16,15 +16,100 @@
  */
 
 import Foundation
+import scrypt
 import CryptoSwift
 import secp256k1_ios
+import CommonCrypto
 
-public protocol SECP256k1 {
+let PBE_DKLEN: Int = 32
+
+public struct Cipher {
+    public static func pbkdf2SHA1(password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
+        return pbkdf2(hash: CCPBKDFAlgorithm(kCCPRFHmacAlgSHA1), password: password, salt: salt, keyByteCount: keyByteCount, round: round)
+    }
     
-}
-
-extension SECP256k1 {
-    public func signECDSA(hashedMessage: Data, privateKey: PrivateKey) throws -> Data {
+    public static func pbkdf2SHA256(password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
+        return pbkdf2(hash: CCPBKDFAlgorithm(kCCPRFHmacAlgSHA256), password: password, salt: salt, keyByteCount: keyByteCount, round: round)
+    }
+    
+    public static func pbkdf2SHA512(password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
+        return pbkdf2(hash: CCPBKDFAlgorithm(kCCPRFHmacAlgSHA512), password: password, salt: salt, keyByteCount: keyByteCount, round: round)
+    }
+    
+    public static func pbkdf2(hash: CCPBKDFAlgorithm, password: String, salt: Data, keyByteCount: Int, round: Int) -> Data? {
+        let passwordData = password.data(using: .utf8)!
+        var derivedKeyData = Data(count: keyByteCount)
+        var localVariables = derivedKeyData
+        let derivationStatus = localVariables.withUnsafeMutableBytes { derivedKeyBytes in
+            salt.withUnsafeBytes { saltBytes in
+                CCKeyDerivationPBKDF(CCPBKDFAlgorithm(kCCPBKDF2),
+                                     password, passwordData.count, saltBytes, salt.count,
+                                     hash, UInt32(round),
+                                     derivedKeyBytes, derivedKeyData.count)
+            }
+        }
+        
+        if (derivationStatus != 0) {
+            return nil;
+        }
+        
+        return localVariables
+    }
+    
+    public static func encrypt(devKey:Data, data: Data, salt: Data) throws -> (cipherText: String, mac: String, iv: String) {
+        let eKey: [UInt8] = Array(devKey.bytes[0..<PBE_DKLEN/2])
+        let mKey: [UInt8] = Array(devKey.bytes[PBE_DKLEN/2..<PBE_DKLEN])
+        
+        let iv = AES.randomIV(AES.blockSize)
+        
+        let encrypted: [UInt8] = try AES(key: eKey, blockMode: CTR(iv: iv), padding: .noPadding).encrypt(data.bytes)
+        
+        let mac = mKey + encrypted
+        let digest = mac.sha3(.keccak256)
+        
+        return (Data(bytes: encrypted).toHexString(), Data(bytes: digest).toHexString(), Data(iv).toHexString())
+    }
+    
+    public static func decrypt(devKey: Data, enc: Data, dkLen: Int, iv: Data) throws -> (decryptText: String, mac: String) {
+        let eKey: [UInt8] = Array(devKey.bytes[0..<PBE_DKLEN/2])
+        let mKey: [UInt8] = Array(devKey.bytes[PBE_DKLEN/2..<PBE_DKLEN])
+        
+        let decrypted: [UInt8] = try AES(key: eKey, blockMode: CTR(iv: iv.bytes), padding: .noPadding).decrypt(enc.bytes)
+        
+        let mac: [UInt8] = mKey + enc.bytes
+        let digest = mac.sha3(.keccak256)
+        
+        return (Data(bytes: decrypted).toHexString(), Data(bytes: digest).toHexString())
+    }
+    
+    public static func scrypt(password: String, saltData: Data? = nil, dkLen: Int = 32, N: Int = 4096, R: Int = 6, P: Int = 1) -> Data? {
+        let passwordData = password.data(using: .utf8)!
+        var salt = Data()
+        if let saltValue = saltData {
+            salt = saltValue
+        } else {
+            let saltCount = 32
+            var randomBytes = Array<UInt8>(repeating: 0, count: saltCount)
+            let err = SecRandomCopyBytes(kSecRandomDefault, saltCount, &randomBytes)
+            if err != errSecSuccess { return nil }
+            salt = Data(bytes: randomBytes)
+        }
+        
+        guard let scrypt = try? Scrypt(password: passwordData.bytes, salt: salt.bytes, dkLen: dkLen, N: N, r: R, p: P) else { return nil }
+        guard let result = try? scrypt.calculate() else { return nil }
+        
+        return Data(bytes: result)
+    }
+    
+    public static func getHash(_ value: String) -> String {
+        return value.sha3(.sha256)
+    }
+    
+    public static func getHash(_ value: Data) -> Data {
+        return value.sha3(.sha256)
+    }
+    
+    public static func signECDSA(hashedMessage: Data, privateKey: PrivateKey) throws -> Data {
         let flag = UInt32(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY)
         let privData = privateKey.data
         guard let ctx = secp256k1_context_create(flag) else { throw ICError.fail(reason: .convert(to: .data)) }
@@ -111,7 +196,7 @@ extension SECP256k1 {
         let address = "hx" + String(sub.toHexString())
         
         if let privKey = privateKey {
-            if Self.checkAddress(privateKey: privKey, address: address) {
+            if Cipher.checkAddress(privateKey: privKey, address: address) {
                 return address
             } else {
                 return makeAddress(privKey, pubKey)
@@ -124,9 +209,9 @@ extension SECP256k1 {
     public static func checkAddress(privateKey: PrivateKey, address: String) -> Bool {
         let fixed = Date.timestampString.data(using: .utf8)!.sha3(.sha256)
         
-        guard var rsign = Self.ecdsaRecoverSign(privateKey: privateKey, hashed: fixed) else { return false }
+        guard var rsign = Cipher.ecdsaRecoverSign(privateKey: privateKey, hashed: fixed) else { return false }
         
-        guard let vPub = Self.verifyPublickey(hashedMessage: fixed, signature: &rsign), let hexPub = vPub.hexToData() else { return false }
+        guard let vPub = Cipher.verifyPublickey(hashedMessage: fixed, signature: &rsign), let hexPub = vPub.hexToData() else { return false }
         let pubKey = PublicKey(hex: hexPub)
         let vaddr = makeAddress(nil, pubKey)
         
@@ -180,4 +265,5 @@ extension SECP256k1 {
         
         return rsig
     }
+
 }
