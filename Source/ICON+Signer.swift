@@ -18,7 +18,7 @@
 import Foundation
 import CryptoSwift
 
-protocol TransactionSigner: SECP256k1 {
+protocol TransactionSigner {
     
 }
 
@@ -112,7 +112,7 @@ extension TransactionSigner where Self: Transaction {
 
         let hashed = serialized.sha3(.sha256)
         
-        let signed = try signECDSA(hashedMessage: hashed, privateKey: privateKey)
+        let signed = try Cipher.signECDSA(hashedMessage: hashed, privateKey: privateKey)
         var params = v.1
         params["signature"] = signed.base64EncodedString()
         return (signed.base64EncodedString(), params)
