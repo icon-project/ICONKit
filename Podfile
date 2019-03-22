@@ -1,8 +1,6 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, 10
 
 inhibit_all_warnings!
-use_frameworks!
 
 def import_pods
   # Pods for ICONKit
@@ -13,12 +11,17 @@ def import_pods
   pod 'scrypt', :git => 'https://github.com/a1ahn/scrypt-cryptoswift.git'
 end
 
-#def test_ICONKit
-#  pod 'ICONKit', :path => '~/works/ICONKit'
-#end
-
 target 'ICONKit-ios' do
+  platform :ios, 10
+  use_frameworks!
 
   import_pods
 
+end
+
+target 'ICONKit-osx' do
+  platform :osx, '10.14'
+  use_modular_headers!
+
+  import_pods
 end

@@ -7,12 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3103BA4664901410B0C55A8F /* Pods_ICONKit_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D25C6F5F9F0FD6E17E6D890C /* Pods_ICONKit_ios.framework */; };
 		D40FA03521478E3600CB8E6E /* ICON+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40FA03421478E3600CB8E6E /* ICON+Transaction.swift */; };
 		D413D09C21FEBACA00A45F88 /* ICON+Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413D09B21FEBACA00A45F88 /* ICON+Key.swift */; };
 		D44F2F1F217EE3A5008B4D1F /* ICON+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44F2F1E217EE3A5008B4D1F /* ICON+Address.swift */; };
+		D45D81372240C7CF0077375B /* ICON+Keystore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45D81362240C7CF0077375B /* ICON+Keystore.swift */; };
+		D45D81392240D0D50077375B /* ICON+Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45D81382240D0D50077375B /* ICON+Cipher.swift */; };
+		D45D813B2240DB070077375B /* ICON+Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45D813A2240DB070077375B /* ICON+Store.swift */; };
 		D48D181C2134014600BEAA2F /* ICONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D181B2134014600BEAA2F /* ICONService.swift */; };
 		D49E4747214925E8007A0B26 /* ICON+Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49E4746214925E8007A0B26 /* ICON+Call.swift */; };
 		D49E4749214928C6007A0B26 /* ICON+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49E4748214928C6007A0B26 /* ICON+Response.swift */; };
+		D4AD01DB22439244008BBCC9 /* ICON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBA212FABD90027899B /* ICON.swift */; };
+		D4AD01DC22439244008BBCC9 /* ICON+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44F2F1E217EE3A5008B4D1F /* ICON+Address.swift */; };
+		D4AD01DD22439244008BBCC9 /* ICON+Amount.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DE9A2A218AC5EA00126CAD /* ICON+Amount.swift */; };
+		D4AD01DE22439244008BBCC9 /* ICON+Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49E4746214925E8007A0B26 /* ICON+Call.swift */; };
+		D4AD01DF22439244008BBCC9 /* ICON+Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE20F3220043D900A6EF90 /* ICON+Converter.swift */; };
+		D4AD01E022439244008BBCC9 /* ICON+Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45D81382240D0D50077375B /* ICON+Cipher.swift */; };
+		D4AD01E122439244008BBCC9 /* ICON+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBE212FABD90027899B /* ICON+Error.swift */; };
+		D4AD01E222439244008BBCC9 /* ICON+Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = D413D09B21FEBACA00A45F88 /* ICON+Key.swift */; };
+		D4AD01E322439244008BBCC9 /* ICON+Keystore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45D81362240C7CF0077375B /* ICON+Keystore.swift */; };
+		D4AD01E422439244008BBCC9 /* ICON+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */; };
+		D4AD01E522439244008BBCC9 /* ICON+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49E4748214928C6007A0B26 /* ICON+Response.swift */; };
+		D4AD01E622439244008BBCC9 /* ICON+Send.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4ED53217EBB1E004F2D83 /* ICON+Send.swift */; };
+		D4AD01E722439244008BBCC9 /* ICON+Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBB212FABD90027899B /* ICON+Signer.swift */; };
+		D4AD01E822439244008BBCC9 /* ICON+Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45D813A2240DB070077375B /* ICON+Store.swift */; };
+		D4AD01E922439244008BBCC9 /* ICON+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40FA03421478E3600CB8E6E /* ICON+Transaction.swift */; };
+		D4AD01EA22439244008BBCC9 /* ICON+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC2212FABD90027899B /* ICON+Util.swift */; };
+		D4AD01EB22439244008BBCC9 /* ICON+Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBC212FABD90027899B /* ICON+Wallet.swift */; };
+		D4AD01EC22439244008BBCC9 /* Common+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC1212FABD90027899B /* Common+Extension.swift */; };
+		D4AD01ED22439244008BBCC9 /* ICONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48D181B2134014600BEAA2F /* ICONService.swift */; };
 		D4CE20F4220043D900A6EF90 /* ICON+Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CE20F3220043D900A6EF90 /* ICON+Converter.swift */; };
 		D4D4ED54217EBB1E004F2D83 /* ICON+Send.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4ED53217EBB1E004F2D83 /* ICON+Send.swift */; };
 		D4D4ED56217EC39F004F2D83 /* ICON+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */; };
@@ -24,26 +47,30 @@
 		D4E25BC8212FABD90027899B /* ICON+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BBE212FABD90027899B /* ICON+Error.swift */; };
 		D4E25BCB212FABD90027899B /* Common+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC1212FABD90027899B /* Common+Extension.swift */; };
 		D4E25BCC212FABD90027899B /* ICON+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC2212FABD90027899B /* ICON+Util.swift */; };
-		D4E25BCD212FABD90027899B /* ICON+SECP256k1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */; };
 		D4E25BCF212FAEF20027899B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E25BCE212FAEF20027899B /* Security.framework */; };
-		D631280CDF53704E26894393 /* Pods_ICONKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A850A49139A9C0A0F382564B /* Pods_ICONKit.framework */; };
+		D4F72CCF22437C5800EB8B3B /* ICONKit_osx.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F72CCD22437C5800EB8B3B /* ICONKit_osx.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5CED1F50849E8A46FE07456 /* libPods-ICONKit-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0F3AF2BEAE6E976E679D125 /* libPods-ICONKit-osx.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		62AD510A0FCD2E39ECB9ABE0 /* Pods-ICONKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit/Pods-ICONKit.release.xcconfig"; sourceTree = "<group>"; };
-		71A7E069219D5E5EBEC9B0E8 /* Pods-ICONKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit/Pods-ICONKit.debug.xcconfig"; sourceTree = "<group>"; };
-		A850A49139A9C0A0F382564B /* Pods_ICONKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ICONKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4043F3F2150EBC100D2DA7F /* scrypt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = scrypt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		03C73A788FCDC9C58D0DE713 /* Pods-ICONKit-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit-ios/Pods-ICONKit-ios.release.xcconfig"; sourceTree = "<group>"; };
+		1183ED4BB9BB0FD5F3D7FF01 /* Pods-ICONKit-osx.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit-osx.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit-osx/Pods-ICONKit-osx.debug.xcconfig"; sourceTree = "<group>"; };
+		9EAC6059A94CE7B34F926461 /* Pods-ICONKit-osx.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit-osx.release.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit-osx/Pods-ICONKit-osx.release.xcconfig"; sourceTree = "<group>"; };
+		C0F3AF2BEAE6E976E679D125 /* libPods-ICONKit-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ICONKit-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D25C6F5F9F0FD6E17E6D890C /* Pods_ICONKit_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ICONKit_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4043F412150EBCA00D2DA7F /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D40FA03421478E3600CB8E6E /* ICON+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Transaction.swift"; sourceTree = "<group>"; };
 		D413D09B21FEBACA00A45F88 /* ICON+Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Key.swift"; sourceTree = "<group>"; };
+		D42BF7A922433B9F00035671 /* BigInt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BigInt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D42BF7AB22433B9F00035671 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D42BF7AF22433B9F00035671 /* Result.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D42BF7B122433B9F00035671 /* scrypt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = scrypt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D42BF7B322433B9F00035671 /* secp256k1_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = secp256k1_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D42BF7B522433B9F00035671 /* SipHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SipHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44F2F1E217EE3A5008B4D1F /* ICON+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Address.swift"; sourceTree = "<group>"; };
-		D4653B59213CE0CC0059C042 /* scrypt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = scrypt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4653B5B213CE0D30059C042 /* BigInt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BigInt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4653B5D213CE0DC0059C042 /* Result.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4653B5F213CE0E00059C042 /* SipHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SipHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4653B61213CE0E60059C042 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4653B63213CE0EA0059C042 /* secp256k1_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = secp256k1_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D45D81362240C7CF0077375B /* ICON+Keystore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Keystore.swift"; sourceTree = "<group>"; };
+		D45D81382240D0D50077375B /* ICON+Cipher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Cipher.swift"; sourceTree = "<group>"; };
+		D45D813A2240DB070077375B /* ICON+Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Store.swift"; sourceTree = "<group>"; };
 		D48D181B2134014600BEAA2F /* ICONService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICONService.swift; sourceTree = "<group>"; };
 		D49E4746214925E8007A0B26 /* ICON+Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Call.swift"; sourceTree = "<group>"; };
 		D49E4748214928C6007A0B26 /* ICON+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Response.swift"; sourceTree = "<group>"; };
@@ -51,7 +78,7 @@
 		D4D4ED53217EBB1E004F2D83 /* ICON+Send.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Send.swift"; sourceTree = "<group>"; };
 		D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Request.swift"; sourceTree = "<group>"; };
 		D4DE9A2A218AC5EA00126CAD /* ICON+Amount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Amount.swift"; sourceTree = "<group>"; };
-		D4E25B98212FA7C50027899B /* ICONKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ICONKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4E25B98212FA7C50027899B /* ICONKit-ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "ICONKit-ios.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E25B9B212FA7C50027899B /* ICONKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICONKit.h; sourceTree = "<group>"; };
 		D4E25B9C212FA7C50027899B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4E25BBA212FABD90027899B /* ICON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICON.swift; sourceTree = "<group>"; };
@@ -60,8 +87,11 @@
 		D4E25BBE212FABD90027899B /* ICON+Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Error.swift"; sourceTree = "<group>"; };
 		D4E25BC1212FABD90027899B /* Common+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Common+Extension.swift"; sourceTree = "<group>"; };
 		D4E25BC2212FABD90027899B /* ICON+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+Util.swift"; sourceTree = "<group>"; };
-		D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ICON+SECP256k1.swift"; sourceTree = "<group>"; };
 		D4E25BCE212FAEF20027899B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D4F72CCB22437C5800EB8B3B /* ICONKit_osx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ICONKit_osx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4F72CCD22437C5800EB8B3B /* ICONKit_osx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICONKit_osx.h; sourceTree = "<group>"; };
+		D4F72CCE22437C5800EB8B3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6C8A0204989D7AC8258AB57 /* Pods-ICONKit-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit-ios/Pods-ICONKit-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,36 +100,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4E25BCF212FAEF20027899B /* Security.framework in Frameworks */,
-				D631280CDF53704E26894393 /* Pods_ICONKit.framework in Frameworks */,
+				3103BA4664901410B0C55A8F /* Pods_ICONKit_ios.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4F72CC822437C5800EB8B3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5CED1F50849E8A46FE07456 /* libPods-ICONKit-osx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		46B2BB8435B050F52FC1C67D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				71A7E069219D5E5EBEC9B0E8 /* Pods-ICONKit.debug.xcconfig */,
-				62AD510A0FCD2E39ECB9ABE0 /* Pods-ICONKit.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		D4E25B8E212FA7C50027899B = {
 			isa = PBXGroup;
 			children = (
+				D4E25BB9212FABD90027899B /* Source */,
 				D4E25B9A212FA7C50027899B /* ICONKit */,
+				D4F72CCC22437C5800EB8B3B /* ICONKit-osx */,
 				D4E25B99212FA7C50027899B /* Products */,
 				D57DB1AC9E2D3E248AF94E46 /* Frameworks */,
-				46B2BB8435B050F52FC1C67D /* Pods */,
+				F8E678BB25D0EB757C0D8935 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		D4E25B99212FA7C50027899B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D4E25B98212FA7C50027899B /* ICONKit.framework */,
+				D4E25B98212FA7C50027899B /* ICONKit-ios.framework */,
+				D4F72CCB22437C5800EB8B3B /* ICONKit_osx.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,14 +139,13 @@
 		D4E25B9A212FA7C50027899B /* ICONKit */ = {
 			isa = PBXGroup;
 			children = (
-				D4E25BB9212FABD90027899B /* ICON */,
 				D4E25B9B212FA7C50027899B /* ICONKit.h */,
 				D4E25B9C212FA7C50027899B /* Info.plist */,
 			);
 			path = ICONKit;
 			sourceTree = "<group>";
 		};
-		D4E25BB9212FABD90027899B /* ICON */ = {
+		D4E25BB9212FABD90027899B /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				D4E25BBA212FABD90027899B /* ICON.swift */,
@@ -122,37 +153,59 @@
 				D4DE9A2A218AC5EA00126CAD /* ICON+Amount.swift */,
 				D49E4746214925E8007A0B26 /* ICON+Call.swift */,
 				D4CE20F3220043D900A6EF90 /* ICON+Converter.swift */,
+				D45D81382240D0D50077375B /* ICON+Cipher.swift */,
 				D4E25BBE212FABD90027899B /* ICON+Error.swift */,
 				D413D09B21FEBACA00A45F88 /* ICON+Key.swift */,
+				D45D81362240C7CF0077375B /* ICON+Keystore.swift */,
 				D4D4ED55217EC39F004F2D83 /* ICON+Request.swift */,
 				D49E4748214928C6007A0B26 /* ICON+Response.swift */,
-				D4E25BC3212FABD90027899B /* ICON+SECP256k1.swift */,
 				D4D4ED53217EBB1E004F2D83 /* ICON+Send.swift */,
 				D4E25BBB212FABD90027899B /* ICON+Signer.swift */,
+				D45D813A2240DB070077375B /* ICON+Store.swift */,
 				D40FA03421478E3600CB8E6E /* ICON+Transaction.swift */,
 				D4E25BC2212FABD90027899B /* ICON+Util.swift */,
 				D4E25BBC212FABD90027899B /* ICON+Wallet.swift */,
 				D4E25BC1212FABD90027899B /* Common+Extension.swift */,
 				D48D181B2134014600BEAA2F /* ICONService.swift */,
 			);
-			path = ICON;
+			path = Source;
+			sourceTree = "<group>";
+		};
+		D4F72CCC22437C5800EB8B3B /* ICONKit-osx */ = {
+			isa = PBXGroup;
+			children = (
+				D4F72CCD22437C5800EB8B3B /* ICONKit_osx.h */,
+				D4F72CCE22437C5800EB8B3B /* Info.plist */,
+			);
+			path = "ICONKit-osx";
 			sourceTree = "<group>";
 		};
 		D57DB1AC9E2D3E248AF94E46 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D42BF7A922433B9F00035671 /* BigInt.framework */,
+				D42BF7AB22433B9F00035671 /* CryptoSwift.framework */,
+				D42BF7AF22433B9F00035671 /* Result.framework */,
+				D42BF7B122433B9F00035671 /* scrypt.framework */,
+				D42BF7B322433B9F00035671 /* secp256k1_ios.framework */,
+				D42BF7B522433B9F00035671 /* SipHash.framework */,
 				D4043F412150EBCA00D2DA7F /* CryptoSwift.framework */,
-				D4043F3F2150EBC100D2DA7F /* scrypt.framework */,
-				D4653B63213CE0EA0059C042 /* secp256k1_ios.framework */,
-				D4653B61213CE0E60059C042 /* CryptoSwift.framework */,
-				D4653B5F213CE0E00059C042 /* SipHash.framework */,
-				D4653B5D213CE0DC0059C042 /* Result.framework */,
-				D4653B5B213CE0D30059C042 /* BigInt.framework */,
-				D4653B59213CE0CC0059C042 /* scrypt.framework */,
 				D4E25BCE212FAEF20027899B /* Security.framework */,
-				A850A49139A9C0A0F382564B /* Pods_ICONKit.framework */,
+				D25C6F5F9F0FD6E17E6D890C /* Pods_ICONKit_ios.framework */,
+				C0F3AF2BEAE6E976E679D125 /* libPods-ICONKit-osx.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F8E678BB25D0EB757C0D8935 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E6C8A0204989D7AC8258AB57 /* Pods-ICONKit-ios.debug.xcconfig */,
+				03C73A788FCDC9C58D0DE713 /* Pods-ICONKit-ios.release.xcconfig */,
+				1183ED4BB9BB0FD5F3D7FF01 /* Pods-ICONKit-osx.debug.xcconfig */,
+				9EAC6059A94CE7B34F926461 /* Pods-ICONKit-osx.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,14 +219,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4F72CC622437C5800EB8B3B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4F72CCF22437C5800EB8B3B /* ICONKit_osx.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D4E25B97212FA7C50027899B /* ICONKit */ = {
+		D4E25B97212FA7C50027899B /* ICONKit-ios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D4E25BAC212FA7C60027899B /* Build configuration list for PBXNativeTarget "ICONKit" */;
+			buildConfigurationList = D4E25BAC212FA7C60027899B /* Build configuration list for PBXNativeTarget "ICONKit-ios" */;
 			buildPhases = (
-				C49B1570AF99BC8B11350C71 /* [CP] Check Pods Manifest.lock */,
+				811AB3BBBA1FA0BD8DDC9AA9 /* [CP] Check Pods Manifest.lock */,
 				D4E25B93212FA7C50027899B /* Sources */,
 				D4E25B94212FA7C50027899B /* Frameworks */,
 				D4E25B95212FA7C50027899B /* Headers */,
@@ -183,9 +244,28 @@
 			);
 			dependencies = (
 			);
-			name = ICONKit;
+			name = "ICONKit-ios";
 			productName = ICONKit;
-			productReference = D4E25B98212FA7C50027899B /* ICONKit.framework */;
+			productReference = D4E25B98212FA7C50027899B /* ICONKit-ios.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D4F72CCA22437C5800EB8B3B /* ICONKit-osx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4F72CD022437C5800EB8B3B /* Build configuration list for PBXNativeTarget "ICONKit-osx" */;
+			buildPhases = (
+				DF6249F8E4BC0948076E8E41 /* [CP] Check Pods Manifest.lock */,
+				D4F72CC622437C5800EB8B3B /* Headers */,
+				D4F72CC722437C5800EB8B3B /* Sources */,
+				D4F72CC822437C5800EB8B3B /* Frameworks */,
+				D4F72CC922437C5800EB8B3B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ICONKit-osx";
+			productName = "ICONKit-osx";
+			productReference = D4F72CCB22437C5800EB8B3B /* ICONKit_osx.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -194,13 +274,16 @@
 		D4E25B8F212FA7C50027899B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "ICON Foundation";
 				TargetAttributes = {
 					D4E25B97212FA7C50027899B = {
 						CreatedOnToolsVersion = 9.4;
 						LastSwiftMigration = 1000;
+					};
+					D4F72CCA22437C5800EB8B3B = {
+						CreatedOnToolsVersion = 10.1;
 					};
 				};
 			};
@@ -210,13 +293,15 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = D4E25B8E212FA7C50027899B;
 			productRefGroup = D4E25B99212FA7C50027899B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D4E25B97212FA7C50027899B /* ICONKit */,
+				D4E25B97212FA7C50027899B /* ICONKit-ios */,
+				D4F72CCA22437C5800EB8B3B /* ICONKit-osx */,
 			);
 		};
 /* End PBXProject section */
@@ -229,10 +314,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4F72CC922437C5800EB8B3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C49B1570AF99BC8B11350C71 /* [CP] Check Pods Manifest.lock */ = {
+		811AB3BBBA1FA0BD8DDC9AA9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -247,7 +339,29 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ICONKit-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-ICONKit-ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF6249F8E4BC0948076E8E41 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ICONKit-osx-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -261,12 +375,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D45D81372240C7CF0077375B /* ICON+Keystore.swift in Sources */,
 				D4E25BC5212FABD90027899B /* ICON+Signer.swift in Sources */,
-				D4E25BCD212FABD90027899B /* ICON+SECP256k1.swift in Sources */,
 				D49E4747214925E8007A0B26 /* ICON+Call.swift in Sources */,
 				D4D4ED56217EC39F004F2D83 /* ICON+Request.swift in Sources */,
 				D40FA03521478E3600CB8E6E /* ICON+Transaction.swift in Sources */,
 				D4E25BC6212FABD90027899B /* ICON+Wallet.swift in Sources */,
+				D45D81392240D0D50077375B /* ICON+Cipher.swift in Sources */,
 				D413D09C21FEBACA00A45F88 /* ICON+Key.swift in Sources */,
 				D4DE9A2B218AC5EA00126CAD /* ICON+Amount.swift in Sources */,
 				D44F2F1F217EE3A5008B4D1F /* ICON+Address.swift in Sources */,
@@ -278,6 +393,33 @@
 				D4D4ED54217EBB1E004F2D83 /* ICON+Send.swift in Sources */,
 				D4E25BCC212FABD90027899B /* ICON+Util.swift in Sources */,
 				D4E25BC8212FABD90027899B /* ICON+Error.swift in Sources */,
+				D45D813B2240DB070077375B /* ICON+Store.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4F72CC722437C5800EB8B3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4AD01E322439244008BBCC9 /* ICON+Keystore.swift in Sources */,
+				D4AD01E522439244008BBCC9 /* ICON+Response.swift in Sources */,
+				D4AD01E822439244008BBCC9 /* ICON+Store.swift in Sources */,
+				D4AD01DB22439244008BBCC9 /* ICON.swift in Sources */,
+				D4AD01E122439244008BBCC9 /* ICON+Error.swift in Sources */,
+				D4AD01DC22439244008BBCC9 /* ICON+Address.swift in Sources */,
+				D4AD01DF22439244008BBCC9 /* ICON+Converter.swift in Sources */,
+				D4AD01E022439244008BBCC9 /* ICON+Cipher.swift in Sources */,
+				D4AD01DE22439244008BBCC9 /* ICON+Call.swift in Sources */,
+				D4AD01E922439244008BBCC9 /* ICON+Transaction.swift in Sources */,
+				D4AD01E622439244008BBCC9 /* ICON+Send.swift in Sources */,
+				D4AD01E222439244008BBCC9 /* ICON+Key.swift in Sources */,
+				D4AD01EA22439244008BBCC9 /* ICON+Util.swift in Sources */,
+				D4AD01E422439244008BBCC9 /* ICON+Request.swift in Sources */,
+				D4AD01EC22439244008BBCC9 /* Common+Extension.swift in Sources */,
+				D4AD01DD22439244008BBCC9 /* ICON+Amount.swift in Sources */,
+				D4AD01ED22439244008BBCC9 /* ICONService.swift in Sources */,
+				D4AD01E722439244008BBCC9 /* ICON+Signer.swift in Sources */,
+				D4AD01EB22439244008BBCC9 /* ICON+Wallet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +485,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -416,26 +558,19 @@
 		};
 		D4E25BAD212FA7C60027899B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71A7E069219D5E5EBEC9B0E8 /* Pods-ICONKit.debug.xcconfig */;
+			baseConfigurationReference = E6C8A0204989D7AC8258AB57 /* Pods-ICONKit-ios.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 27F4PR54DX;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = ICONKit/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "ICONKit-ios";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(inherited)";
@@ -447,31 +582,86 @@
 		};
 		D4E25BAE212FA7C60027899B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 62AD510A0FCD2E39ECB9ABE0 /* Pods-ICONKit.release.xcconfig */;
+			baseConfigurationReference = 03C73A788FCDC9C58D0DE713 /* Pods-ICONKit-ios.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 27F4PR54DX;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = ICONKit/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = iconf.foundation.ICONKit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "ICONKit-ios";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(inherited)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D4F72CD122437C5800EB8B3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1183ED4BB9BB0FD5F3D7FF01 /* Pods-ICONKit-osx.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 27F4PR54DX;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "ICONKit-osx/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "iconf.foundation.ICONKit-osx";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		D4F72CD222437C5800EB8B3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9EAC6059A94CE7B34F926461 /* Pods-ICONKit-osx.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 27F4PR54DX;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "ICONKit-osx/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "iconf.foundation.ICONKit-osx";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -487,11 +677,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D4E25BAC212FA7C60027899B /* Build configuration list for PBXNativeTarget "ICONKit" */ = {
+		D4E25BAC212FA7C60027899B /* Build configuration list for PBXNativeTarget "ICONKit-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D4E25BAD212FA7C60027899B /* Debug */,
 				D4E25BAE212FA7C60027899B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4F72CD022437C5800EB8B3B /* Build configuration list for PBXNativeTarget "ICONKit-osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4F72CD122437C5800EB8B3B /* Debug */,
+				D4F72CD222437C5800EB8B3B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
