@@ -67,6 +67,7 @@
 		D42BF7B322433B9F00035671 /* secp256k1_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = secp256k1_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42BF7B522433B9F00035671 /* SipHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SipHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44F2F1E217EE3A5008B4D1F /* ICON+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Address.swift"; sourceTree = "<group>"; };
+		D45718992244B026005B98F1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D45D81362240C7CF0077375B /* ICON+Keystore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Keystore.swift"; sourceTree = "<group>"; };
 		D45D81382240D0D50077375B /* ICON+Cipher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Cipher.swift"; sourceTree = "<group>"; };
 		D45D813A2240DB070077375B /* ICON+Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICON+Store.swift"; sourceTree = "<group>"; };
@@ -123,13 +124,13 @@
 				F8B357D845491EC3C245CF30 /* Pods-ICONKit-osx.debug.xcconfig */,
 				856C9A1FF0C78883E7CC80DD /* Pods-ICONKit-osx.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		D4E25B8E212FA7C50027899B = {
 			isa = PBXGroup;
 			children = (
+				D45718992244B026005B98F1 /* README.md */,
 				D4E25BB9212FABD90027899B /* Source */,
 				D4E25B9A212FA7C50027899B /* ICONKit */,
 				D4F72CCC22437C5800EB8B3B /* ICONKit-osx */,

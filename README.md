@@ -60,8 +60,6 @@ let iconService = ICONService(provider: "https://ctz.solidwallet.io/api/v3", nid
 ## Queries
 All queries are requested by a `Request<T>`.
 
-All queries are requested by a `Request<T>`.
-
 ```Swift
 let response = service.getBlock(height: height).execute()
 
@@ -165,8 +163,6 @@ let transaction = MessageTransaction()
     .nid(service.nid)
     .message("Hello, World!")
 ```
-`SignedTransaction` object signs a transaction using the wallet.
-
 `SignedTransaction` object signs a transaction using the wallet.
 
 And a request is executed as **Synchronized** and **Asynchronized** like a querying request.
