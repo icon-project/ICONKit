@@ -168,6 +168,8 @@ let transaction = MessageTransaction()
 And a request is executed as **Synchronized** and **Asynchronized** like a querying request.
 
 ```Swift
+
+// Synchronous request
 do {
     let signed = try SignedTransaction(transaction: transaction, privateKey: privateKey)
 
@@ -185,6 +187,24 @@ do {
 } catch {
     print(error)
     ...
+}
+
+// Asynchronous request
+do {
+    let signed = try SignedTransaction(transaction: transaction, privateKey: privateKey)
+
+    service.sendTransaction(signedTransaction: signed) { response in
+        switch response {
+        case .success(let result):
+            print("tx result - \(result)")
+        
+        case .failure(let error):
+            // Error handling
+            print("error")
+        }
+    }
+} catch {
+    // exception handling
 }
 ```
 
