@@ -171,7 +171,7 @@ let call = CallTransaction()
     .params(["_to": to, "_value": "0x1234"])
 
 // Message transfer
-let transaction = Transaction()
+let transaction = MessageTransaction()
     .from(wallet.address)
     .to(to)
     .value(BigUInt(15000000))
