@@ -21,6 +21,7 @@ end
 
 target 'ICONKit-osx' do
   platform :osx, '10.14'
+  use_modular_headers!
 
   import_pods
 end

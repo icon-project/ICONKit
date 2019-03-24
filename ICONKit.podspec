@@ -1,16 +1,16 @@
 Pod::Spec.new do |s|
 
-  s.name         = "ICONKit"
-  s.version      = "0.2.5"
-  s.summary      = "ICON SDK for swift"
-  s.swift_version = '4.2'
-  s.homepage     = "https://github.com/icon-project/ICONKit"
+  s.name         = 'ICONKit'
+  s.version      = '0.2.5'
+  s.summary      = 'ICON SDK for swift'
+  s.homepage     = 'https://github.com/icon-project/ICONKit'
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author             = { "a1ahn" => "jeonghwan.ahn@icon.foundation" }
   s.social_media_url = 'https://twitter.com/helloicon'
+  s.module_name = 'ICONKit'
 
   s.ios.deployment_target = '10.0'
-  s.osx.deployment_target = '10.12'
+  s.osx.deployment_target = '10.14'
 
   s.source       = { :git => "https://github.com/icon-project/ICONKit.git", :tag => s.version.to_s }
   
