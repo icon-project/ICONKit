@@ -67,11 +67,17 @@ extension Request {
                         return .success(decoded)
                         
                     } else {
+                        guard let jsonString = jsonResult as? String else { return .failure(ICError.fail(reason: .parsing)) }
+                        
                         // icx_getBalance, icx_getTotalSupply
-                        guard let bigStr = jsonResult as? String, let bigVal = bigStr.hexToBigUInt() as? T else {
-                            return .failure(ICError.fail(reason: .parsing))
+                        if let bigVal = jsonString.hexToBigUInt() as? T {
+                            return .success(bigVal)
                         }
-                        return .success(bigVal)
+                        
+                        guard let reCoded = jsonString.data(using: .utf8) else { return .failure(ICError.fail(reason: .parsing)) }
+                        
+                        let decoded = try decoder.decode(T.self, from: reCoded)
+                        return .success(decoded)
                     }
 
                 } else if let error = json["error"] {
@@ -125,12 +131,24 @@ extension Request {
                             return
                             
                         } else {
-                            // icx_getBalance, icx_getTotalSupply
-                            guard let bigStr = jsonResult as? String, let bigVal = bigStr.hexToBigUInt() as? T else {
+                            guard let jsonString = jsonResult as? String else {
                                 completion(.failure(ICError.fail(reason: .parsing)))
                                 return
                             }
-                            completion(.success(bigVal))
+                            
+                            // icx_getBalance, icx_getTotalSupply
+                            if let bigVal = jsonString.hexToBigUInt() as? T {
+                                completion(.success(bigVal))
+                                return
+                            }
+                            
+                            guard let reCoded = jsonString.data(using: .utf8) else {
+                                completion(.failure(ICError.fail(reason: .parsing)))
+                                return
+                            }
+                            
+                            let decoded = try decoder.decode(T.self, from: reCoded)
+                            completion(.success(decoded))
                             return
                         }
                         
