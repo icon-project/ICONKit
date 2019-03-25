@@ -141,11 +141,27 @@ Before sending a transaction, the transaction should be signed.
 // Generates a wallet.
 let wallet = Wallet(privateKey: nil)
 
-// OR
-
 // Load a wallet from the private key.
 let privateKey = PrivateKey(hex: data)
 let wallet = Wallet(privateKey: privateKey)
+
+// Save wallet keystore.
+let wallet = Wallet(privateKey: nil)
+do {
+    try wallet.generateKeystore(password: "YOUR_WALLET_PASSWORD")
+    try wallet.save(filepath: "YOUR_STORAGE_PATH")
+} catch {
+    // handle errors
+}
+// Load a wallet from the keystore.
+do {
+    let jsonData: Data = try Data(contentsOf: "YOUR_KEYSTORE_PATH")
+    let decoder = JSONDecoder()
+    let keystore = try decoder.decoder(Keystore.self, from: jsonData)
+    let wallet = Wallet(keystore: keystore, password: "YOUR_WALLET_PASSWORD")
+} catch {
+    // handle errors
+}
 ```
 
 #### Creating transactions
