@@ -2,7 +2,7 @@
 
 <p align="left">
   <img alt="Swift" src="https://img.shields.io/badge/Swift-4.x-orange.svg">
-  <img alt="ICONKit-license" src="https://img.shields.io/cocoapods/l/ICONKit.svg">
+  <img alt="ICONKit-license" src="https://img.shields.io/github/license/icon-project/ICONKit.svg">
   <a href="https://cocoapods.org/pods/ICONKit" target="_blank">
     <img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/ICONKit.svg">
   </a>
