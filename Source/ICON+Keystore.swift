@@ -48,11 +48,9 @@ public struct Keystore: Codable {
         public var r: Int?
         public var prf: String?
         
-        init(dklen: Int, salt: String, c: Int, prf: String) {
+        init(dklen: Int, salt: String) {
             self.dklen = dklen
             self.salt = salt
-            self.c = c
-            self.prf = prf
         }
     }
     
@@ -70,7 +68,7 @@ extension Keystore {
                 let salt = crypto.kdfparams.salt.hexToData(),
                 let count = crypto.kdfparams.c else { throw ICError.invalid(reason: .malformedKeystore) }
             
-            guard let devKey = Cipher.pbkdf2SHA1(password: password, salt: salt, keyByteCount: PBE_DKLEN, round: count) else { throw ICError.fail(reason: .decrypt) }
+            guard let devKey = Cipher.pbkdf2SHA256(password: password, salt: salt, keyByteCount: PBE_DKLEN, round: count) else { throw ICError.fail(reason: .decrypt) }
             
             let decrypted = try Cipher.decrypt(devKey: devKey, enc: enc, dkLen: PBE_DKLEN, iv: iv)
             let decryptedText = decrypted.decryptText
@@ -111,5 +109,40 @@ extension Keystore {
         let encoder = JSONEncoder()
         
         return try encoder.encode(self)
+    }
+}
+
+extension Wallet {
+    private var R_STANDARD: Int {
+        return 8
+    }
+    private var N_STANDARD: Int {
+        return 1 << 14
+    }
+    private var P_STANDARD: Int {
+        return 1
+    }
+    
+    public func generateKeystore(password: String) throws {
+        let prvKey = self.key.privateKey.data
+        let address = Cipher.makeAddress(self.key.privateKey, self.key.publicKey)
+        
+        let salt = try Cipher.randomData(count: 32)
+        
+        let scrypt = try Scrypt(password: password.bytes, salt: salt.bytes, dkLen: 32, N: N_STANDARD, r: R_STANDARD, p: P_STANDARD)
+        let derivedKey = try scrypt.calculate()
+        
+        let encrypted = try Cipher.encrypt(devKey: Data(derivedKey), data: prvKey, salt: salt)
+        
+        let cipherParams = Keystore.CipherParams(iv: encrypted.iv)
+        var kdfParams = Keystore.KDF(dklen: PBE_DKLEN, salt: salt.hexEncodedString())
+        kdfParams.n = N_STANDARD
+        kdfParams.p = P_STANDARD
+        kdfParams.r = R_STANDARD
+        let crypto = Keystore.Crypto(ciphertext: encrypted.cipherText, cipherparams: cipherParams, cipher: "aes-128-ctr", kdf: "scrypt", kdfparams: kdfParams, mac: encrypted.mac)
+        
+        let keystore = Keystore(address: address, crypto: crypto)
+        
+        self.keystore = keystore
     }
 }

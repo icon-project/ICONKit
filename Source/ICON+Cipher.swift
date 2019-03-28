@@ -266,4 +266,11 @@ public struct Cipher {
         return rsig
     }
 
+    public static func randomData(count: Int) throws -> Data {
+        var randomBytes = [UInt8](repeating: 0, count: count)
+        let err = SecRandomCopyBytes(kSecRandomDefault, count, &randomBytes)
+        if err != errSecSuccess { throw ICError.message(error: "Fault!") }
+        let salt = Data(bytes: randomBytes)
+        return salt
+    }
 }

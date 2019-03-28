@@ -17,6 +17,7 @@
 
 import Foundation
 import CryptoSwift
+import scrypt
 
 
 // MARK: Wallet
@@ -81,26 +82,6 @@ extension Wallet {
         
         return sign.base64EncodedString()
         
-    }
-    
-    public func generateKeystore(password: String) throws {
-        let saltCount = 32
-        var randomBytes = Array<UInt8>(repeating: 0, count: saltCount)
-        let err = SecRandomCopyBytes(kSecRandomDefault, saltCount, &randomBytes)
-        if err != errSecSuccess { throw ICError.fail(reason: .generateKey) }
-        let salt = Data(bytes: randomBytes)
-        
-        // HASH round
-        let round = 16384
-        
-        guard let encKey = Cipher.pbkdf2SHA256(password: password, salt: salt, keyByteCount: PBE_DKLEN, round: round) else {
-            throw ICError.fail(reason: .generateKey)
-        }
-        let result = try Cipher.encrypt(devKey: encKey, data: self.key.privateKey.data, salt: salt)
-        let kdfParam = Keystore.KDF(dklen: PBE_DKLEN, salt: salt.toHexString(), c: round, prf: "hmac-sha256")
-        let crypto = Keystore.Crypto(ciphertext: result.cipherText, cipherparams: Keystore.CipherParams(iv: result.iv), cipher: "aes-128-ctr", kdf: "pbkdf2", kdfparams: kdfParam, mac: result.mac)
-        let keystore = Keystore(address: self.address, crypto: crypto)
-        self.keystore = keystore
     }
 }
 

@@ -52,6 +52,8 @@ class ICONExample {
 //        sendTransaction()
 //        getTotalSupply()
 //        getDefaultStepCost()
+        
+        test()
     }
     
     func asyncBlock() {
@@ -289,5 +291,37 @@ class ICONExample {
         case .failure(let err):
             print(err.errorDescription)
         }
+    }
+    
+    func test() {
+        let ADDR_SSX_FROM = "hx07abc7a5b8a4941fc0b6930c88b462995acf929b"
+        let ADDR_SSX_SCORE = "cxc72a0973680d0eea29867dfcf48879372ec12d73"
+        let ICON_SERVICE_URL = "https://bicon.net.solidwallet.io/api/v3"
+        
+        let iconService = ICONService(provider: ICON_SERVICE_URL, nid: "0x3")
+        
+        /* Address의 ICX Value값 나옴.
+         let request: Request<BigUInt> = iconService.getBalance(address: address)
+         let response = request.execute()
+         switch response {
+         case .success(let data):
+         print(data)
+         let resultValue = response.value
+         
+         return SSXAmount(amount: resultValue!)
+         case .failure(let err):
+         print(err)
+         }
+         
+         return nil
+         */
+        
+        let call = Call<ICONKit.Response.Call<String>>(from: ADDR_SSX_FROM, to: ADDR_SSX_SCORE, method: "balanceOf", params: ["_owner": ADDR_SSX_FROM] )
+        let request:Request<Response.Call> = iconService.call(call)
+        let response = request.execute()
+        
+        guard let value = response.value, let balance = value.result else { return }
+        
+        print("balance : \(balance)")
     }
 }
