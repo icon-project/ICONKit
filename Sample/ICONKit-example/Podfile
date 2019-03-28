@@ -8,8 +8,8 @@ target 'ICONKit-example' do
   # Pods for ICONKit-example
   pod 'ICONKit', :path => '~/ICONKit/'
 
-  target 'ICONKit-exampleTests' do
-    inherit! :search_paths
-  end
+#  target 'ICONKit-exampleTests' do
+#    inherit! :search_paths
+#  end
 
 end
