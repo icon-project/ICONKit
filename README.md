@@ -29,7 +29,7 @@ To integrate ICONKit into your project, specify it in your `Podfile`
 target '<Your Target Name>' do
     use_frameworks!
     ...
-    pod 'ICONKit', '~> 0.3.0'
+    pod 'ICONKit', '~> 0.3.1'
     ...
 end
 ```
@@ -367,7 +367,7 @@ let confirmedDate: Date = timestamp.hexToDate()! // 2019-03-27 03:16:22 +0000
 
 ## Version
 
-0.3.0 (Beta)
+0.3.1 (Beta)
 
 ## Requirement
 
