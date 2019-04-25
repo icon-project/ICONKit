@@ -190,6 +190,7 @@ extension Response {
 }
 
 extension Response {
+    @available(*, unavailable)
     open class Call<T: Decodable>: Decodable {
         public var result: T?
     }
