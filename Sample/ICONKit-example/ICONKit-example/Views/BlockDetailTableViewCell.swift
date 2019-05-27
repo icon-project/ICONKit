@@ -1,16 +1,18 @@
 //
-//  BlockInfoTableViewCell.swift
+//  BlockDetailTableViewCell.swift
 //  ICONKit-example
 //
-//  Created by Seungyeon Lee on 22/02/2019.
+//  Created by Seungyeon Lee on 27/05/2019.
 //  Copyright © 2019 ICON Foundation. All rights reserved.
 //
 
 import UIKit
 
-class BlockInfoTableViewCell: UITableViewCell {
+class BlockDetailTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var txHashLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var valueLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

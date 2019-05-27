@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import ICONKit
+import ICONKit
 
 class BlockInfoViewController: UIViewController {
     
@@ -21,8 +21,10 @@ class BlockInfoViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // tableView xib
-        let nibName = UINib(nibName: "BlockInfoTableViewCell", bundle: nil)
-        tableView.register(nibName, forCellReuseIdentifier: "infoCell")
+//        let nibName = UINib(nibName: "BlockInfoTableViewCell", bundle: nil)
+//        tableView.register(nibName, forCellReuseIdentifier: "infoCell")
+        
+        self.tableView.isUserInteractionEnabled = false
     }
     
     var dateformatter: DateFormatter = {
@@ -46,7 +48,7 @@ class BlockInfoViewController: UIViewController {
 
 extension BlockInfoViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 8
+        return 7
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -54,18 +56,16 @@ extension BlockInfoViewController: UITableViewDataSource {
         case 0:
             return "txHash"
         case 1:
-            return "status"
-        case 2:
             return "timeStamp"
-        case 3:
+        case 2:
             return "from"
-        case 4:
+        case 3:
             return "to"
-        case 5:
+        case 4:
             return "value"
-        case 6:
+        case 5:
             return "stepLimit"
-        case 7:
+        case 6:
             return "signature"
         default:
             return "unknown"
@@ -76,47 +76,36 @@ extension BlockInfoViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell") as! BlockInfoTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell") as! UITableViewCell
         
         if let info = blockInfo {
             switch indexPath.section {
             case 0:
                 
-                cell.contentLabel.text = info.txHash
+                cell.textLabel?.text = info.txHash
             case 1:
-                cell.contentLabel.text = "success"
-            case 2:
-                let ts: NSString = info.timestamp as NSString
-                if let date = ts.hexToDate() {
-                    cell.contentLabel.text = dateformatter.string(from: date)
+                if let date = info.timestamp.hexToDate() {
+                    cell.textLabel?.text = dateformatter.string(from: date)
                 } else {
-                    cell.contentLabel.text = "err"
+                    cell.textLabel?.text = "err"
                 }
+            case 2:
+                cell.textLabel?.text = info.from
             case 3:
-                cell.contentLabel.text = info.from
+                cell.textLabel?.text = info.to
             case 4:
-                cell.contentLabel.text = info.to
+                let value: String = String(info.value?.hexToBigUInt()?.convertToICX() ?? 0) + " ICX"
+                cell.textLabel?.text = value
             case 5:
-                let value: String = String(info.value?.hexToBigUInt() ?? 0)
-                cell.contentLabel.text = value
-            case 6:
                 let fee: String = String(info.stepLimit?.hexToBigUInt() ?? 0)
-                cell.contentLabel.text = fee
-            case 7:
-                cell.contentLabel.text = info.signature
+                cell.textLabel?.text = fee
+            case 6:
+                cell.textLabel?.text = info.signature
             default:
-                cell.contentLabel.text = "unknown"
+                cell.textLabel?.text = "unknown"
             }
-            cell.contentLabel.sizeToFit()
         }
         
         return cell
     }
-}
-
-extension BlockInfoViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
 }
