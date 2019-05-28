@@ -15,7 +15,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    public var blockList = [Response.Block.ConfirmedTransactionList]()
+    public var blockList = [Response.Block]()
     
     let example = ICONExample()
     
@@ -24,31 +24,30 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.title = "Transactions"
+        self.navigationItem.title = "Blocks"
         // tableView xib
         let nibName = UINib(nibName: "TableViewCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "cell")
         
         tableView.rowHeight = 80
         tableView.estimatedRowHeight = 80
-        example.getLastBlock { (block) in
-            
-            self.lastHeight = block.height
-            if let list = block.confirmedTransactionList.first {
-                self.blockList.append(list)
+        
+        DispatchQueue.main.async {
+            self.example.getLastBlock { (block) in
+                
+                self.lastHeight = block.height
+                self.blockList.append(block)
+                
             }
-            
+            self.loadBlocks()
         }
-        loadBlocks()
     }
     
     func loadBlocks() {
         for _ in 1...10 {
             example.getBlockByHeight(height: self.lastHeight - 1) { (block) in
-                if let list = block.confirmedTransactionList.first {
-                    self.blockList.append(list)
-                    self.lastHeight = block.height
-                }
+                self.blockList.append(block)
+                self.lastHeight = block.height
             }
         }
         DispatchQueue.main.async {
@@ -67,17 +66,14 @@ extension ViewController: UITableViewDataSource {
         
         let data = self.blockList[indexPath.row]
         
-        cell.statusLabel.text = "success"
-        cell.txHashLabel.text = data.txHash
-        let amount: String = String(data.value?.hexToBigUInt() ?? 0)
-        let fee: String = String(data.stepLimit?.hexToBigUInt() ?? 0)
-        cell.amountLabel.text = amount
-        cell.feeLabel.text = fee
+//        cell.statusLabel.text = "success"
+        cell.blockHash.text = data.blockHash
+        cell.blockHeight.text = "\(data.height)"
+        cell.blockDate.text = "\(Date(timeIntervalSince1970: data.timeStamp/1000000.0))"
 
-        cell.statusLabel.sizeToFit()
-        cell.txHashLabel.sizeToFit()
-        cell.amountLabel.sizeToFit()
-        cell.feeLabel.sizeToFit()
+        cell.blockHash.sizeToFit()
+        cell.blockHeight.sizeToFit()
+        cell.blockDate.sizeToFit()
 
         return cell
     }
@@ -90,9 +86,8 @@ extension ViewController: UITableViewDelegate {
         
         let storyboard: UIStoryboard = UIStoryboard(name: "BlockInfo", bundle: nil)
         let nextView = storyboard.instantiateInitialViewController()
-        let vc = nextView as? BlockInfoViewController
-        vc?.blockInfo = result
-        
-        self.navigationController?.pushViewController(vc!, animated: true)
+        let vc = nextView as! BlockDetailViewController
+        vc.blockInfo = result
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
