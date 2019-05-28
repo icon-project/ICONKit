@@ -23,6 +23,7 @@
 		1B514526229C25FC0061C636 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B514514229C25FC0061C636 /* TableViewCell.swift */; };
 		1B514528229C25FC0061C636 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B514516229C25FC0061C636 /* TableViewCell.xib */; };
 		1B51452B229C26740061C636 /* ICONExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51452A229C26740061C636 /* ICONExample.swift */; };
+		1B9EBED1229CC951002FB0DF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9EBED0229CC951002FB0DF /* Extensions.swift */; };
 		2F3DEE3E754E6336E5D445E9 /* Pods_ICONKit_example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 300C85882C3980C302A45E41 /* Pods_ICONKit_example.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,7 +44,10 @@
 		1B514514229C25FC0061C636 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		1B514516229C25FC0061C636 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		1B51452A229C26740061C636 /* ICONExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICONExample.swift; sourceTree = "<group>"; };
+		1B9EBED0229CC951002FB0DF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		300C85882C3980C302A45E41 /* Pods_ICONKit_example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ICONKit_example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56249AEA59FE57BA9C0A03AE /* Pods-ICONKit-example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit-example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit-example/Pods-ICONKit-example.debug.xcconfig"; sourceTree = "<group>"; };
+		CF4F41ED9CDE03C8828F1B21 /* Pods-ICONKit-example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit-example.release.xcconfig"; path = "Pods/Target Support Files/Pods-ICONKit-example/Pods-ICONKit-example.release.xcconfig"; sourceTree = "<group>"; };
 		D4DE9A15218AC07300126CAD /* ICONKit-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ICONKit-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4DE9A24218AC07400126CAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2D0CC53526824767CB1718F /* Pods-ICONKit-example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ICONKit-example.debug.xcconfig"; path = "Target Support Files/Pods-ICONKit-example/Pods-ICONKit-example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 			children = (
 				E2D0CC53526824767CB1718F /* Pods-ICONKit-example.debug.xcconfig */,
 				FD957162EBC4305BB04610C5 /* Pods-ICONKit-example.release.xcconfig */,
+				56249AEA59FE57BA9C0A03AE /* Pods-ICONKit-example.debug.xcconfig */,
+				CF4F41ED9CDE03C8828F1B21 /* Pods-ICONKit-example.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -149,6 +155,7 @@
 				1B5144FF229C25FC0061C636 /* Supporting Files */,
 				1B51452A229C26740061C636 /* ICONExample.swift */,
 				D4DE9A24218AC07400126CAD /* Info.plist */,
+				1B9EBED0229CC951002FB0DF /* Extensions.swift */,
 			);
 			path = "ICONKit-example";
 			sourceTree = "<group>";
@@ -258,7 +265,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ICONKit-example/Pods-ICONKit-example-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-ICONKit-example/Pods-ICONKit-example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ICONKit/ICONKit.framework",
@@ -281,7 +288,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ICONKit-example/Pods-ICONKit-example-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ICONKit-example/Pods-ICONKit-example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -292,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B51451F229C25FC0061C636 /* ViewController.swift in Sources */,
+				1B9EBED1229CC951002FB0DF /* Extensions.swift in Sources */,
 				1B51452B229C26740061C636 /* ICONExample.swift in Sources */,
 				1B514519229C25FC0061C636 /* AppDelegate.swift in Sources */,
 				1B514526229C25FC0061C636 /* TableViewCell.swift in Sources */,

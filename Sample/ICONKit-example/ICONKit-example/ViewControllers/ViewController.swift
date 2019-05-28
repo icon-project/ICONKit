@@ -66,7 +66,6 @@ extension ViewController: UITableViewDataSource {
         
         let data = self.blockList[indexPath.row]
         
-//        cell.statusLabel.text = "success"
         cell.blockHash.text = data.blockHash
         cell.blockHeight.text = "\(data.height)"
         cell.blockDate.text = "\(Date(timeIntervalSince1970: data.timeStamp/1000000.0))"
