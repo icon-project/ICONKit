@@ -93,6 +93,33 @@ open class Transaction {
         self.nonce = nonce
         return self
     }
+    
+    func generateParams() -> [String : Any] {
+        var params = [String : Any]()
+        
+        params["version"] = self.version
+        params["from"] = self.from
+        params["to"] = self.to
+        
+        params["value"] = self.value?.toHexString()
+        params["timestamp"] = self.timestamp
+        params["nid"] = self.nid
+        params["dataType"] = self.dataType
+        
+        if let nonce = self.nonce {
+            params["nonce"] = nonce
+        }
+        
+        if var dic = self.data as? [String: Any] {
+            if let method = dic["method"], let parameters = dic["params"] {
+                params["data"] = ["method": method, "params": parameters]
+            }
+        } else if let message = self.data as? String {
+            params["data"] = message
+        }
+        
+        return params
+    }
 }
 
 extension Transaction: TransactionSigner {
@@ -184,6 +211,18 @@ open class SignedTransaction {
 }
 
 extension ICONService {
+    /// Estimate step cost.
+    ///
+    /// Returns an estimated step of how much step is necessary to allow the transaction to complete.
+    /// - Note: The estimation can be larger than the actual amount of step to be used by
+    ///     the transaction for several reasons such as node performance.
+    /// - Parameters:
+    ///   - transaction: The transaction without stepLimit and signature.
+    /// - Returns: The amount of an estimated step.
+    public func estimateStep(transaction: Transaction) -> Request<BigUInt> {
+        return Request(id: self.getID(), provider: self.provider, method: .estimateStep, params: transaction.generateParams())
+    }
+    
     /// Send transaction.
     ///
     /// - Parameters:
