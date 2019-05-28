@@ -46,7 +46,7 @@ open class Transaction {
         
     }
     
-    convenience init(from: String, to: String, stepLimit: BigUInt, nid: String, value: BigUInt, nonce: String, dataType: String? = nil, data: Any? = nil) {
+    convenience init(from: String, to: String, stepLimit: BigUInt, nid: String, value: BigUInt? = nil, nonce: String? = nil, dataType: String? = nil, data: Any? = nil) {
         self.init()
         self.from = from
         self.to = to
@@ -184,7 +184,7 @@ open class MessageTransaction: Transaction {
     @discardableResult
     public func message(_ message: String) -> Self {
         self.dataType = "message"
-        self.data = message
+        self.data = message.hexEncodedString()!
         return self
     }
 }

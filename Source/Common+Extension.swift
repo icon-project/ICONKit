@@ -119,6 +119,22 @@ extension String {
         
         return number
     }
+    
+    public func add0xPrefix() -> String {
+        return "0x" + self
+    }
+    
+    /// Convert string to Hex String
+    ///
+    /// - Returns: The `String` value.
+    public func hexEncodedString() -> String? {
+        guard let dataType = self.data(using: .utf8) else {
+            return nil
+        }
+        let format = "%02hhx"
+        let tmp = dataType.map { String(format: format, $0) }.joined()
+        return tmp.add0xPrefix()
+    }
 }
 
 // MARK : Data
