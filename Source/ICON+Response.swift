@@ -33,6 +33,42 @@ open class Response {
         var code: Int
         var message: String
     }
+    
+    open class CallData: Decodable {
+        public var method: String
+        public var params: [String: String]?
+    }
+    
+    open class DeployData: Decodable {
+        public var contentType: String
+        public var content: String
+        public var params: [String: String]?
+    }
+    
+    public enum DataValue: Decodable {
+        case call(CallData)
+        case deploy(DeployData)
+        case message(String)
+        
+        public init(from decoder: Decoder) throws {
+            if let call = try? decoder.singleValueContainer().decode(CallData.self) {
+                self = .call(call)
+                return
+            } else if let deploy = try? decoder.singleValueContainer().decode(DeployData.self) {
+                self = .deploy(deploy)
+                return
+            } else if let message = try? decoder.singleValueContainer().decode(String.self) {
+                self = .message(message)
+                return
+            }
+            
+            throw DataValueError.missingValue
+        }
+        
+        public enum DataValueError: Error {
+            case missingValue
+        }
+    }
 }
 
 extension Response {
@@ -61,40 +97,10 @@ extension Response {
             
             public var nonce: String?
             public var dataType: String?
-            
-            // https://stackoverflow.com/a/47319012
-            // https://stackoverflow.com/a/50067514
             public var data: DataValue?
             
             public var fee: String?
             public var method: String?
-            
-            public enum DataValue: Decodable {
-                case string(String)
-                case dataInfo(DataInfo)
-                
-                public init(from decoder: Decoder) throws {
-                    if let string = try? decoder.singleValueContainer().decode(String.self) {
-                        self = .string(string)
-                        return
-                    }
-                    
-                    if let dataInfo = try? decoder.singleValueContainer().decode(DataInfo.self) {
-                        self = .dataInfo(dataInfo)
-                        return
-                    }
-                    throw DataValueError.missingValue
-                }
-                public enum DataValueError: Error {
-                    case missingValue
-                    
-                }
-            }
-            
-            open class DataInfo: Decodable {
-                public var method: String?
-                public var params: [String: String]?
-            }
         }
     }
 }
@@ -128,33 +134,6 @@ extension Response {
         public var signature: String
         public var dataType: String?
         public var data: DataValue?
-        
-        open class DataInfo: Decodable {
-            public var method: String
-            public var params: [String: String]?
-        }
-        
-        public enum DataValue: Decodable {
-            case string(String)
-            case dataInfo(DataInfo)
-            
-            public init(from decoder: Decoder) throws {
-                if let string = try? decoder.singleValueContainer().decode(String.self) {
-                    self = .string(string)
-                    return
-                }
-                
-                if let dataInfo = try? decoder.singleValueContainer().decode(DataInfo.self) {
-                    self = .dataInfo(dataInfo)
-                    return
-                }
-                throw DataValueError.missingValue
-            }
-            public enum DataValueError: Error {
-                case missingValue
-                
-            }
-        }
     }
 }
 
