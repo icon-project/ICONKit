@@ -29,6 +29,7 @@ extension ICON {
         case getTransactionByHash = "icx_getTransactionByHash"
         case callMethod = "icx_call"
         case getScoreAPI = "icx_getScoreApi"
+        case estimateStep = "debug_estimateStep"
     }
     
     public struct Util {

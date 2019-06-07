@@ -2,7 +2,7 @@ PODS:
   - BigInt (3.1.0):
     - SipHash (~> 1.2)
   - CryptoSwift (0.11.0)
-  - ICONKit (0.3.0):
+  - ICONKit (0.3.1):
     - BigInt
     - CryptoSwift (~> 0.11.0)
     - Result
@@ -33,7 +33,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
   CryptoSwift: ad5208dd2aae0a764ea4ce2c2d34bd067cae67f0
-  ICONKit: 77baa59cab3c229a8867e78fece53e819279e31e
+  ICONKit: 1e73834efe4a73f0e9574688b7b17b098948da33
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   scrypt: 3fe5b1a3b0976f97cd87488673a8f7c65708cc84
   secp256k1_ios: ac9ef04e761f43c58012b28548afa91493761f17
@@ -41,4 +41,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 52c5a4c81b368ba83357a8782df01021238e72c7
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.6.0.beta.2

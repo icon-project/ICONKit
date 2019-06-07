@@ -337,7 +337,47 @@ do {
 }
 ```
 
-### Utils
+#### Estimate step
+
+It is important to set a proper `stepLimit` value in your transaction to make the submitted transaction executed successfully.
+
+`estimateStep` API provides a way to **estimate** the Step usage of a given transaction. Using the method, you can get an estimated Step usage before sending your transaction then make a `SignedTransaction` with the `stepLimit` based on the estimation.
+
+```swift
+// Make a raw transaction without the stepLimit
+let message = MessageTransaction()
+    .from(fromAddress)
+    .to(toAddress)
+    .nid(self.iconService.nid)
+    .message("Hello, ICON!")
+
+// Estimate step
+let estimateStepResponse = iconService.estimateStep(transaction: message).execute()
+if let estimatedStepCost = try? estimateStepResponse.get() {
+    // Add some margin to estimated step
+    let stepLimit = estimatedStepCost + 10000
+    message.stepLimit(estimatedStepCost)
+}
+
+// Send transaction
+do {
+    let signed = try SignedTransaction(transaction: message, privateKey: yourPrivateKey)
+    let response = self.iconService.sendTransaction(signedTransaction: signed).execute()
+  
+    switch response {
+    case .success(let result):
+        print("Message tx result - \(result)")
+    case .failure(let error):
+        print(error)
+    }
+} catch {
+    print(error)
+}
+```
+
+Note that the estimation can be smaller or larger than the actual amount of step to be used by the transaction, so it is recommended to add some margin to the estimation when you set the `stepLimit` of the `SignedTransaction`.
+
+### Converter
 
 ICONKit supports converter functions.
 
@@ -354,7 +394,7 @@ let hexString: String = ICXToLoop.toHexString() // 0x56bc75e2d63100000
 let hexBigUInt: BigUInt = hexString.hexToBigUInt()! // 100000000000000000000
 
 // Convert HEX `String` to `Date`
-let timestamp: NSString = "0x5850adcbaa178"
+let timestamp: String = "0x5850adcbaa178"
 let confirmedDate: Date = timestamp.hexToDate()! // 2019-03-27 03:16:22 +0000
 ```
 
