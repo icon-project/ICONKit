@@ -23,7 +23,16 @@ protocol TransactionSigner {
 }
 
 extension TransactionSigner where Self: Transaction {
-    private func serialize() throws -> (Data, [String: Any]) {
+    func toConnect() throws -> String {
+        let dic = try makeDic()
+        
+        let sendDic = ["icx_sendTransaction": dic]
+        let send = try JSONSerialization.data(withJSONObject: sendDic, options: .prettyPrinted)
+        
+        return send.base64EncodedString()
+    }
+    
+    func makeDic() throws -> [String: Any] {
         var dic = [String: Any]()
         guard let from = self.from,
             let to = self.to,
@@ -50,6 +59,12 @@ extension TransactionSigner where Self: Transaction {
             }
             dic["dataType"] = dataType
         }
+        
+        return dic
+    }
+    
+    private func serialize() throws -> (Data, [String: Any]) {
+        let dic = try makeDic()
         let tbs = "icx_sendTransaction." + serialize(dic)
         print("tbs - \(tbs)")
         guard let data = tbs.data(using: .utf8) else {

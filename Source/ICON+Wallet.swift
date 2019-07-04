@@ -65,7 +65,7 @@ extension Wallet {
             key += String(format: "%x", code)
         }
         let data = key.hexToData()!.sha3(.sha256)
-        let privateKey = PrivateKey(hex: data)//!
+        let privateKey = PrivateKey(hex: data)
         return privateKey
     }
     

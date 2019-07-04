@@ -99,6 +99,14 @@ extension Transaction: TransactionSigner {
     
 }
 
+extension Transaction {
+    public func toJSON() throws -> Data {
+        let dic = try makeDic()
+        
+        return try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
+    }
+}
+
 /// Transfer SCORE function call.
 ///
 /// `CallTransaction` is a subclass of `Transaction` class.
