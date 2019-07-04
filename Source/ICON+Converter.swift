@@ -66,15 +66,15 @@ extension String {
     }
 }
 
-extension NSString {
+extension String {
     /// Convert HEX String to Date
     ///
     /// - Returns: `Date` or `nil`.
     public func hexToDate() -> Date? {
-        guard let value = Int(self.substring(from: 2), radix:16) else {
+        guard let value = Int(self.prefix0xRemoved(), radix: 16) else {
             return nil
         }
-        return Date(timeIntervalSince1970: Double(value) / 1000000.0)
+        return Date(timeIntervalSince1970: Double(value)/1000000.0)
     }
 }
 

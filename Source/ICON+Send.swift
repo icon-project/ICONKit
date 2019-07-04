@@ -29,8 +29,26 @@ extension Sendable {
         return Int(arc4random_uniform(9999))
     }
     
+    func checkMethod(provider: URL) -> URL {
+        var provider = provider
+        
+        while provider.lastPathComponent != ICONService.API_VER {
+            provider = provider.deletingLastPathComponent()
+        }
+        provider = provider.deletingLastPathComponent()
+        provider = provider.appendingPathComponent("debug")
+        provider = provider.appendingPathComponent(ICONService.API_VER)
+        
+        return provider
+    }
+    
     func send() -> Result<Data, ICError> {
-        guard let provider = URL(string: self.provider) else { return .failure(ICError.fail(reason: .convert(to: .url(string: self.provider)))) }
+        guard var provider = URL(string: self.provider) else { return .failure(ICError.fail(reason: .convert(to: .url(string: self.provider)))) }
+        
+        if method == .estimateStep {
+            provider = checkMethod(provider: provider)
+        }
+        
         let request = ICONRequest(provider: provider, method: method, params: params, id: self.getID())
         
         let config = URLSessionConfiguration.default
@@ -66,10 +84,15 @@ extension Sendable {
     }
     
     func send(_ completion: @escaping ((Result<Data, ICError>) -> Void)) {
-        guard let provider = URL(string: self.provider) else {
+        guard var provider = URL(string: self.provider) else {
             completion(.failure(ICError.fail(reason: .convert(to: .url(string: self.provider)))))
             return
         }
+        
+        if method == .estimateStep {
+            provider = checkMethod(provider: provider)
+        }
+        
         let request = ICONRequest(provider: provider, method: method, params: params, id: self.getID())
         
         let task = URLSession.shared.dataTask(with: request.asURLRequest()) { (data, response, error) in
