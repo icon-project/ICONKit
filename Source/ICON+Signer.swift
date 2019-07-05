@@ -23,15 +23,6 @@ protocol TransactionSigner {
 }
 
 extension TransactionSigner where Self: Transaction {
-    func toConnect() throws -> String {
-        let dic = try makeDic()
-        
-        let sendDic = ["icx_sendTransaction": dic]
-        let send = try JSONSerialization.data(withJSONObject: sendDic, options: .prettyPrinted)
-        
-        return send.base64EncodedString()
-    }
-    
     func makeDic() throws -> [String: Any] {
         var dic = [String: Any]()
         guard let from = self.from,

@@ -132,6 +132,37 @@ extension Transaction {
         
         return try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
     }
+    
+    public func makeDic() throws -> [String: Any] {
+        var dic = [String: Any]()
+        guard let from = self.from else { throw ICError.invalid(reason: .missing(parameter: .from))}
+        guard let to = self.to else { throw ICError.invalid(reason: .missing(parameter: .to))}
+        guard let nid = self.nid else { throw ICError.invalid(reason: .missing(parameter: .nid))}
+        
+        dic["version"] = self.version
+        dic["timestamp"] = self.timestamp
+        dic["from"] = from
+        dic["to"] = to
+        dic["nid"] = nid
+        if let nonce = self.nonce {
+            dic["nonce"] = nonce
+        }
+        if let stepLimit = self.stepLimit {
+            dic["stepLimit"] = "0x" + String(stepLimit, radix: 16)
+        }
+        if let value = self.value {
+            let hexValue = "0x" + String(value, radix: 16)
+            dic["value"] = hexValue
+        }
+        if let dataType = self.dataType {
+            if let data = self.data {
+                dic["data"] = data
+            }
+            dic["dataType"] = dataType
+        }
+        
+        return dic
+    }
 }
 
 /// Transfer SCORE function call.
