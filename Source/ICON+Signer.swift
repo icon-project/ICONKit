@@ -25,12 +25,10 @@ protocol TransactionSigner {
 extension TransactionSigner where Self: Transaction {
     func makeDic() throws -> [String: Any] {
         var dic = [String: Any]()
-        guard let from = self.from,
-            let to = self.to,
-            let nid = self.nid,
-            let stepLimit = self.stepLimit else {
-                throw ICError.invalid(reason: .missing(parameter: .stepLimit))
-        }
+        guard let from = self.from else { throw ICError.invalid(reason: .missing(parameter: .from))}
+        guard let to = self.to else { throw ICError.invalid(reason: .missing(parameter: .to))}
+        guard let nid = self.nid else { throw ICError.invalid(reason: .missing(parameter: .nid))}
+        
         dic["version"] = self.version
         dic["timestamp"] = self.timestamp
         dic["from"] = from
@@ -39,7 +37,9 @@ extension TransactionSigner where Self: Transaction {
         if let nonce = self.nonce {
             dic["nonce"] = nonce
         }
-        dic["stepLimit"] = "0x" + String(stepLimit, radix: 16)
+        if let stepLimit = self.stepLimit {
+            dic["stepLimit"] = "0x" + String(stepLimit, radix: 16)
+        }
         if let value = self.value {
             let hexValue = "0x" + String(value, radix: 16)
             dic["value"] = hexValue
