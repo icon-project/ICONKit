@@ -133,7 +133,7 @@ extension Transaction {
         return try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
     }
     
-    public func makeDic() throws -> [String: Any] {
+    public func toDic() throws -> [String: Any] {
         var dic = [String: Any]()
         guard let from = self.from else { throw ICError.invalid(reason: .missing(parameter: .from))}
         guard let to = self.to else { throw ICError.invalid(reason: .missing(parameter: .to))}
