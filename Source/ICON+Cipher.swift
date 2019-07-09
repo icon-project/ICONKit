@@ -16,7 +16,6 @@
  */
 
 import Foundation
-import scrypt
 import CryptoSwift
 import secp256k1_ios
 import CommonCrypto
@@ -67,7 +66,7 @@ public struct Cipher {
         let mac = mKey + encrypted
         let digest = mac.sha3(.keccak256)
         
-        return (Data(bytes: encrypted).toHexString(), Data(bytes: digest).toHexString(), Data(iv).toHexString())
+        return (Data(encrypted).toHexString(), Data(digest).toHexString(), Data(iv).toHexString())
     }
     
     public static func decrypt(devKey: Data, enc: Data, dkLen: Int, iv: Data) throws -> (decryptText: String, mac: String) {
@@ -79,7 +78,7 @@ public struct Cipher {
         let mac: [UInt8] = mKey + enc.bytes
         let digest = mac.sha3(.keccak256)
         
-        return (Data(bytes: decrypted).toHexString(), Data(bytes: digest).toHexString())
+        return (Data(decrypted).toHexString(), Data(digest).toHexString())
     }
     
     public static func scrypt(password: String, saltData: Data? = nil, dkLen: Int = 32, N: Int = 4096, R: Int = 6, P: Int = 1) -> Data? {
@@ -92,13 +91,13 @@ public struct Cipher {
             var randomBytes = Array<UInt8>(repeating: 0, count: saltCount)
             let err = SecRandomCopyBytes(kSecRandomDefault, saltCount, &randomBytes)
             if err != errSecSuccess { return nil }
-            salt = Data(bytes: randomBytes)
+            salt = Data(randomBytes)
         }
         
         guard let scrypt = try? Scrypt(password: passwordData.bytes, salt: salt.bytes, dkLen: dkLen, N: N, r: R, p: P) else { return nil }
         guard let result = try? scrypt.calculate() else { return nil }
         
-        return Data(bytes: result)
+        return Data(result)
     }
     
     public static func getHash(_ value: String) -> String {
@@ -133,7 +132,7 @@ public struct Cipher {
         bytes.removeLast()
         bytes.append(contentsOf: recovery.hexToData()!.bytes)
         
-        return Data(bytes: bytes)
+        return Data(bytes)
     }
     
     public static func createRecoveryKey(privateKey: PrivateKey) -> PublicKey? {
@@ -270,7 +269,7 @@ public struct Cipher {
         var randomBytes = [UInt8](repeating: 0, count: count)
         let err = SecRandomCopyBytes(kSecRandomDefault, count, &randomBytes)
         if err != errSecSuccess { throw ICError.message(error: "Fault!") }
-        let salt = Data(bytes: randomBytes)
+        let salt = Data(randomBytes)
         return salt
     }
 }
