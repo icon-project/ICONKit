@@ -5,7 +5,7 @@ inhibit_all_warnings!
 def import_pods
   # Pods for ICONKit
   pod 'BigInt'
-  pod 'secp256k1_ios', :modular_headers => true
+  pod 'secp256k1_swift'
   pod 'CryptoSwift'
 end
 

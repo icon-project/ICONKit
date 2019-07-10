@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'Security'
 
-  s.dependency 'secp256k1_ios'
+  s.dependency 'secp256k1_swift'
   s.dependency 'BigInt'
   s.dependency 'CryptoSwift'
 
