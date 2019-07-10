@@ -17,7 +17,7 @@
 
 import Foundation
 import CryptoSwift
-import scrypt
+//import scrypt
 
 
 // MARK: Wallet

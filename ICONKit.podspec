@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'ICONKit'
-  s.version      = '0.3.1'
+  s.version      = '0.4.0'
   s.summary      = 'ICON SDK for swift'
   s.homepage     = 'https://github.com/icon-project/ICONKit'
   s.license      = { :type => "Apache-2.0", :file => "LICENSE" }
@@ -11,6 +11,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '10.0'
   s.osx.deployment_target = '10.14'
+  s.swift_version = '5.0'
 
   s.source       = { :git => "https://github.com/icon-project/ICONKit.git", :tag => s.version.to_s }
   
@@ -18,10 +19,8 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'Security'
 
-  s.dependency 'Result'
-  s.dependency 'scrypt'
-  s.dependency 'secp256k1_ios', '~> 0.1.3'
+  s.dependency 'secp256k1_ios'
   s.dependency 'BigInt'
-  s.dependency 'CryptoSwift', '~> 0.11.0'
+  s.dependency 'CryptoSwift'
 
 end
