@@ -17,7 +17,6 @@
 
 import Foundation
 import CryptoSwift
-//import secp256k1_ios
 import secp256k1_swift
 import CommonCrypto
 
