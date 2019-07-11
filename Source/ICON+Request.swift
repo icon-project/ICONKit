@@ -16,7 +16,6 @@
  */
 
 import Foundation
-import Result
 import BigInt
 
 open class Request<T: Decodable>: Sendable {

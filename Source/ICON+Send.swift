@@ -16,7 +16,6 @@
  */
 
 import Foundation
-import Result
 
 protocol Sendable {
     var provider: String { get set }

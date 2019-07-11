@@ -1,7 +1,7 @@
 # ICONKit, ICON SDK for Swift
 
 <p align="left">
-  <img alt="Swift" src="https://img.shields.io/badge/Swift-4.x-orange.svg">
+  <img alt="Swift" src="https://img.shields.io/badge/Swift-5-orange.svg">
   <img alt="ICONKit-license" src="https://img.shields.io/github/license/icon-project/ICONKit.svg">
   <a href="https://cocoapods.org/pods/ICONKit" target="_blank">
     <img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/ICONKit.svg">
@@ -12,6 +12,7 @@
 </p>
 
 ICON supports SDK for 3rd party or user services development. You can integrate ICON SDK for your project and utilize ICON’s functionality.
+* ICONKit now provide Swift 5
 
 ## Installation
 
@@ -29,7 +30,7 @@ To integrate ICONKit into your project, specify it in your `Podfile`
 target '<Your Target Name>' do
     use_frameworks!
     ...
-    pod 'ICONKit', '~> 0.3.1'
+    pod 'ICONKit', '~> 0.4.0'
     ...
 end
 ```
@@ -40,10 +41,14 @@ Now install the ICONKit.
 $ pod install
 ```
 
-## Result
+#### Swift 4.x version
 
-ICONKit uses [Result](https://github.com/antitypical/Result) framework. All functions of ICONService returns Result<T, ICONResult>. `T` for successor, `ICONResult` for error.
-Refer to [Result](https://github.com/antitypical/Result) for more detail.
+[0.3.2](https://github.com/icon-project/ICONKit/releases/tag/0.3.2) is a last version of ICONKit for Swift 4.x. 
+
+try 
+```
+pod 'ICONKit', '0.3.2'
+```
 
 ## Quick start
 
@@ -398,8 +403,6 @@ let timestamp: String = "0x5850adcbaa178"
 let confirmedDate: Date = timestamp.hexToDate()! // 2019-03-27 03:16:22 +0000
 ```
 
-
-
 ## Reference
 
 - [ICON JSON-RPC API v3](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md)
@@ -407,13 +410,13 @@ let confirmedDate: Date = timestamp.hexToDate()! // 2019-03-27 03:16:22 +0000
 
 ## Version
 
-0.3.1 (Beta)
+0.4.0
 
 ## Requirement
 
 - Xcode 10 or higher
 - iOS 10 or higher
-- Swift 4
+- Swift 5
 - [Cocoapods](https://cocoapods.org)
 
 ## License

@@ -16,7 +16,7 @@
  */
 
 import Foundation
-import scrypt
+//import scrypt
 import CryptoSwift
 
 public struct Keystore: Codable {
@@ -93,7 +93,7 @@ extension Keystore {
             let decryptionKey = devKey[0...15]
             let aesCipher = try AES(key: decryptionKey.bytes, blockMode: CTR(iv: iv.bytes), padding: .noPadding)
             let decryptedBytes = try aesCipher.decrypt(cipherText.bytes)
-            let decrypted = Data(bytes: decryptedBytes)
+            let decrypted = Data(decryptedBytes)
             let prvKey = PrivateKey(hex: decrypted)
             let pubKey = Cipher.createPublicKey(privateKey: prvKey)!
             let newAddress = Cipher.makeAddress(prvKey, pubKey)
