@@ -35,7 +35,7 @@ open class Request<T: Decodable>: Sendable {
 
 extension Request {
     /// Request synchronously
-    public func execute() -> Result<T, ICError> {
+    public func execute() -> Result<T, Error> {
         let result = self.send()
         
         switch result {
@@ -89,13 +89,13 @@ extension Request {
                 }
                 
             } catch {
-                return .failure(ICError.fail(reason: .parsing))
+                return .failure(error)
             }
         }
     }
     
     /// Request asynchronously
-    public func async(_ completion: @escaping (Result<T, ICError>) -> Void){
+    public func async(_ completion: @escaping (Result<T, Error>) -> Void){
         self.send { (result) in
             switch result {
             case .failure(let error):
@@ -162,7 +162,7 @@ extension Request {
                         return
                     }
                 } catch {
-                    completion(.failure(ICError.fail(reason: .parsing)))
+                    completion(.failure(error))
                     return
                 }
             }
