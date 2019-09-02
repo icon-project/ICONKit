@@ -307,10 +307,10 @@ do {
     let response = request.execute()
 
     switch response {
-    case .result(let result):
+    case .success(let result):
         print("SUCCESS: TXHash - \(result)")
         ...
-    case .error(let error):
+    case .failure(let error):
         print("FAIL: \(error.errorDescription)")
         ...
     }
