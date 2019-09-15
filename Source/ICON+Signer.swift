@@ -106,8 +106,6 @@ extension TransactionSigner where Self: Transaction {
                 let value = item as! String
                 serial = value.replacingOccurrences(of: ".", with: "\\.")
             }
-            
-            serial += "\(item)"
         }
         return serial
     }
