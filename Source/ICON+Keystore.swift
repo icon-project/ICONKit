@@ -71,16 +71,10 @@ extension Keystore {
             guard let devKey = Cipher.pbkdf2SHA256(password: password, salt: salt, keyByteCount: PBE_DKLEN, round: count) else { throw ICError.fail(reason: .decrypt) }
             
             let decrypted = try Cipher.decrypt(devKey: devKey, enc: enc, dkLen: PBE_DKLEN, iv: iv)
-            let decryptedText = decrypted.decryptText
-            let prvKey = PrivateKey(hex: Data(hex: decryptedText))
-            let pubKey = Cipher.createPublicKey(privateKey: prvKey)!
-            let newAddress = Cipher.makeAddress(prvKey, pubKey)
             
-            if newAddress == self.address {
-                return prvKey
+            if self.crypto.mac == decrypted.mac {
+                return PrivateKey(hex: Data(hex: decrypted.decryptText))
             }
-            
-            throw ICError.invalid(reason: .malformedKeystore)
         } else if crypto.kdf == "scrypt" {
             guard let n = crypto.kdfparams.n,
                 let p = crypto.kdfparams.p,
@@ -90,17 +84,12 @@ extension Keystore {
                 let salt = crypto.kdfparams.salt.hexToData() else { throw ICError.invalid(reason: .malformedKeystore) }
             
             guard let devKey = Cipher.scrypt(password: password, saltData: salt, dkLen: crypto.kdfparams.dklen, N: n, R: r, P: p) else { throw ICError.fail(reason: .decrypt) }
-            let decryptionKey = devKey[0...15]
-            let aesCipher = try AES(key: decryptionKey.bytes, blockMode: CTR(iv: iv.bytes), padding: .noPadding)
-            let decryptedBytes = try aesCipher.decrypt(cipherText.bytes)
-            let decrypted = Data(decryptedBytes)
-            let prvKey = PrivateKey(hex: decrypted)
-            let pubKey = Cipher.createPublicKey(privateKey: prvKey)!
-            let newAddress = Cipher.makeAddress(prvKey, pubKey)
             
-            if newAddress == self.address { return prvKey }
+            let decrypted = try Cipher.decrypt(devKey: devKey, enc: cipherText, dkLen: PBE_DKLEN, iv: iv)
             
-            throw ICError.invalid(reason: .malformedKeystore)
+            if self.crypto.mac == decrypted.mac {
+                return PrivateKey(hex: Data(hex: decrypted.decryptText))
+            }
         }
         throw ICError.invalid(reason: .malformedKeystore)
     }

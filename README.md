@@ -30,7 +30,7 @@ To integrate ICONKit into your project, specify it in your `Podfile`
 target '<Your Target Name>' do
     use_frameworks!
     ...
-    pod 'ICONKit', '~> 0.4.1'
+    pod 'ICONKit', '~> 0.4.2'
     ...
 end
 ```
