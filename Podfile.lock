@@ -1,11 +1,11 @@
 PODS:
   - BigInt (5.0.0)
-  - CryptoSwift (1.2.0)
+  - CryptoSwift (1.0.0)
   - secp256k1_swift (1.0.3)
 
 DEPENDENCIES:
   - BigInt
-  - CryptoSwift
+  - CryptoSwift (= 1.0)
   - secp256k1_swift
 
 SPEC REPOS:
@@ -16,9 +16,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   BigInt: 74b4d88367b0e819d9f77393549226d36faeb0d8
-  CryptoSwift: 40e374e45291d8dceedcb0d6184da94533eaabdf
+  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   secp256k1_swift: 4fc5c4b2d2c6d21ee8ccb868cdc92da12f38bed9
 
-PODFILE CHECKSUM: fe61da7d1de7c1955f4b3b75e3e6b2b6ed747f7e
+PODFILE CHECKSUM: 1342d4b40bee1a33c5bbc8290f547f70ea055bd6
 
 COCOAPODS: 1.8.4

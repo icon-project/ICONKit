@@ -6,7 +6,7 @@ def import_pods
   # Pods for ICONKit
   pod 'BigInt'
   pod 'secp256k1_swift'
-  pod 'CryptoSwift'
+  pod 'CryptoSwift', '1.0'
 end
 
 target 'ICONKit-ios' do
