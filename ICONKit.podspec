@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'ICONKit'
-  s.version      = '0.4.2'
+  s.version      = '0.4.3'
   s.summary      = 'ICON SDK for swift'
   s.homepage     = 'https://github.com/icon-project/ICONKit'
   s.license      = { :type => "Apache-2.0", :file => "LICENSE" }
