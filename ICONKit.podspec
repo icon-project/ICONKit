@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.summary      = 'ICON SDK for swift'
   s.homepage     = 'https://github.com/icon-project/ICONKit'
   s.license      = { :type => "Apache-2.0", :file => "LICENSE" }
-  s.author             = { "a1ahn" => "jeonghwan.ahn@icon.foundation" }
+  s.author             = { "a1ahn" => "hello@icon.foundation" }
   s.social_media_url = 'https://twitter.com/helloicon'
   s.module_name = 'ICONKit'
 
