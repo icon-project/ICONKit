@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
 
   s.dependency 'secp256k1_swift'
   s.dependency 'BigInt'
-  s.dependency 'CryptoSwift'
+  s.dependency 'CryptoSwift', '1.0'
 
 end
