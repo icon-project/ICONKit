@@ -28,15 +28,14 @@ extension Sendable {
         return Int(arc4random_uniform(9999))
     }
     
-    func checkMethod(provider: URL) -> URL {
+    func switchEndpointToDebug(provider: URL) -> URL {
         var provider = provider
         
         while provider.lastPathComponent != ICONService.API_VER {
             provider = provider.deletingLastPathComponent()
         }
         provider = provider.deletingLastPathComponent()
-        provider = provider.appendingPathComponent("debug")
-        provider = provider.appendingPathComponent(ICONService.API_VER)
+        provider = provider.appendingPathComponent("v3d")
         
         return provider
     }
@@ -45,7 +44,7 @@ extension Sendable {
         guard var provider = URL(string: self.provider) else { return .failure(ICError.fail(reason: .convert(to: .url(string: self.provider)))) }
         
         if method == .estimateStep {
-            provider = checkMethod(provider: provider)
+            provider = switchEndpointToDebug(provider: provider)
         }
         
         let request = ICONRequest(provider: provider, method: method, params: params, id: self.getID())
@@ -89,7 +88,7 @@ extension Sendable {
         }
         
         if method == .estimateStep {
-            provider = checkMethod(provider: provider)
+            provider = switchEndpointToDebug(provider: provider)
         }
         
         let request = ICONRequest(provider: provider, method: method, params: params, id: self.getID())
