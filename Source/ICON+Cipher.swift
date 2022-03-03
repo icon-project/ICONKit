@@ -17,7 +17,7 @@
 
 import Foundation
 import CryptoSwift
-import secp256k1_swift
+import secp256k1
 import CommonCrypto
 
 let PBE_DKLEN: Int = 32
