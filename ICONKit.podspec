@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/helloicon'
   s.module_name = 'ICONKit'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '12.0'
   s.osx.deployment_target = '10.14'
   s.swift_version = '5.0'
 
@@ -19,8 +19,8 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'Security'
 
-  s.dependency 'secp256k1_swift'
+  s.dependency 'secp256k1-gm', '~> 0.0.3'
   s.dependency 'BigInt'
-  s.dependency 'CryptoSwift', '1.0'
+  s.dependency 'CryptoSwift', '~> 1.4.0'
 
 end
